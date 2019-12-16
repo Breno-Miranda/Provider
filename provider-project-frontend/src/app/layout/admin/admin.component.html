@@ -1,0 +1,29 @@
+<div class="container-scroller">
+
+    <!-- partial:partials/_horizontal-navbar.html -->
+    <app-navbar-admin *ngIf="code == 1"></app-navbar-admin>
+    <app-navbar-manager *ngIf="code == 2"></app-navbar-manager>
+    <app-navbar-leader *ngIf="code == 3"></app-navbar-leader>
+    <app-navbar-consultant *ngIf="code == 4"></app-navbar-consultant>
+    <!-- partial -->
+
+    <!-- partial:partials/_settings-panel.html -->
+    <app-sidebar></app-sidebar>
+    <!-- partial -->
+
+    <div class="container-fluid page-body-wrapper">
+        <div class="main-panel container">
+            <div class="content-wrapper">
+                <router-outlet></router-outlet>
+            </div>
+            <!-- content-wrapper ends -->
+
+            <!-- partial:partials/_footer.html -->
+            <app-footer></app-footer>
+            <!-- partial -->
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+</div>

@@ -1,0 +1,46 @@
+dataIndividual = {
+            "company":request.data['company_id'] and request.data["company_id"] or 0,
+            "user_bond":request.data['user_id'] and request.data["user_id"] or 0,
+            "user":request.data['user_id'] and request.data["user_id"] or 0,
+            "registration":request.data['registration'] and request.data["registration"] or 0,
+            "code":request.data['code'] and request.data["code"] or 0,
+            "cpf":request.data['cpf'] and request.data["cpf"] or 0,
+            "rg":request.data['rg'] and request.data["rg"] or 0,
+            "full_name":request.data['full_name'] and request.data["full_name"] or 0,
+            "genre":request.data['genre'] and request.data["genre"] or 0,
+            "recommendation":request.data['recommendation'] and request.data["recommendation"] or 0,
+            "address":request.data['address'] and request.data["address"] or 0,
+            "complement":request.data['complement'] and request.data["complement"] or 0,
+            "reference":request.data['reference'] and request.data["reference"] or 0,
+            "neighborhood":request.data['neighborhood'] and request.data["neighborhood"] or 0,
+            "city":request.data['city'] and request.data["city"] or 0,
+            "state":request.data['state'] and request.data["state"] or 0,
+            "zipcode":request.data['zipcode'] and request.data["zipcode"] or 0,
+            "number":request.data['number'] and request.data["number"] or 0,
+            "birthday":request.data['birthday'] and request.data["birthday"] or 0,
+            "civil_sate":request.data['civil_sate'] and request.data["civil_sate"] or 0,
+            "date_register":request.data['date_register'] and request.data["date_register"] or 0,
+            "photo":request.data['photo'] and request.data["photo"] or 0,
+            "anexo":request.data['anexo'] and request.data["anexo"] or 0,
+            "about":request.data['about'] and request.data["about"] or 0,
+            "is_term_accepted":request.data['is_term_accepted'] and request.data["is_term_accepted"] or 0,
+            "is_active":request.data['is_active'] and request.data["is_active"] or 0,
+        }
+        
+        dataBanckAccount = {
+            "company":request.data['company_id'],
+            "user":request.data['user_id'],
+            "account":request.data['account'],
+            "agency":request.data['agency'],
+            "bank":request.data['bank'],
+            "type_account":request.data['type_account'],
+            "kind_of_person":request.data['kind_of_person'],
+        }
+        
+        dataContact = {
+            "company":request.data['company_id'],
+            "user":request.data['user_id'],
+            "phone":request.data['phone'],
+            "cell":request.data['cell'],
+            "email":request.data['email'],
+        }

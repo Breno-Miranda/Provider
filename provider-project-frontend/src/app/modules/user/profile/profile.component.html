@@ -1,0 +1,446 @@
+<div class="row">
+    <form [formGroup]="userProfileForm" (ngSubmit)="up()">
+
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class=" badge badge-pill badge-info">Informações de Usuáiros</h1>
+                    <p class="card-description"> </p>
+                    <div class="row">
+
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Usuário</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="username" placeholder="Usuário" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"></div>
+                                <div *ngIf="submitted && f.about.errors" class="invalid-feedback">
+                                    <div *ngIf="f.username.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Senha</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="newpassword" placeholder="Senha" [ngClass]="{ 'is-invalid': submitted && f.newpassword.errors }"></div>
+                                <div *ngIf="submitted && f.about.errors" class="invalid-feedback">
+                                    <div *ngIf="f.newpassword.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Confirmar Senha</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="confpassword" placeholder="confirmar senha" [ngClass]="{ 'is-invalid': submitted && f.confpassword.errors }"></div>
+                                <div *ngIf="submitted && f.about.errors" class="invalid-feedback">
+                                    <div *ngIf="f.confpassword.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Sobre mim</label>
+                                <div class="col-sm-9">
+                                    <textarea id="textarea" class="form-control" formControlName="about" placeholder="sobre mim" [ngClass]="{ 'is-invalid': submitted && f.about.errors }"></textarea></div>
+                                <div *ngIf="submitted && f.about.errors" class="invalid-feedback">
+                                    <div *ngIf="f.about.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class=" badge badge-pill badge-info">Dados Cadastrais</h1>
+                    <p class="card-description"> </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Nome Completo</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"> </div>
+                                <div *ngIf="submitted && f.full_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.full_name.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Data Nascimento</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" formControlName="birthday" [ngClass]="{ 'is-invalid': submitted && f.birthday.errors }"> </div>
+                                <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
+                                    <div *ngIf="f.birthday.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">CPF</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="cpf" [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }"> </div>
+                                <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
+                                    <div *ngIf="f.cpf.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">RG</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="rg" [ngClass]="{ 'is-invalid': submitted && f.rg.errors }"> </div>
+                                <div *ngIf="submitted && f.rg.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rg.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Genero</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="genre" [ngClass]="{ 'is-invalid': submitted && f.genre.errors }">
+                                        <option value="">Escolha uma opção</option>
+                                        <option value="F">Feminino</option>
+                                        <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="submitted && f.genre.errors" class="invalid-feedback">
+                                    <div *ngIf="f.genre.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Indicação {{f.recommendation.value}}</label>
+                                <div class="col-sm-4">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" formControlName="recommendation"
+                                                [ngClass]="{ 'is-invalid': submitted && f.recommendation.errors }"
+                                                [value]="true"> Sim <i
+                                                class="input-helper"></i><i class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" formControlName="recommendation"
+                                                [ngClass]="{ 'is-invalid': submitted && f.recommendation.errors }"
+                                                 [value]="false"> Não <i class="input-helper"></i><i
+                                                class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div *ngIf="submitted && f.recommendation.errors" class="invalid-feedback">
+                                    <div *ngIf="f.recommendation.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Telefone</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"> </div>
+                                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                                    <div *ngIf="f.phone.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Celular</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="cell" [ngClass]="{ 'is-invalid': submitted && f.cell.errors }"> </div>
+                                <div *ngIf="submitted && f.cell.errors" class="invalid-feedback">
+                                    <div *ngIf="f.cell.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">E-mail</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"> </div>
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description"> </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Endereço </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"> </div>
+                                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                    <div *ngIf="f.address.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Complemento</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="complement" [ngClass]="{ 'is-invalid': submitted && f.complement.errors }"> </div>
+                                <div *ngIf="submitted && f.complement.errors" class="invalid-feedback">
+                                    <div *ngIf="f.complement.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">CEP</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="zipcode" [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }"> </div>
+                                <div *ngIf="submitted && f.zipcode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.zipcode.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Cidade</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors }"> </div>
+                                <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                    <div *ngIf="f.city.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Estado</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                                        <option value="">Escolha uma opção</option>
+                                        <option value="AC">Acre</option> 
+                                        <option value="AL">Alagoas</option> 
+                                        <option value="AP">Amapá</option> 
+                                        <option value="AM">Amazonas</option>  
+                                        <option value="BA">Bahia</option>  
+                                        <option value="CE">Ceará</option>  
+                                        <option value="DF">Distrito Federal </option>
+                                        <option value="ES">Espírito Santo</option>  
+                                        <option value="GO">Goiás</option>  
+                                        <option value="MA">Maranhão </option>
+                                        <option value="MT">Mato Grosso</option> 
+                                        <option value="MS">Mato Grosso do Sul </option> 
+                                        <option value="MG">Minas Gerais</option>ption>  
+                                        <option value="PA">Pará</option>  
+                                        <option value="PB">Paraíba </option> 
+                                        <option value="PR">Paraná </option>
+                                        <option value="PE">Pernambuco</option>  
+                                        <option value="PI">Piauí</option>  
+                                        <option value="RJ">Rio de Janeiro</option>  
+                                        <option value="RN">Rio Grande do Norte </option>
+                                        <option value="RS">Rio Grande do Sul </option>
+                                        <option value="RO">Rondônia </option> 
+                                        <option value="RR">Roraima </option>  
+                                        <option value="SC">Santa Catarina</option>  
+                                        <option value="SP">São Paulo</option>  
+                                        <option value="SE">Sergipe</option> 
+                                        <option value="TO">Tocantins</option>  
+                                    </select>
+                                </div>
+                                <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                                    <div *ngIf="f.state.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class=" badge badge-pill badge-info">Dados Bancários</h1>
+                    <p class="card-description"> </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Conta Pessoa</label>
+                                <div class="col-sm-4">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="kind_of_person" value="J" name="kind_of_person" formControlName="kind_of_person"
+                                                [ngClass]="{ 'is-invalid': submitted && f.kind_of_person.errors }"
+                                                > Juridica <i
+                                                class="input-helper"></i><i class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-radio">
+                                        <label class="form-check-label"> 
+                                            <input type="radio" class="form-check-input" id="kind_of_person" value="F" name="kind_of_person" formControlName="kind_of_person"
+                                                [ngClass]="{ 'is-invalid': submitted && f.kind_of_person.errors }"
+                                                > Fisica <i
+                                                class="input-helper"></i><i class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div *ngIf="submitted && f.kind_of_person.errors" class="invalid-feedback">
+                                    <div *ngIf="f.kind_of_person.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tipo de Conta</label>
+                                <div class="col-sm-4">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" formControlName="type_account"
+                                                [ngClass]="{ 'is-invalid': submitted && f.type_account.errors }"
+                                                value="C" checked=""> Corrente <i
+                                                class="input-helper"></i><i class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" formControlName="type_account"
+                                                [ngClass]="{ 'is-invalid': submitted && f.type_account.errors }"
+                                                 value="P"> Poupança <i
+                                                class="input-helper"></i><i class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div *ngIf="submitted && f.type_accoun.errors" class="invalid-feedback">
+                                    <div *ngIf="f.type_accoun.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="currentUser.type_code !== 4">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Banco </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="bank" [ngClass]="{ 'is-invalid': submitted && f.bank.errors }">
+                                        <option>BB</option>
+                                        <option>CX</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="submitted && f.bank.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bank.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Agência</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="agency" [ngClass]="{ 'is-invalid': submitted && f.agency.errors }"> </div>
+                                <div *ngIf="submitted && f.agency.errors" class="invalid-feedback">
+                                    <div *ngIf="f.agency.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description"> </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">N Conta </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="account" [ngClass]="{ 'is-invalid': submitted && f.account.errors }"> </div>
+                                <div *ngIf="submitted && f.account.errors" class="invalid-feedback">
+                                    <div *ngIf="f.account.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-12 grid-margin" *ngIf="currentUser.type_code == 3">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class=" badge badge-pill badge-info">Dados Mei</h1>
+                    <p class="card-description"> </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">CNPJ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="cnpj" [ngClass]="{ 'is-invalid': submitted && f.cnpj.errors }"> </div>
+                                <div *ngIf="submitted && f.cnpj.errors" class="invalid-feedback">
+                                    <div *ngIf="f.cnpj.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Razão Social</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="social_name" [ngClass]="{ 'is-invalid': submitted && f.social_name.errors }"> </div>
+                                <div *ngIf="submitted && f.social_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.social_name.errors.required">Campo obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class=" badge badge-pill badge-info">Documentos de Foto</h1>
+                    <p class="card-description"><strong>ATENÇÃO: </strong> Carregue uma imagem de seu agrado para por no perfil. </p>
+                    <input type="file" id="file" (change)="onChangePhoto($event)" [ngClass]="{ 'is-invalid': submitted && f.photo.errors }">
+                    <div *ngIf="submitted && f.photo.errors" class="invalid-feedback">
+                        <div *ngIf="f.photo.errors.required">Campo obrigatório</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class=" badge badge-pill badge-info">Documentos Anexos</h1>
+                    <p class="card-description"><strong>ARQUIVO: </strong> <a href="">{{anexo}}</a> </p><br>
+                    <p class="card-description"><strong>ATENÇÃO: </strong> Para que o Contrato seja aprovado, é essencial que você anexe todos os documentos listados abaixo de forma legível </p>
+                    <input type="file" id="file" (change)="onChangeAnexo($event)" [ngClass]="{ 'is-invalid': submitted && f.anexo.errors }">
+                    <div *ngIf="submitted && f.anexo.errors" class="invalid-feedback">
+                        <div *ngIf="f.anexo.errors.required">Campo obrigatório</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 grid-margin mt-3 mb-3">
+            <button type="submit" class="btn btn-primary float-right mb-4 submit-btn text-uppercase">Finalizar</button>
+        </div>
+    </form>
+</div>

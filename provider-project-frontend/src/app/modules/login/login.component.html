@@ -1,0 +1,100 @@
+<!-- Main Content -->
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper auth p-0 theme-two">
+            <div class="row d-flex align-items-stretch">
+                <div class="col-md-4 banner-section d-none d-md-flex align-items-stretch justify-content-center">
+                    <div class="slide-content bg-1"></div>
+                </div>
+                <div class="col-12 col-md-8 h-100 bg-white">
+                    <div class="auto-form-wrapper d-flex align-items-center justify-content-center flex-column">
+                        <div class="nav-get-started">
+                            <p>Não possui uma conta?</p>
+                            <a class="btn btn-fw get-started-btn text-uppercase" [routerLink]="['/register/business']">Líder</a>
+                            <a class="btn btn-fw get-started-btn text-uppercase" [routerLink]="['/register/individual']">Consultora</a>
+                        </div>
+
+
+
+                        <div class="col-md-8 h-100" *ngIf="loginBind">
+                            <div class="bg-light p-4">
+                                <p>Selecione a empresa que deseja se vincular:</p>
+                                <div id="profile-list-left" class="py-2">
+                                    <div class="card rounded mb-2" *ngFor="let bind of binds" (click)="next(bind)">
+                                        <div class="card-body p-3">
+                                            <div class="media">
+                                                <img src="{{ bind._company.logo }}" alt="image" width="100" class="img-sm mr-3 rounded-circle">
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">{{ bind._company.name_company }}</h6>
+                                                    <p class="mb-0 text-muted">{{ bind._company.cnpj }}</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p class="mr-3 text-center"><span *ngIf="loading"> Redirecionando <i class="mdi mdi-refresh mdi-spin "></i></span></p>
+                                <button (click)="resetLogin()" class="btn btn-primary btn-rounded btn-fw text-uppercase btn-block mr-3">Retornar ao login</button>
+                            </div>
+                        </div>
+
+
+                        <form [formGroup]="loginForm" (ngSubmit)="checkoutAuth()" *ngIf="!loginBind">
+                            <h3 class="mr-auto">Oi! Vamos começar.</h3>
+                            <p class="mb-5 mr-auto">Informe seus dados abaixo.</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-account-outline"></i>
+                                        </span>
+                                    </div>
+                                    <input id="username" type="text" class="form-control" placeholder="Digite seu nome de usuário" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                        <div *ngIf="f.username.errors.required">Nome de usuário é obrigatório</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-lock-outline"></i>
+                                        </span>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" placeholder="Digite sua senha" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                        <div *ngIf="f.password.errors.required">Senha é obrigatório</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" type="submit" class="btn btn-primary btn-rounded btn-fw submit-btn text-uppercase">Entrar
+                                    <span *ngIf="loading"><i class="mdi mdi-refresh mdi-spin"></i></span>
+                                </button>
+                                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+                                <p class="text-muted pt-4"><a href="#" [routerLink]="['/forgot-password']">Esqueceu a
+                                        senha?</a></p>
+                            </div>
+                            <div class="wrapper mt-5 text-gray">
+                                <p class="footer-text">Copyright © 2019 <a href="https://www.nataldev.com/" target="_blank">Natal&#123;Dev&#125;</a>. Todos os direitos reservados.</p>
+                                <ul class="auth-footer text-gray">
+                                    <li>
+                                        <a href="#">Termos & Condições</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Política de cookies</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->

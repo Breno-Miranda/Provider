@@ -1,0 +1,101 @@
+<nav class="navbar horizontal-layout col-lg-12 col-12 p-0">
+    <div class="container d-flex flex-row nav-top">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top">
+            <a class="navbar-brand brand-logo" [routerLink]="['/dashboard']">
+                <img [src]="currentUser.logo" alt="logo" />
+            </a>
+            <a class="navbar-brand brand-logo-mini" [routerLink]="['/dashboard']">
+                <img [src]="currentUser.logo" alt="logo" />
+            </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+
+            <ul class="navbar-nav ml-auto">
+                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    {{currentUser.cnpj}}
+                </li>
+                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    {{currentUser.name_company}}
+                </li>
+                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    (xx) xxxx-xxxx
+                </li>
+                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    {{currentUser.website}}
+                </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
+                        <div class="wrapper d-flex flex-column">
+                            <span class="profile-text">{{currentUser.first_name}} {{currentUser.last_name}}</span>
+                            <span class="user-designation">{{currentUser.type}}</span>
+                        </div>
+                        <div class="display-avatar bg-inverse-primary text-primary">AS</div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+                            <img class="img-md rounded-circle" [src]="currentUser.photo ? currentUser.photo : 'assets/img/users/perfil.jpg'" alt="">
+                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser.first_name}} {{currentUser.last_name}}</p>
+                            <p class="font-weight-light text-muted mb-0">{{currentUser.email}}</p>
+                        </div>
+                        <a routerLink="/dashboard/admin/profile" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary"></i>
+                            Meu Perfil </a>
+                        <!-- <a routerLink="/dashboard/admin/permission" href="javascript:void()" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-key text-primary"></i> Permissões</a> -->
+                        <!-- <a href="javascript:void()" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-help-circle-outline text-primary"></i> FAQ</a> -->
+                        <a href="javascript:void()" class="dropdown-item" (click)="logout()"><i
+                                class="dropdown-item-icon mdi mdi-power text-primary"></i>Deslogar</a>
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
+    </div>
+    <div class="nav-bottom">
+        <div class="container">
+            <ul class="nav page-navigation">
+                <li class="nav-item">
+                    <a [routerLink]="['/dashboard/consultant']" class="nav-link">
+                        <i class="link-icon mdi mdi-home"></i>
+                        <span class="menu-title">Inicio</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mega-menu">
+                    <a href="javascript:void()" class="nav-link">
+                        <i class="link-icon mdi mdi-heart"></i>
+                        <span class="menu-title">Minha Área</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="submenu">
+                        <div class="col-group-wrapper row">
+                            <div class="col-group col-md-6 ">
+                                <p class="category-heading ">Pedidos</p>
+                                <ul class="submenu-item ">
+                                    <li class="nav-item ">
+                                        <a class="nav-link" [routerLink]="['/dashboard/consultant/financial/requests/new']">Novo</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" [routerLink]="['/dashboard/consultant/financial/requests/timeline']">Timeline</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" [routerLink]="['/dashboard/consultant/financial/extract']">Extratos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a [routerLink]="['/dashboard/consultant/profile']" class="nav-link">
+                        <i class="link-icon mdi mdi-account "></i>
+                        <span class="menu-title">Meu Perfil</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
