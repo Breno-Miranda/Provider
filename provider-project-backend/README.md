@@ -1,8 +1,8 @@
 
-# leading-project-backend
+# prodvider-project-backend
 
 ## Primeiros passos
-Entre na pasta leading-project-backend
+Entre na pasta provider-project-backend
 
 * cd backend    
 
