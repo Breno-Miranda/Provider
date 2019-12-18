@@ -36,21 +36,19 @@ export class AdminComponent implements OnInit {
     });
 
     this.count_collaborator = {
-      title: 'Colaboradores',
-      text: 'Contagem Total de Colaboradores',
-      subtext: 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI',
+      
+      text: 'Colaboradores',
+      subtext: 'As informações de quantidade de colaboradores. Fique atento aos numeros.',
     };
 
     this.count_individual = {
-      title: 'Consultor(a)s',
-      text: 'Contagem Total de Consultor(a)s',
-      subtext: 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI',
+      text: 'Consultor(a)s',
+      subtext: 'As informações de quantidade de consultor(a)s. Fique atento aos numeros.',
     };
 
     this.count_business = {
-      title: 'Lideres',
-      text: 'Contagem Total de Lideres',
-      subtext: 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI',
+      text: 'Lideres',
+      subtext: 'As informações de quantidade de lideres. Fique atento aos numeros.',
     };
 
   }
