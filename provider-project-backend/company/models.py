@@ -40,11 +40,14 @@ class Company(models.Model):
     zipcode = models.IntegerField()
     number = models.CharField(max_length=20)
     email = models.CharField(max_length=150)
+    color_primary = models.CharField(max_length=150)
+    color_secudary = models.CharField(max_length=150)
     website = models.CharField(max_length=250)
     date_register = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=False)
     is_term_accepted = models.BooleanField(default=False)
-    logo = models.ImageField(upload_to='images/company')    
+    logo = models.ImageField(upload_to='images/company')
+       
     
     class Meta:
         managed = True 
