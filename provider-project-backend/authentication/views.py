@@ -60,6 +60,9 @@ class Authentication(generics.ListCreateAPIView):
                         'first_name': user.first_name,
                         'companyId': bind['_company']['id'],
                         
+                        'color_primary': bind['_company']['color_primary'],
+                        'color_secudary': bind['_company']['color_secudary'],
+                        
                         'type': bind['_type']['type'],
                         'team': bind['_team']['name'],
                         'sector': bind['_sector']['name'],

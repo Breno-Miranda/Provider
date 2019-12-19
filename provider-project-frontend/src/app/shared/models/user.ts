@@ -3,6 +3,8 @@ export class User {
   companyId: string;
   username: string;
   email: string;
+  color_primary: string;
+  color_secudary: string;
   password: string;
   firstName: string;
   first_name: string;

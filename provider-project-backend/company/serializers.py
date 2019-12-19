@@ -16,7 +16,7 @@ class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ("id", "name_company", "cnpj", "social_name", "fancy_name", "fancy_name", "address",
-                  "complement", "reference", "email", "date_register", "logo" , "website" , "_contact")
+                  "complement", "reference", "email", "date_register", "logo" , "website" , "color_primary" , "color_secudary" , "_contact")
 
 class CompanyKeySimplesSerializer(serializers.ModelSerializer):
     

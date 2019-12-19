@@ -21,7 +21,7 @@
                     (xx) xxxx-xxxx
                 </li>
                 <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    {{currentUser.website}}
+                    <a href="https://{{currentUser.website}}" target="blank_">{{currentUser.website}}</a>
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
@@ -53,9 +53,9 @@
             </button>
         </div>
     </div>
-    <div class="nav-bottom">
+    <div class="nav-bottom" [ngStyle]="{background: currentUser.color_primary}">
         <div class="container">
-            <ul class="nav page-navigation">
+            <ul class="nav page-navigation" [ngStyle]="{background: currentUser.color_primary}">
                 <li class="nav-item">
                     <a [routerLink]="['/dashboard/admin']" class="nav-link">
                         <i class="link-icon mdi mdi-home"></i>
