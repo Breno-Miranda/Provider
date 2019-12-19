@@ -12,16 +12,13 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    <a href="https://{{currentUser.website}}" target="blank_">{{currentUser.name_company}}</a>
+                </li>
+                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
                     {{currentUser.cnpj}}
                 </li>
                 <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    {{currentUser.name_company}}
-                </li>
-                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
                     (xx) xxxx-xxxx
-                </li>
-                <li class="info-company nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    <a href="https://{{currentUser.website}}" target="blank_">{{currentUser.website}}</a>
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
@@ -34,15 +31,17 @@
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                         <div class="dropdown-header text-center">
                             <img class="img-md rounded-circle" [src]="currentUser.photo ? currentUser.photo : 'assets/img/users/perfil.jpg'" alt="">
-                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser.first_name}} {{currentUser.last_name}}</p>
+                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser.first_name}} {{currentUser.last_name}}
+                            </p>
                             <p class="font-weight-light text-muted mb-0">{{currentUser.email}}</p>
                         </div>
-                        <a routerLink="/dashboard/admin/profile" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary"></i>
+                        <a routerLink="/dashboard/admin/profile" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-account-outline text-primary"></i>
                             Meu Perfil </a>
                         <a routerLink="/dashboard/admin/permission" href="javascript:void()" class="dropdown-item"><i
                                 class="dropdown-item-icon mdi mdi-key text-primary"></i> Permissões</a>
-                        <!-- <a href="javascript:void()" class="dropdown-item"><i
-                                class="dropdown-item-icon mdi mdi-help-circle-outline text-primary"></i> FAQ</a> -->
+                        <a href="javascript:void()" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-help-circle-outline text-primary"></i> FAQ</a>
                         <a href="javascript:void()" class="dropdown-item" (click)="logout()"><i
                                 class="dropdown-item-icon mdi mdi-power text-primary"></i>Deslogar</a>
                     </div>
@@ -63,7 +62,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item mega-menu">
+                <li class="nav-item mega-menu" (mouseover)="hoverFin=true" (mouseleave)="hoverFin=false" [ngStyle]="{backgroundColor: hoverFin==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
                     <a href="javascript:void()" class="nav-link">
                         <i class="link-icon mdi mdi-cash-multiple"></i>
                         <span class="menu-title">Financeiro</span>
@@ -130,8 +129,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item mega-menu ">
-                    <a href="javascript:void()" class="nav-link">
+                <li class="nav-item mega-menu" (mouseover)="hoverCad=true" (mouseleave)="hoverCad=false" [ngStyle]="{backgroundColor: hoverCad==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                    <a href=" javascript:void() " class="nav-link ">
                         <i class="link-icon mdi mdi-content-copy "></i>
                         <span class="menu-title ">Cadastros</span>
                         <i class="menu-arrow "></i>
@@ -140,12 +139,12 @@
                         <div class="col-group-wrapper row ">
                             <div class="col-group col-md-3 ">
                                 <p class="category-heading ">Abastecimentos</p>
-                                <ul class="submenu-item">
-                                    <li class="nav-item">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/providers']">Fonecedores</a>
+                                <ul class="submenu-item ">
+                                    <li class="nav-item ">
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/providers'] ">Fonecedores</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/products']">Produtos</a>
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/products'] ">Produtos</a>
                                     </li>
                                 </ul>
                             </div>
@@ -153,13 +152,13 @@
                                 <p class="category-heading "> Colaboradores & Clientes</p>
                                 <ul class="submenu-item ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="[ '/dashboard/admin/register/manager']">Gerentes</a>
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/manager'] ">Gerentes</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="[ '/dashboard/admin/register/leader']">Lider</a>
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/leader'] ">Lider</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="[ '/dashboard/admin/register/consultant']">Consultor(a)s</a>
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/consultant'] ">Consultor(a)s</a>
                                     </li>
                                 </ul>
                             </div>
@@ -167,15 +166,15 @@
                                 <p class="category-heading ">Fiscais & Finanças</p>
                                 <ul class="submenu-item ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/nfe']">Notas
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/nfe'] ">Notas
                                             Fiscais</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/billet']">Boletos
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/billet'] ">Boletos
                                             Bancarios</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/tactics/payments']">Meios de
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/tactics/payments'] ">Meios de
                                             Pagamentos</a>
                                     </li>
                                 </ul>
@@ -185,15 +184,15 @@
                                 <p class="category-heading ">Equipes</p>
                                 <ul class="submenu-item ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/sector']">Setores
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/sector'] ">Setores
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/team']">Time
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/team'] ">Time
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="['/dashboard/admin/register/type/users']">Tipo
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/type/users'] ">Tipo
                                             de Usuarios</a>
                                     </li>
                                 </ul>
@@ -201,9 +200,9 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a href="javascript:void()" class="nav-link ">
-                        <i class="link-icon mdi mdi-settings"></i>
+                <li class="nav-item" (mouseover)="hoverConf=true" (mouseleave)="hoverConf=false" [ngStyle]="{backgroundColor: hoverConf==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                    <a href="javascript:void() " class="nav-link ">
+                        <i class="link-icon mdi mdi-settings "></i>
                         <span class="menu-title ">Configurações</span>
                         <i class="menu-arrow "></i>
                     </a>
@@ -211,36 +210,17 @@
 
                         <ul class="submenu-item ">
                             <li class="nav-item ">
-                                <a class="nav-link" [routerLink]="['/dashboard/admin/settings/general']">Geral</a>
+                                <a class="nav-link " [routerLink]="[ '/dashboard/admin/settings/general'] ">Geral</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" [routerLink]="['/dashboard/admin/settings/plaint']">Plano</a>
+                                <a class="nav-link " [routerLink]="[ '/dashboard/admin/settings/plaint'] ">Plano</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" [routerLink]="['/dashboard/admin/settings/logs']">Logs</a>
+                                <a class="nav-link " [routerLink]="[ '/dashboard/admin/settings/logs'] ">Logs</a>
                             </li>
 
                         </ul>
 
-                    </div>
-                </li>
-                <li class="nav-item ">
-                    <a href="javascript:void()" class="nav-link">
-                        <i class="link-icon mdi mdi-cube-outline "></i>
-                        <span class="menu-title ">Aplicativos</span>
-                        <i class="menu-arrow "></i>
-                    </a>
-                    <div class="submenu">
-                        <ul class="submenu-item ">
-                            <li class="nav-item ">
-                                <a class="nav-link" [routerLink]="[ '/dashboard/admin/app/leading']"> Leading
-                                    (Consultoras, lider e gerentes)</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" [routerLink]="[ '/dashboard/admin/app/storefront']">PVD (Frente de
-                                    Loja)</a>
-                            </li>
-                        </ul>
                     </div>
                 </li>
             </ul>

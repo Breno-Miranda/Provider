@@ -766,7 +766,7 @@
 }
 
 .navbar.horizontal-layout .nav-bottom .page-navigation>.nav-item:hover>.nav-link {
-    background: #0303e9;
+    /* background: #0303e9; */
 }
 
 .navbar.horizontal-layout .nav-bottom .page-navigation>.nav-item:hover>.nav-link .menu-arrow {
