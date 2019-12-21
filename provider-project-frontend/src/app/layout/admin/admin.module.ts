@@ -6,9 +6,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CardsModule } from 'src/app/shared/components/widgets/cards/cards.module';
 import { RegisterModule } from 'src/app/modules/register/register.module';
+
 import { OrdersModule } from 'src/app/modules/orders/orders.module';
 import { ErrorModule } from 'src/app/modules/error/error.module';
 import { UserModule } from '../../modules/user/user.module';
+
 
 import { AdminComponent } from 'src/app/modules/dashboard/admin/admin.component';
 import { LeaderComponent } from 'src/app/modules/dashboard/leader/leader.component';
@@ -17,6 +19,7 @@ import { ConsultantComponent } from 'src/app/modules/dashboard/consultant/consul
 
 
 import { AdminRoutes } from './admin.routing.module';
+import { SettingsModule } from 'src/app/modules/settings/settings.module';
 
 
 @NgModule({
@@ -29,14 +32,14 @@ import { AdminRoutes } from './admin.routing.module';
     RegisterModule,
     OrdersModule,
     UserModule,
-    ErrorModule
-
+    ErrorModule,
+    SettingsModule,
   ],
   declarations: [
     AdminComponent,
     LeaderComponent,
     ManagerComponent,
-    ConsultantComponent
+    ConsultantComponent,
   ]
 })
 

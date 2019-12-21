@@ -12,5 +12,3 @@ export const AdminRoutes: Routes = [
   {path: 'leader', component: LeaderComponent},
   {path: 'consultant', component: ConsultantComponent},
 ];
-
-

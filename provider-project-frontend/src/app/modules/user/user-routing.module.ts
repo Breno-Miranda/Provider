@@ -1,13 +1,11 @@
 
-
 import { Routes } from '@angular/router';
 
-
-import { ProfileComponent } from './profile/profile.component';
+import { ConsultantComponent } from './consultant/consultant.component';
 import { PermissionComponent } from './permission/permission.component';
+import { ProfileComponent } from './profile/profile.component';
 import { ManagerComponent } from './manager/manager.component';
 import { LeaderComponent } from './leader/leader.component';
-import { ConsultantComponent } from './consultant/consultant.component';
 
 
 export const UserRouter: Routes = [
