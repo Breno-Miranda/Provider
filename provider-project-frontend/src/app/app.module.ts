@@ -16,14 +16,12 @@ import { AdminComponent } from './layout/admin/admin.component';
 
 import { ErrorInterceptor } from './core/http/error.interceptor';
 import { JwtInterceptor } from './core/authentication/jwt.interceptor';
-import { SettingsComponent } from './modules/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     AuthComponent,
-    SettingsComponent,
   ],
   imports: [
     AppRoutingModule,

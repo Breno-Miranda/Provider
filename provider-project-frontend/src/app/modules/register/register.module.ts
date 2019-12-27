@@ -8,11 +8,15 @@ import { RegisterRouter } from './register.routing.module';
 
 import { BusinessComponent } from './business/business.component';
 import { IndividualComponent } from './individual/individual.component';
+import { ProductsComponent } from './products/products.component';
+import { ProvidersComponent } from './providers/providers.component';
 
 @NgModule({
   declarations: [
     BusinessComponent,
-    IndividualComponent
+    IndividualComponent,
+    ProductsComponent,
+    ProvidersComponent
   ],
   imports: [
     CommonModule,

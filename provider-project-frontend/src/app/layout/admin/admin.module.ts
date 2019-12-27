@@ -20,6 +20,7 @@ import { ConsultantComponent } from 'src/app/modules/dashboard/consultant/consul
 
 import { AdminRoutes } from './admin.routing.module';
 import { SettingsModule } from 'src/app/modules/settings/settings.module';
+import { FinancialModule } from 'src/app/modules/financial/financial.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { SettingsModule } from 'src/app/modules/settings/settings.module';
     UserModule,
     ErrorModule,
     SettingsModule,
+    FinancialModule
   ],
   declarations: [
     AdminComponent,
