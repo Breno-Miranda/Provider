@@ -8,8 +8,6 @@ from users.models import Contact, Busines, Individual, Collaborator, Bind, Profi
 # Serializers
 from company.serializers import CompanySerializer
 
-
-
 class TypeSerializers(ModelSerializer):
     class Meta:
         model = Type

@@ -246,15 +246,7 @@ class BusinesViewSet(viewsets.ViewSet):
         
         try:
             queryset_busines = BusinesUsersSerializers(Busines.objects.get(user_id=user_id , company_id=companyId))
-            queryset_contact = ContactsSerializers(Contact.objects.filter(company_id=companyId , user_id=user_id, main=1 , is_active=1).first() )
-            queryset_bankaccount = BankAccountUsersSerializers(Bank_Account.objects.filter(company_id=companyId , user_id=user_id, main=1 , is_active=1).first())
-            
-            queryset = dict()
-            queryset.update(queryset_busines.data)
-            queryset.update({'bankaccount':queryset_bankaccount.data})
-            queryset.update({'contact':queryset_contact.data})
-            
-            return Response(queryset,status=HTTP_200_OK)
+            return Response(queryset_busines.data,status=HTTP_200_OK)
         except:
             return Response({'msm':"Oops! Houve um erro na listagem dos dados.  Tente novamente..." , 'status': 'danger'},status=HTTP_404_NOT_FOUND) 
     
@@ -267,15 +259,6 @@ class BusinesViewSet(viewsets.ViewSet):
             serializerBusiness = BusinesUsersSerializers(data=request.data)
             if serializerBusiness.is_valid():
                 serializerBusiness.save()
-                
-                serializerContact = ContactsSerializers(data=request.data)
-                if serializerContact.is_valid():
-                    serializerContact.save()
-                
-                serializerBankAccount = BankAccountUsersSerializers(data=request.data)
-                if serializerBankAccount.is_valid():
-                    serializerBankAccount.save()
-                    
                 return Response({'success': 'Heey! Ação efetuado acom sucesso.', 'status': True},status=HTTP_200_OK)
         except:
             return Response({'msm':"Oops! Houve um erro na atualização dos dados.  Tente novamente..." , 'status': 'danger'},status=HTTP_404_NOT_FOUND)                
@@ -309,16 +292,7 @@ class BusinesViewSet(viewsets.ViewSet):
             permission_classes = [IsAdmin]
         return [permission() for permission in permission_classes]
         
-class ForgotThePasswordUsersViewSet(ModelViewSet):
-    
-    serializer_class = UsersSerializer
-  
-    def get_queryset(self):
-        queryset = User.objects.all()
-        email = self.request.query_params.get('email', None)
-        if email is not None:
-            queryset = queryset.filter(email=email)
-        return queryset
+
     
 class PermissionViewSet(viewsets.ViewSet):
  
@@ -435,3 +409,133 @@ class UsersViewSet(viewsets.ViewSet):
             permission_classes = [IsAdmin]
         return [permission() for permission in permission_classes]
         
+        
+# USER ACCOUNTVIEW ENDPOINT
+class UserAccountViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        
+        if not request.user.has_perm('users.view_bank_account'):
+            return Response({'msm':'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.' , 'status': 'danger' , 'return': True},status=HTTP_403_FORBIDDEN) 
+    
+        companyId = request.GET.get('company_id', None)
+        user_id = request.GET.get('user_id', None)
+        
+        try:
+            queryset_bankaccount = BankAccountUsersSerializers(Bank_Account.objects.filter(company_id=companyId , user_id=user_id, main=1 , is_active=1).first())
+            return Response(queryset_bankaccount.data,status=HTTP_200_OK)
+        except:
+            return Response({'msm':'Sem informações.' , 'status': 'danger'},status=HTTP_404_NOT_FOUND)
+        
+    def create(self, request):
+        
+        if not request.user.has_perm('users.add_bank_account'):
+            return Response({'msm':'Sem permissão de criação. Você será redirecionad(a) para pagina principal.' , 'status': 'danger' , 'return': True},status=HTTP_400_BAD_REQUEST) 
+
+        try:
+            serializerBankAccount = BankAccountUsersSerializers(data=request.data)
+            if serializerBankAccount.is_valid():
+                serializerBankAccount.save()
+                return Response({'success': 'Heey! Ação efetuado acom sucesso.', 'status': True},status=HTTP_200_OK)
+        except:
+            return Response({'msm':"Oops! Houve um erro na atualização dos dados. Tente novamente..." , 'status': 'danger'},status=HTTP_404_NOT_FOUND)    
+            
+    def update(self, request, pk=None):
+    
+        if not request.user.has_perm('users.change_bank_account'):
+            return Response({'msm':'Sem permissão de atualização. Você será redirecionad(a) para pagina principal.' , 'status': 'danger' , 'return': True},status=HTTP_403_FORBIDDEN) 
+
+        try:
+            bankaccount = Bank_Account.objects.get(id=request.data["bankaccount_id"], company_id=request.data["company_id"] , user_id=request.data["user_id"] , main=1 , is_active=1)
+            serializerBankAccount = BankAccountUsersSerializers(bankaccount , data=request.data)
+            if serializerBankAccount.is_valid():
+                serializerBankAccount.save()
+                return Response({'success': 'Heey! Ação efetuado acom sucesso.', 'status': True},status=HTTP_200_OK)
+        except:
+            return Response({'msm':"Oops! Houve um erro na atualização dos dados.  Tente novamente..." , 'status': 'danger'},status=HTTP_404_NOT_FOUND)         
+            
+    def get_permissions(self):
+        
+        if self.action == 'list':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'update':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'destroy':
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [IsAdmin]
+        return [permission() for permission in permission_classes]
+    
+# USER CONTACTVIEW ENDPOINT
+class UserContactViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        
+        if not request.user.has_perm('users.view_contact'):
+            return Response({'msm':'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.' , 'status': 'danger' , 'return': True},status=HTTP_403_FORBIDDEN) 
+    
+        companyId = request.GET.get('company_id', None)
+        user_id = request.GET.get('user_id', None)
+        
+        try:
+            queryset_contact = ContactsSerializers(Contact.objects.filter(company_id=companyId , user_id=user_id, main=1 , is_active=1).first())
+            return Response(queryset_contact.data,status=HTTP_200_OK)
+        except:
+            return Response({'msm':'Sem informações.' , 'status': 'danger'},status=HTTP_404_NOT_FOUND) 
+    
+    
+    def create(self, request):
+        
+        if not request.user.has_perm('users.create_contact'):
+            return Response({'msm':'Sem permissão de criação. Você será redirecionad(a) para pagina principal.' , 'status': 'danger' , 'return': True},status=HTTP_400_BAD_REQUEST) 
+
+        try:
+            serializerContact = ContactsSerializers(data=request.data)
+            if serializerContact.is_valid():
+                serializerContact.save()
+                return Response({'success': 'Heey! Ação efetuado acom sucesso.', 'status': True},status=HTTP_200_OK)
+        except:
+            return Response({'msm':"Oops! Houve um erro na atualização dos dados. Tente novamente..." , 'status': 'danger'},status=HTTP_404_NOT_FOUND) 
+        
+    def update(self, request, pk=None):
+    
+        if not request.user.has_perm('users.update_contact'):
+            return Response({'msm':'Sem permissão de atualização. Você será redirecionad(a) para pagina principal.' , 'status': 'danger' , 'return': True},status=HTTP_403_FORBIDDEN) 
+
+        try:
+            contact = Contact.objects.get(id=request.data["contact_id"], company_id=request.data["company_id"] , user_id=request.data["user_id"] , main=1 , is_active=1)
+            serializerContact = ContactsSerializers(contact ,data=request.data)
+            if serializerContact.is_valid():
+                serializerContact.save()
+                return Response({'success': 'Heey! Ação efetuado acom sucesso.', 'status': True},status=HTTP_200_OK)
+        except:
+            return Response({'msm':"Oops! Houve um erro na atualização dos dados.  Tente novamente..." , 'status': 'danger'},status=HTTP_404_NOT_FOUND)         
+            
+    def get_permissions(self):
+        
+        if self.action == 'list':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'update':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'destroy':
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [IsAdmin]
+        return [permission() for permission in permission_classes]
+
+
+# USER FORGOTTHEPASSOWORD ENDPOINT
+class ForgotThePasswordUsersViewSet(ModelViewSet):
+    
+    serializer_class = UsersSerializer
+  
+    def get_queryset(self):
+        queryset = User.objects.all()
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
