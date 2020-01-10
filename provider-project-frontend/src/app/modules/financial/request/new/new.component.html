@@ -1,1 +1,85 @@
-<p>new works!</p>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="userPermissionForm" (ngSubmit)="search()">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input id="username" type="text" class="form-control" placeholder="Digite o codigo da consultor(a)" formControlName="search" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Codigo de usuário é obrigatório</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informações do pedidos</h4>
+                <form [formGroup]="userPermissionForm" (ngSubmit)="search()">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" name="" id="" formControlName="search" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                                <option value="">Informe a campanha</option>
+                            </select>
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Codigo de usuário é obrigatório</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input id="username" type="text" class="form-control" placeholder="Digite o codigo do produto" formControlName="search" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Nome de usuário é obrigatório</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" type="submit" class="btn btn-primary submit-btn text-uppercase">Adicionar
+                            <span *ngIf="loading"><i class="mdi mdi-refresh mdi-spin"></i></span>
+                        </button>
+                        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Lista dos pedidos solicitados</h4>
+                <p>Abaixo escolha um usuario para definir acesso. Lembrando que poderar escolher mais de um usuario por vez.
+                </p>
+                <div class="col-12 table-responsive col-tb">
+                    <table id="order-listing" class="table table-striped w-100 dataTable no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
+                        <thead>
+                            <tr role="row" class="bg-light">
+                                <th style="width: 219px;">Usuario</th>
+                                <th style="width: 80px;">Tipo</th>
+                                <th style="width: 66px;">Selecionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let u of users">
+                                <td>{{u._user.username}}</td>
+                                <td>{{u._type.type}}</td>
+                                <td><input type="checkbox" (click)="selectUsers()"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
