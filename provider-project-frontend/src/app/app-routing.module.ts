@@ -18,7 +18,14 @@ const routes: Routes = [
       { path: '', loadChildren: './layout/auth/auth.module#AuthModule' }
     ]
   },
-  { path: '**', redirectTo: '' }
+
+  { path: 'error', component: AuthComponent,
+    children: [
+      { path: '', loadChildren: './layout/error/error.module#ErrorModule' }
+    ]
+  },
+
+  { path: '**', redirectTo: 'dashboard' }
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);
