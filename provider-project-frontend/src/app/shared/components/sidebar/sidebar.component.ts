@@ -47,13 +47,13 @@ export class SidebarComponent implements OnInit {
   }
   redirectRequest(){
     if(this.currentUser.type_code == 1){
-      this.router.navigate(['/dashboard/admin/financial/request']);
+      this.router.navigate(['/dashboard/admin/financial/requests/new']);
     } else if(this.currentUser.type_code == 2){
-      this.router.navigate(['/dashboard/manager/financial/request']);
+      this.router.navigate(['/dashboard/manager/financial/requests/new']);
     } else if(this.currentUser.type_code == 3){
-      this.router.navigate(['/dashboard/leader/financial/request']);
+      this.router.navigate(['/dashboard/leader/financial/requests/new']);
     } else if(this.currentUser.type_code == 4){
-      this.router.navigate(['/dashboard/consultant/financial/request']);
+      this.router.navigate(['/dashboard/consultant/financial/requests/new']);
     }
   }
 }
