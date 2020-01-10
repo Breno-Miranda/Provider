@@ -140,3 +140,30 @@ class Authentication(generics.ListCreateAPIView):
         else:
             return Response({'error': 'Não foi localizado as simples chave de empresa que desejas se vincular.', 'status': False},status=HTTP_404_NOT_FOUND)
         
+        
+    @csrf_exempt
+    @api_view(["POST"])
+    @permission_classes((AllowAny,))
+    def forgotThepassword(request):
+
+        try:
+            user = User.objects.get(email=request.data.get("email"))
+             
+            if user:
+                return Response(
+                    {
+                        'success': 'Heey! Ação efetuado acom sucesso.',
+                        'status': True
+                    },
+                    status=HTTP_200_OK)
+            
+        except:
+            return Response(
+                {
+                    'msm':
+                    "Oops! Houve um erro na atualização dos dados. Tente novamente...",
+                    'status': 'danger'
+                },
+                status=HTTP_404_NOT_FOUND)
+    
+   

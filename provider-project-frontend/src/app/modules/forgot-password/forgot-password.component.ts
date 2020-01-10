@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
+    // this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
   }
 
   // convenience getter for easy access to form fields
@@ -56,7 +56,7 @@ export class ForgotPasswordComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        this.router.navigate([this.returnUrl]);
+        // this.router.navigate([this.returnUrl]);
       },
       error => {
         this.error = error.error;

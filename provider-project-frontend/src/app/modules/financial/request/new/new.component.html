@@ -2,8 +2,8 @@
     <div class="col-6 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Informações de Pedido</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et omnis similique odit quidem distinctio aliquid. Officiis dolorum odit maxime, sequi autem maiores, laudantium, soluta culpa nostrum alias expedita recusandae aliquam.</p>
+                <h4 class="card-title">Informações Gerais</h4>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et omnis similique odit quidem distinctio aliquid.</p>
                 <form [formGroup]="requestForm">
                     <div class="form-group col-md-8">
                         <label for="">Fornecedor</label>
@@ -42,11 +42,11 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Adicionar produto</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus ab, facere quam asperiores ipsa eaque facilis repudiandae, odit dignissimos quia labore aliquid quos praesentium perferendis, hic unde distinctio. Commodi, soluta</p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus ab, facere quam asperiores ipsa eaque facilis repudiandae.</p>
                 <form [formGroup]="requestForm" (ngSubmit)="setProducts()">
 
                     <div class="form-group col-md-12">
-                        <label for="">Codigo</label>
+                        <label for="">Referencia</label>
                         <input id="username" type="text" class="form-control" placeholder="referencia produto" formControlName="reference" [ngClass]="{ 'is-invalid': submitted && f.reference.errors }">
                         <div *ngIf="submitted && f.reference.errors" class="invalid-feedback">
                             <div *ngIf="f.reference.errors.required">Informação é obrigatório</div>
@@ -55,7 +55,7 @@
 
                     <div class="form-group col-md-12">
                         <label for="">Quantidade</label>
-                        <input id="username" type="text" class="form-control" placeholder="quantidade" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                        <input id="username" type="text" class="form-control" placeholder="quantidade produto" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
                         <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
                             <div *ngIf="f.amount.errors.required">Informação é obrigatório</div>
                         </div>

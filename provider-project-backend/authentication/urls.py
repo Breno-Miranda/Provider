@@ -10,6 +10,6 @@ urlpatterns = [
     url('api/checkout-auth', views.Authentication.check_auth, name='auth'),
     url('api/register-user-token', views.Authentication.register_user_token, name='auth'),
     url('api/company-token', views.Authentication.company_token, name='auth'),
-    
+    url('api/forgot-password', views.Authentication.forgotThepassword, name='ForgotThePassword')
     
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -39,7 +39,7 @@ export class AuthenticationService {
   }
 
   ForgotPassword(email: string) {
-    return this.http.post<any>(`${environment.apiUrl}/api/users/forgot-password/`, { email });
+    return this.http.post<any>(`${environment.apiUrl}/api/forgot-password/`, { email });
   }
 
   RegisterUserToken(token: string) {
