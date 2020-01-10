@@ -400,7 +400,7 @@
 }
 
 .navbar.horizontal-layout .nav-top .navbar-brand-wrapper {
-    width: 185px;
+    width: 63px;
     height: 63px;
 }
 
@@ -450,8 +450,8 @@
 
 .navbar.horizontal-layout .nav-top .navbar-menu-wrapper {
     color: #ffffff;
-    padding-left: 15px;
-    width: calc(100% - 185px);
+    /* padding-left: 15px; */
+    /* width: calc(100% - 185px); */
     position: relative;
 }
 
