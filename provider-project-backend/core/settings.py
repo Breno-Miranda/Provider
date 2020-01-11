@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'nfe',
     'product',
     'information',
+    'common',
 ]
 
 MIDDLEWARE = [
