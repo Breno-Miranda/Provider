@@ -48,7 +48,7 @@ class Zone(models.Model):
 
 
 class Catalog(models.Model): 
-    # provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     commission = models.FloatField(blank=True, null=True)

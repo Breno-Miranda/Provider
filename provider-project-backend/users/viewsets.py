@@ -434,15 +434,17 @@ class BusinesViewSet(viewsets.ViewSet):
 class PermissionViewSet(viewsets.ViewSet):
     def list(self, request):
 
-        if not request.user.has_perm('users.view_permission'):
-            return Response(
-                {
-                    'msm':
-                    'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
-                    'status': 'danger',
-                    'return': True
-                },
-                status=HTTP_403_FORBIDDEN)
+        print(request.user.has_perm('auth.view_permission'))
+              
+        # if not request.user.has_perm('auth.view_permission'):
+        #     return Response(
+        #         {
+        #             'msm':
+        #             'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
+        #             'status': 'danger',
+        #             'return': True
+        #         },
+        #         status=HTTP_403_FORBIDDEN)
 
         try:
             querysetPermission = PermissionSerializer(Permission.objects.all(),
@@ -460,13 +462,13 @@ class PermissionViewSet(viewsets.ViewSet):
     def create(self, request):
 
         try:
-            if not request.user.has_perm('users.add_permission'):
+            if not request.user.has_perm('auth.add_permission'):
                 return Response(
                     {
                         'msm':
                         'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
                         'status': 'danger',
-                        'return': True
+                        'return': True,
                     },
                     status=HTTP_400_BAD_REQUEST)
 
@@ -515,9 +517,10 @@ class PermissionViewSet(viewsets.ViewSet):
 
 
 class UsersViewSet(viewsets.ViewSet):
+    
     def list(self, request):
 
-        if not request.user.has_perm('users.view_bussines'):
+        if not request.user.has_perm('users.view_bind'):
             return Response(
                 {
                     'msm':
@@ -540,97 +543,6 @@ class UsersViewSet(viewsets.ViewSet):
                 },
                 status=HTTP_404_NOT_FOUND)
 
-    def create(self, request):
-
-        if not request.user.has_perm('users.create_bussines'):
-            return Response(
-                {
-                    'msm':
-                    'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
-                    'status': 'danger',
-                    'return': True
-                },
-                status=HTTP_400_BAD_REQUEST)
-
-        if not request.data:
-            return Response(
-                {
-                    'error': 'Campos vazios, preencha os obrigatorios.',
-                    'status': False
-                },
-                status=HTTP_404_NOT_FOUND)
-
-        serializer = BusinesUsersSerializers(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {
-                    'success': 'Registro criado com sucesso.',
-                    'status': True
-                },
-                status=HTTP_200_OK)
-        return Response(
-            {
-                'error':
-                'Error ao criar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.',
-                'status': False
-            },
-            status=HTTP_404_NOT_FOUND)
-
-    def update(self, request, pk=None):
-
-        if not request.user.has_perm('users.update_bussines'):
-            return Response(
-                {
-                    'msm':
-                    'Sem permissão de atualização. Você será redirecionad(a) para pagina principal.',
-                    'status': 'danger',
-                    'return': True
-                },
-                status=HTTP_400_BAD_REQUEST)
-
-        serializer = BusinesUsersSerializers(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {
-                    'success': 'Registro criado com sucesso.',
-                    'status': True
-                },
-                status=HTTP_200_OK)
-        return Response(
-            {
-                'error':
-                'Error ao criar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.',
-                'status': False
-            },
-            status=HTTP_404_NOT_FOUND)
-
-    def destroy(self, request, pk=None):
-
-        if not request.user.has_perm('provider.delete_provider'):
-            return Response(
-                {
-                    'msm':
-                    'Sem permissão de exclusão. Você será redirecionad(a) para pagina principal.',
-                    'status': 'danger',
-                    'return': True
-                },
-                status=HTTP_400_BAD_REQUEST)
-        try:
-            instance = self.get_object()
-            self.perform_destroy(instance)
-        except Http404:
-            pass
-        return Response(
-            {
-                'msm': 'Exclusão efetuada com sucessso!',
-                'status': 'success',
-                'return': True
-            },
-            status=status.HTTP_204_NO_CONTENT)
 
     def get_permissions(self):
 
@@ -680,7 +592,7 @@ class UserAccountViewSet(viewsets.ViewSet):
 
     def create(self, request):
 
-        if not request.user.has_perm('users.add_bank_account'):
+        if not request.user.has_perm('users.view_add'):
             return Response(
                 {
                     'msm':
@@ -712,7 +624,7 @@ class UserAccountViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
 
-        if not request.user.has_perm('users.change_bank_account'):
+        if not request.user.has_perm('users._bind'):
             return Response(
                 {
                     'msm':

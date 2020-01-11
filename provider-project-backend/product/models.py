@@ -3,6 +3,7 @@ from company.models import Company
 from taxation.models import Tax
 from users.models import Bind, Type
 from django.contrib.auth.models import User
+from company.models import Catalog
 
 class Status(models.Model):
     company = models.ForeignKey(Company, related_name="status_product",  on_delete=None)
@@ -72,7 +73,7 @@ class Product(models.Model):
     last_date = models.DateTimeField(null=True, blank=True)
     user_bind = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     user_type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, blank=True)
-    # catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, null=True, blank=True)
+    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, null=True, blank=True)
     
     class Meta:
         managed = True

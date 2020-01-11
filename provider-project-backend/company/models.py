@@ -112,4 +112,4 @@ class Catalog(models.Model):
         managed = True
 
     def __str__(self):
-        return self.reference
+        return self.catalog.name
