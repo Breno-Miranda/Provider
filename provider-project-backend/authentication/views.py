@@ -12,11 +12,11 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 
 # Serializers
-from users.serializers import UserBindSerializers, ProfileSerializers
+from users.serializers import UserBindSerializers, UsersSerializer
 from company.serializers import CompanyKeySecretSerializer, CompanyKeySimplesSerializer
 # Models
 from django.contrib.auth.models import User
-from users.models import Bind, Profile
+from users.models import Bind
 from company.models import Company, Key
 
 import os
@@ -145,15 +145,21 @@ class Authentication(generics.ListCreateAPIView):
     @api_view(["POST"])
     @permission_classes((AllowAny,))
     def forgotThepassword(request):
+        
+        print(request.data.get("email"))
 
         try:
-            user = User.objects.get(email=request.data.get("email"))
-             
-            if user:
+            
+            print(request.data.get("email"))
+            
+            user = UsersSerializer(User.objects.get(email=request.data.get("email")))
+            print(user)
+            
+            if user: 
                 return Response(
                     {
-                        'success': 'Heey! Ação efetuado acom sucesso.',
-                        'status': True
+                        'success': 'Recuperamos sua senha, estamos enviado uma nova senha para sua caixa de e-mail.',
+                        'status': True,
                     },
                     status=HTTP_200_OK)
             
@@ -161,7 +167,7 @@ class Authentication(generics.ListCreateAPIView):
             return Response(
                 {
                     'msm':
-                    "Oops! Houve um erro na atualização dos dados. Tente novamente...",
+                    "Não conseguimos encontrar seu email. Certifique se o e-mail está correto e tente novamente.",
                     'status': 'danger'
                 },
                 status=HTTP_404_NOT_FOUND)

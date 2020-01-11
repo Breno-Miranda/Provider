@@ -19,6 +19,8 @@ export class ForgotPasswordComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+  success = '';
+  
 
   email: any[];
 
@@ -52,16 +54,18 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.ForgotPassword(this.f.email.value)
-    .pipe(first())
-    .subscribe(
-      data => {
-        // this.router.navigate([this.returnUrl]);
-      },
-      error => {
-        this.error = error.error;
-        this.loading = false;
-      });
-  }
 
+    this.authenticationService.ForgotPassword(this.f.email.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // this.router.navigate([this.returnUrl]);
+          this.success = data.success;
+          this.loading = false;
+        },
+        error => {
+          this.error = error.msm;
+          this.loading = false;
+        });
+    }
 }
