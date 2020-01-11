@@ -1,9 +1,8 @@
 from django.db import models
-from company.models import Company
+from company.models import Company, Catalog
 from taxation.models import Tax
 from users.models import Bind, Type
 from django.contrib.auth.models import User
-from company.models import Catalog
 
 class Status(models.Model):
     company = models.ForeignKey(Company, related_name="status_product",  on_delete=None)

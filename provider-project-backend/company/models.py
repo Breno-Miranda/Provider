@@ -6,7 +6,7 @@ import json
 from django.db import models
 from django.core import serializers
 from time import time # para geracao da timestamp
-from common.models import Catalog
+from common.models import Catalog as CatalogCommon
 
 class Plan(models.Model):
     description = models.CharField(max_length=200)
@@ -101,11 +101,10 @@ class Key(models.Model):
     def __str__(self):
         return self.company.name_company
 
-
 class Catalog(models.Model):
     reference = models.BigIntegerField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
-    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, null=True, blank=True)
+    catalog = models.ForeignKey(CatalogCommon, on_delete=models.CASCADE, null=True, blank=True)
     initial_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
     minimum_order = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
