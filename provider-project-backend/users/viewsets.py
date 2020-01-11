@@ -431,25 +431,39 @@ class BusinesViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
 
+# Auth Permission
+# modulo criado para liberação de permissões ao usuario.
+# precisa adicionar os GRUPOS para facilitar para o usuario MASTER
+
+
 class PermissionViewSet(viewsets.ViewSet):
     def list(self, request):
 
-        print(request.user.has_perm('auth.view_permission'))
-              
-        # if not request.user.has_perm('auth.view_permission'):
-        #     return Response(
-        #         {
-        #             'msm':
-        #             'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
-        #             'status': 'danger',
-        #             'return': True
-        #         },
-        #         status=HTTP_403_FORBIDDEN)
+        companyId = request.GET.get('company_id', None)
+
+        if not request.user.has_perm('auth.view_permission'):
+            return Response(
+                {
+                    'msm':
+                    'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
+                    'status': 'danger',
+                    'return': True
+                },
+                status=HTTP_403_FORBIDDEN)
 
         try:
             querysetPermission = PermissionSerializer(Permission.objects.all(),
                                                       many=True)
-            queryset = {"permission": querysetPermission.data}
+
+            querysetUsers = UserBindSerializers(
+                Bind.objects.all().filter(company_id=companyId),
+                many=True,
+                context={"request": request})
+
+            queryset = {
+                "permission": querysetPermission.data,
+                "users": querysetUsers.data
+            }
             return Response(queryset, status=HTTP_200_OK)
         except:
             return Response(
@@ -517,8 +531,9 @@ class PermissionViewSet(viewsets.ViewSet):
 
 
 class UsersViewSet(viewsets.ViewSet):
-    
     def list(self, request):
+
+        companyId = request.GET.get('company_id', None)
 
         if not request.user.has_perm('users.view_bind'):
             return Response(
@@ -531,9 +546,10 @@ class UsersViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         try:
-            queryset = UserBindSerializers(Bind.objects.all(),
-                                           many=True,
-                                           context={"request": request})
+            queryset = UserBindSerializers(
+                Bind.objects.all().filter(company_id=companyId),
+                many=True,
+                context={"request": request})
             return Response(queryset.data, status=HTTP_200_OK)
         except:
             return Response(
@@ -542,7 +558,6 @@ class UsersViewSet(viewsets.ViewSet):
                     'status': 'danger'
                 },
                 status=HTTP_404_NOT_FOUND)
-
 
     def get_permissions(self):
 
@@ -787,18 +802,3 @@ class UserContactViewSet(viewsets.ViewSet):
         else:
             permission_classes = [IsAdmin]
         return [permission() for permission in permission_classes]
-
-
-# USER FORGOTTHEPASSOWORD ENDPOINT
-# class ForgotThePasswordUsersViewSet(ModelViewSet):
-
-#     serializer_class = UsersSerializer
-
-#     def get_queryset(self):
-#         queryset = User.objects.all()
-#         email = self.request.query_params.get('email', None)
-#         if email is not None:
-#             queryset = queryset.filter(email=email)
-#         return queryset
-
-

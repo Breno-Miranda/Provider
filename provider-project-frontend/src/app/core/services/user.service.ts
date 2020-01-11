@@ -15,12 +15,22 @@ export class UserService {
   ) { }
 
   getAll() {
-    return this.http.get<User[]>(`${environment.apiUrl}/api/users/all/`);
+    return this.http.get<User[]>(`${environment.apiUrl}/api/users/all/`, {
+      params: 
+      {
+        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+      }
+    });
   }
 
   getAllPermission()
   {
-    return this.http.get<User[]>(`${environment.apiUrl}/api/users/permission/`);
+    return this.http.get<User[]>(`${environment.apiUrl}/api/users/permission/`, {
+      params: 
+      {
+        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+      }
+    });
   }
 
   getUserProfile() {

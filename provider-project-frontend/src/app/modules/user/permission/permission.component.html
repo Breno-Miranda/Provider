@@ -26,6 +26,7 @@
                         <thead>
                             <tr role="row" class="bg-light">
                                 <th style="width: 219px;">Usuario</th>
+                                <th style="width: 80px;">Empresa</th>
                                 <th style="width: 80px;">Função</th>
                                 <th align="center" style="width: 66px;">Selecionar</th>
                             </tr>
@@ -33,6 +34,7 @@
                         <tbody>
                             <tr *ngFor="let u of users | inputFilter: userPermissionForm.controls.search.value">
                                 <td>{{u._user.username}}</td>
+                                <td>{{u._company.name_company}}</td>
                                 <td>{{u._type.type}}</td>
                                 <td align="center"><input type="checkbox" [(ngModel)]="u.selected" (change)="selectUsers( u )"></td>
                             </tr>
