@@ -158,7 +158,7 @@ class Authentication(generics.ListCreateAPIView):
             if user: 
                 return Response(
                     {
-                        'success': 'Recuperamos sua senha, estamos enviado uma nova senha para sua caixa de e-mail.',
+                        'success': 'Recuperamos sua senha. Estamos enviado uma nova senha para sua caixa de e-mail.',
                         'status': True,
                     },
                     status=HTTP_200_OK)
