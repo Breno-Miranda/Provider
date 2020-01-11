@@ -1,4 +1,3 @@
-
 from .models import Provider
 from .serializers import ProviderSerializer
 

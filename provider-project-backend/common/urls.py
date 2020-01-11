@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from .viewsets import ProviderViewSet
 
 router = routers.DefaultRouter()
-router.register(r'api/provider/', ProviderViewSet, basename='ProviderView')
+router.register(r'api/common/provider', ProviderViewSet, basename='ProviderView')
 
 urlpatterns = [
     path('', include(router.urls)), 

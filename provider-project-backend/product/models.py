@@ -1,5 +1,5 @@
 from django.db import models
-from company.models import Company, Catalog
+from company.models import Company
 from taxation.models import Tax
 from users.models import Bind, Type
 from django.contrib.auth.models import User
@@ -63,16 +63,16 @@ class Product(models.Model):
     taxation = models.ForeignKey(Tax, on_delete=None , blank=True)
     page = models.BigIntegerField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    value_provider = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    type_value_provider = models.CharField(null=True, blank=True)
+    value_provider = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, max_length=255)
+    type_value_provider = models.CharField(null=True, blank=True, max_length=255)
     stock = models.BigIntegerField(default=0)
-    size = models.CharField(null=True, blank=True)
+    size = models.CharField(null=True, blank=True, max_length=255)
     create_date = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField(null=True, blank=True)
     last_date = models.DateTimeField(null=True, blank=True)
     user_bind = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     user_type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, blank=True)
-    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, null=True, blank=True)
+    # catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, null=True, blank=True)
     
     class Meta:
         managed = True
