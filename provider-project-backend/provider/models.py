@@ -37,3 +37,5 @@ class Contacts(models.Model):
         
     def __str__(self):
         return self.company.company_name
+
+
