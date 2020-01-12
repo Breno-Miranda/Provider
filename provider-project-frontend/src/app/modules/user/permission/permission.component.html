@@ -5,7 +5,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 grid-margin stretch-card center">
+    <div class="col-md-4 grid-margin stretch-card center">
         <div class="card">
             <div class="card-body">
                 <p>Abaixo escolha um usuario para definir acesso. Lembrando que poderar escolher mais de um usuario por vez.
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card center">
+    <div class="col-md-4 grid-margin stretch-card center">
         <div class="card">
             <div class="card-body">
                 <p>Informe abaixo apos escolhido usuario, qual as pagina que ele deverar ter acesso. </p>
@@ -71,7 +71,38 @@
             </div>
         </div>
     </div>
+
+
+    <div class="col-md-4 grid-margin stretch-card center">
+        <div class="card">
+            <div class="card-body">
+                <p>Informe abaixo apos escolhido usuario, qual as pagina que ele deverar ter acesso. </p>
+
+                <div class="col-12 table-responsive col-tb">
+                    <table id="order-listing" class="table table-striped w-100 dataTable no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
+                        <thead>
+                            <tr role="row" class="bg-light">
+                                <th style="width: 219px;">Evento</th>
+                                <!-- <th style="width: 80px;">Ação</th> -->
+                                <th align="center" style="width: 66px;">Selecionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of permission">
+                                <td i18n>{{p.name}}</td>
+                                <!-- <td i18n>{{p.codename}}</td> -->
+                                <td align="center"><input type="checkbox" [(ngModel)]="p.selected" (change)="selectPermission()"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 
 <div class="row">
     <div class="col-12">
