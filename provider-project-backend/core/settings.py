@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'information',
     'common',
     'import_export',
+    'campaign'
 ]
 
 MIDDLEWARE = [
