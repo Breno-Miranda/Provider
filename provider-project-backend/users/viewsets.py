@@ -432,11 +432,46 @@ class BusinesViewSet(viewsets.ViewSet):
 
 
 # Auth Permission
+
+# group de permission 
+# Adicionando a listagem de grupo
+
+class GroupPermissionViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        
+        companyId = request.GET.get('company_id', None)
+
+        if not request.user.has_perm('auth.view_permission'):
+            return Response(
+                {
+                    'msm':
+                    'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
+                    'status': 'danger',
+                    'return': True
+                },
+                status=HTTP_403_FORBIDDEN)
+            
+    def get_permissions(self):
+
+        if self.action == 'list':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'update':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'destroy':
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [IsAdmin]
+        return [permission() for permission in permission_classes]
+
 # modulo criado para liberação de permissões ao usuario.
 # precisa adicionar os GRUPOS para facilitar para o usuario MASTER
 
 
 class PermissionViewSet(viewsets.ViewSet):
+    
     def list(self, request):
 
         companyId = request.GET.get('company_id', None)
