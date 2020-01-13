@@ -14,6 +14,16 @@ export class UserService {
     private authenticationService: AuthenticationService
   ) { }
 
+
+  getUserSearch( search: string) {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/users/search/`, {
+      params: 
+      {
+        search: search,
+      }
+    });
+  }
+
   getAll() {
     return this.http.get<User[]>(`${environment.apiUrl}/api/users/all/`, {
       params: 
@@ -32,6 +42,19 @@ export class UserService {
       }
     });
   }
+
+ 
+  // PERMISSAO USER
+
+  setUserPermission( user_id: any, permission_id: any , group_id: any) {
+    return this.http.post<any[]>(`${environment.apiUrl}/api/users/permission/`, {
+        user_id: user_id,
+        permission_id: permission_id,
+        group_id: group_id
+    });
+  }
+
+  // PERFIL
 
   getUserProfile() {
 
@@ -62,23 +85,6 @@ export class UserService {
       });
     }
     
-  }
-  
-  getUserSearch( search: string) {
-    return this.http.get<any[]>(`${environment.apiUrl}/api/users/search/`, {
-      params: 
-      {
-        search: search,
-      }
-    });
-  }
-
-  setUserPermission( obj_users: object, obj_permission: object , obj_permission_delete: object) {
-    return this.http.post<any[]>(`${environment.apiUrl}/api/users/permission/`, {
-        obj_permission: obj_permission,
-        obj_users: obj_users,
-        obj_permission_delete: obj_permission_delete
-    });
   }
 
   setUserProfile( formData )

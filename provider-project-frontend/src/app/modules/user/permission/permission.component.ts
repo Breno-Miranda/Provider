@@ -8,6 +8,8 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 import { first } from 'rxjs/operators';
 
 
+
+
 @Component({
   selector: 'app-permission',
   templateUrl: './permission.component.html',
@@ -19,10 +21,8 @@ export class PermissionComponent implements OnInit {
   success: any;
 
   users: any;
-  obj_users: any = [];
+  groups: any;
   permission: any;
-  obj_permission: any = [];
-  obj_permission_delete: any = [];
   userPermissionForm: FormGroup;
 
   constructor(
@@ -36,77 +36,80 @@ export class PermissionComponent implements OnInit {
     this.userPermissionForm = this.formBuilder.group({
       search: ['', Validators.required],
     });
-    // Load the Permission
-    this.loadPermission();
-    // Load the users
-    this.loadUsers();
-  }
-
-  loadPermission()
-  {
+    
     this.userService.getAllPermission().pipe(first()).subscribe(data => {
       this.permission = data['permission'];
+      this.groups = data['groups']
+      this.users = data['users'];
     });
 
   }
 
-  loadUsers()
-  {
-    this.userService.getAll().pipe(first()).subscribe(data => {
-      this.users = data;
-    });
+  userId: any;
 
+  selectUser( data ){
+    if( data )
+    {
+      this.userId = data.user;
+    } else {
+      console.log('user vazio')
+    }
+
+    // CHECK PERMISSION
+    this.checkedPermission( data );
+    // CHECK GROUPS
+    this.checkedGroup( data );
   }
 
-  search() {
-    this.userService.getUserSearch(this.userPermissionForm.controls.search.value).pipe(first()).subscribe(data => {
-      this.users = data;
-    }, error => {
-      console.log(error)
+  selectGroup( data ){
+    if( data )
+    {
+      this.setFinaly(this.userId , false , data.id)
+    }else {
+      console.log('user group')
+    }
+  }
+
+  selectPermission( data ){
+    if( data )
+    {
+      if(data.selected){
+        this.setFinaly(this.userId , data.id , false)
+      } 
+    }else {
+      console.log('user permission')
+    }
+  }
+
+  checkedPermission( data ) {
+    data['_user']['user_permissions'].forEach(data_user => {
+      this.permission.forEach((data_permission, index) => {
+        if (data_user == data_permission['id']) {
+          this.permission[index]['selected'] = true;
+        } 
+      });
     });
   }
 
-  set() {
-    this.userService.setUserPermission(this.obj_users, this.obj_permission , this.obj_permission_delete).pipe(first()).subscribe(data => {
+  checkedGroup( data ) {
+    data['_user']['groups'].forEach(data_user => {
+      this.groups.forEach((data_group, index) => {
+        if (data_user == data_group['id']) {
+          this.groups[index]['selected'] = true;
+        } 
+      });
+    });
+    console.log(this.groups)
+  }
+
+  setFinaly(user_id , permission_id , groupId){
+    this.userService.setUserPermission(user_id, permission_id, groupId).pipe(first()).subscribe(data => {
       this.success = data['success']
     }, error => {
       this.error = error['error']
     });
   }
-  selectPermission() {
-    this.obj_permission = [];
-    this.permission.forEach(data_permission => {
-      if (data_permission.selected) {
-        this.obj_users.forEach(data_user => {
-          this.obj_permission.push({ 'permission_id': data_permission.id, 'user_id': data_user.user_id })
-        });
-      } else {
-        this.obj_users.forEach(data_user => {
-          this.obj_permission_delete.push({ 'permission_id': data_permission.id, 'user_id': data_user.user_id })
-        });
-      }
-    });
-  }
 
-  selectUsers(item) {
-    this.obj_users = [];
-    this.users.forEach(data => {
-      if (data.selected) {
-        this.obj_users.push({ 'user_id': data.user })
-      }
-    });
 
-    this.checkedPermission(item);
-  }
 
-  checkedPermission(item) {
-
-    item['_user']['user_permissions'].forEach(data_user => {
-      this.permission.forEach((data_permission, index) => {
-        if (data_user == data_permission['id']) {
-          this.permission[index]['selected'] = true;
-        }
-      });
-    });
-  }
 }
