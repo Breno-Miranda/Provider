@@ -27,3 +27,9 @@ Rodando o banco de dados
 
 * Pega as informações HTTP_AUTHORIZATION
 * request.META['HTTP_AUTHORIZATION']
+
+##Comandos Uteis do Python
+
+* python manage.py collectstatic
+* pip freeze > requirements.txt
+* pip install -R requirements.txt
