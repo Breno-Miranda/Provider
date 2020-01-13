@@ -58,7 +58,7 @@ class Product(models.Model):
     amount = models.IntegerField(null=True, blank=True)
     weight = models.IntegerField(null=True, blank=True)
     origin = models.IntegerField(null=True, blank=True)
-    discount = models.FloatField(max_length=200 , null=True, blank=True)
+    discount = models.FloatField(max_length=200, null=True, blank=True)
     resale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2) 
     taxation = models.ForeignKey(Tax, on_delete=None , blank=True)
