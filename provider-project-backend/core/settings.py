@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'product',
     'information',
     'common',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -215,3 +216,5 @@ STATIC_ROOT = os.path.join(STATIC_URL, 'static')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
