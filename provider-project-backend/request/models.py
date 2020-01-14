@@ -4,7 +4,7 @@ from lote.models import Lote
 from product.models import Product
 from company.models import Company, Catalog
 from django.contrib.auth.models import User
-from users.models import Individual, Busines, Bind
+from users.models import Profile, Bind
 from common.models import Payment_methods
 
 class Status(models.Model):

@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer
 
 # Models
 from django.contrib.auth.models import Permission, Group, User
-from users.models import Contact, Busines, Individual, Collaborator, Bind, Profile, Type, Team, Sector, Bank_Account
+from users.models import Contact, Bind, Profile, Type, Team, Sector, Bank_Account
 
 # Serializers
 from company.serializers import CompanySerializer
@@ -86,42 +86,3 @@ class BankAccountUsersSerializers(ModelSerializer):
                   "kind_of_person")
 
 
-class BusinesUsersSerializers(ModelSerializer):
-
-    _company = CompanySerializer(source='company', read_only=True)
-    _user = UsersSerializer(source='user', read_only=True)
-
-    class Meta:
-        model = Busines
-        fields = ("id", "user", "cpf", 'rg', 'address', "complement",
-                  "reference", "neighborhood", "city", "state", "zipcode",
-                  "number", "birthday", "civil_sate", "date_register",
-                  "is_term_accepted", "photo", "about", "genre",
-                  "recommendation", "full_name", "_company", "_user")
-
-
-class IndividualUsersSerializers(ModelSerializer):
-
-    _company = CompanySerializer(source='company', read_only=True)
-    _user = UsersSerializer(source='user', read_only=True)
-
-    class Meta:
-        model = Individual
-        fields = ("id", "user", "cpf", 'rg', 'address', "complement",
-                  "reference", "neighborhood", "city", "state", "zipcode",
-                  "number", "birthday", "civil_sate", "date_register",
-                  "is_term_accepted", "photo", "about", "_company", "_user")
-
-
-class ColaborationUsersSerializers(ModelSerializer):
-
-    _company = CompanySerializer(source='company', read_only=True)
-    _user = UsersSerializer(source='user', read_only=True)
-
-    class Meta:
-        model = Collaborator
-        fields = ("id", "user", "cpf", 'rg', 'address', "complement",
-                  "reference", "neighborhood", "city", "state", "zipcode",
-                  "number", "birthday", "civil_sate", "date_register",
-                  "is_term_accepted", "about", "genre", "recommendation",
-                  "full_name", "_company", "_user")

@@ -2,8 +2,8 @@ from rest_framework.viewsets import ModelViewSet
 
 from django.contrib.auth.models import Permission, Group, User
 
-from users.models import  Busines, Individual, Collaborator, Bind
-from users.serializers import BusinesUsersSerializers, IndividualUsersSerializers, ColaborationUsersSerializers
+from users.models import   Profile, Bind
+from users.serializers import  ProfileSerializers
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -73,5 +73,4 @@ class InfoSystemViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
     
        
-            
             
