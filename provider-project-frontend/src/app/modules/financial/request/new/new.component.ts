@@ -14,7 +14,6 @@ declare var $: any;
 export class NewComponent implements OnInit {
   [x: string]: any;
 
-  
   requestForm: FormGroup;
 
   constructor(
@@ -34,17 +33,23 @@ export class NewComponent implements OnInit {
     });
   }
 
-
   lots: any;
+  campaigns: any;
+  catalogs: any;
 
   ngOnInit() {
-
     this.requestService.getLots().pipe(first()).subscribe(data => {
       this.lots = data;
     });
-  
-  }
 
+    this.requestService.getCampaign().pipe(first()).subscribe(data => {
+      this.campaigns = data;
+    });
+
+    this.requestService.getCatalog().pipe(first()).subscribe(data => {
+      this.catalogs = data;
+    });
+  }
 
   itens : Array<object> = [];
 

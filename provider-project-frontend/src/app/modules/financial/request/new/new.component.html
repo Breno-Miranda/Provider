@@ -9,6 +9,7 @@
                         <label for="">Catalogo</label>
                         <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
                             <option value="">Escolha uma opção</option>
+                            <option *ngFor="let data of catalogs" value="{{data.id}}">{{data._catalog.name}}</option>
                         </select>
                         <div *ngIf="submitted && f.catalog.errors" class="invalid-feedback">
                             <div *ngIf="f.catalog.errors.required">Informação é obrigatório</div>
@@ -18,6 +19,7 @@
                         <label for="">Campanha</label>
                         <select class="form-control" name="campaign" id="campaign" formControlName="campaign" [ngClass]="{ 'is-invalid': submitted && f.campaign.errors }">
                             <option value="">Escolha uma opção</option>
+                            <option *ngFor="let data of campaigns" value="{{data.id}}">{{data.send_date}}</option>
                         </select>
                         <div *ngIf="submitted && f.campaign.errors" class="invalid-feedback">
                             <div *ngIf="f.campaign.errors.required">Informação é obrigatório</div>
