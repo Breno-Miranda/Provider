@@ -84,9 +84,6 @@ class Authentication(generics.ListCreateAPIView):
                     'logo': bind['_company']['logo'],
                     'website': bind['_company']['website'],
                     'name_company': bind['_company']['name_company'],
-                    'is_collaborator': bind['is_collaborator'],
-                    'is_business': bind['is_business'],
-                    'is_individual': bind['is_individual']
                 },
                 status=HTTP_200_OK)
 
