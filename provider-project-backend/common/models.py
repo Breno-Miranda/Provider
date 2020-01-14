@@ -65,3 +65,31 @@ class Catalog(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Payment_methods(models.Model):
+    number = models.IntegerField()
+    type = models.CharField(max_length=150)
+    initials = models.CharField(max_length=1, blank=True, null=True)
+    description = models.CharField(max_length=150)
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        managed = True
+
+    def __str__(self):
+        return self.type
+
+
+class Flags_card(models.Model):
+    number = models.IntegerField()
+    type = models.CharField(max_length=150)
+    initials = models.CharField(max_length=1, blank=True, null=True)
+    description = models.CharField(max_length=150)
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        managed = True
+
+    def __str__(self):
+        return self.type
