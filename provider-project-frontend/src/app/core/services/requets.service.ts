@@ -32,6 +32,27 @@ export class RequestService {
     });
   }
 
+  getCampaign() {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/campaign/`, {
+      params: 
+      {
+        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+      }
+    });
+  }
+
+  getCatalog() {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/companys/catalog/`, {
+      params: 
+      {
+        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+      }
+    });
+  }
+
+
+  
+
   setRequest( data: object)
   {
     return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);

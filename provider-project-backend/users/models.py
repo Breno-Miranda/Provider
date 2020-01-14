@@ -59,6 +59,7 @@ class Profile(models.Model):
     company = models.ForeignKey(Company, related_name="enterprise_individual", on_delete=None)
     user_bind = models.ForeignKey(User, related_name="person_individual_bond",  on_delete=None ,  blank=True,  null=True)
     user = models.ForeignKey(User, related_name="person_individual",  on_delete=None ,  blank=True,  null=True)
+    bind = models.ForeignKey(Bind, related_name="bind_user",  on_delete=None ,  blank=True,  null=True)
     cpf = models.BigIntegerField(null=True, blank=True)
     rg = models.IntegerField(null=True, blank=True)
     genre = models.CharField(max_length=1, default='F')

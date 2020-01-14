@@ -1,15 +1,17 @@
 from rest_framework.viewsets import ModelViewSet
 
 from django.contrib.auth.models import Permission, Group, User
-from users.models import Contact, Bank_Account,  Profile, Bind
+from users.models import Contact, Bank_Account, Profile, Bind
 from .serializers import ContactsSerializers, GroupSerializer, PermissionSerializer, UsersSerializer, \
-    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers
+    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers, UserBindProfileSerializers
 
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.status import (HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN,
                                    HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND,
                                    HTTP_200_OK)
+
+from django.db.models import Q
 from core import pagination
 from rest_framework import permissions
 from rest_framework.decorators import action
@@ -27,7 +29,7 @@ class IsAdmin(permissions.BasePermission):
 class ProfileViewSet(viewsets.ViewSet):
     def list(self, request):
 
-        if not request.user.has_perm('users.view_individual'):
+        if not request.user.has_perm('users.view_profile'):
             return Response(
                 {
                     'msm':
@@ -38,23 +40,34 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         companyId = request.GET.get('company_id', None)
+        type_number = request.GET.get('type_number', None)
 
-        try:
-            queryset_profile = ProfileSerializers(
+        # try:
+
+        if not type_number:
+            queryset_profile = UserBindProfileSerializers(
                 Profile.objects.all().filter(company_id=companyId), many=True)
-            return Response(queryset_profile.data, status=HTTP_200_OK)
-        except:
-            return Response(
-                {
-                    'msm':
-                    "Oops! Houve um erro na listagem dos dados.  Tente novamente...",
-                    'status': 'danger'
-                },
-                status=HTTP_404_NOT_FOUND)
+
+        else:
+
+            queryset_profile = UserBindProfileSerializers(
+                Profile.objects.all().filter(company_id=companyId,
+                                             bind__type__code=type_number),
+                many=True)
+
+        return Response(queryset_profile.data, status=HTTP_200_OK)
+        # except:
+        #     return Response(
+        #         {
+        #             'msm':
+        #             "Oops! Houve um erro na listagem dos dados.  Tente novamente...",
+        #             'status': 'danger'
+        #         },
+        #         status=HTTP_404_NOT_FOUND)
 
     def create(self, request):
 
-        if not request.user.has_perm('users.create_bussines'):
+        if not request.user.has_perm('users.create_profile'):
             return Response(
                 {
                     'msm':
@@ -65,8 +78,7 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         try:
-            serializerProfile = ProfileSerializers(
-                data=request.data)
+            serializerProfile = ProfileSerializers(data=request.data)
             if serializerProfile.is_valid():
                 serializerProfile.save()
                 return Response(
@@ -86,7 +98,7 @@ class ProfileViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
 
-        if not request.user.has_perm('users.update_bussines'):
+        if not request.user.has_perm('users.update_profile'):
             return Response(
                 {
                     'msm':
@@ -99,8 +111,7 @@ class ProfileViewSet(viewsets.ViewSet):
         try:
             profile = ProfileSerializers(
                 Profile.objects.get(id=pk, company_id=companyId))
-            serializerProfile = ProfileSerializers(
-                profile, data=request.data)
+            serializerProfile = ProfileSerializers(profile, data=request.data)
             if serializerProfile.is_valid():
                 serializerProfile.save()
                 return Response(
@@ -120,7 +131,7 @@ class ProfileViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
 
-        if not request.user.has_perm('provider.delete_provider'):
+        if not request.user.has_perm('provider.delete_profile'):
             return Response(
                 {
                     'msm':
@@ -171,7 +182,6 @@ class ProfileViewSet(viewsets.ViewSet):
 
 
 class PermissionViewSet(viewsets.ViewSet):
-    
     def list(self, request):
 
         companyId = request.GET.get('company_id', None)
@@ -213,24 +223,25 @@ class PermissionViewSet(viewsets.ViewSet):
                 status=HTTP_404_NOT_FOUND)
 
     def create(self, request):
-        
+
         if not request.user.has_perm('auth.add_permission'):
-                return Response(
-                    {
-                        'msm':
-                        'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
-                        'status': 'danger',
-                        'return': True,
-                    },
-                    status=HTTP_400_BAD_REQUEST)
+            return Response(
+                {
+                    'msm':
+                    'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
+                    'status': 'danger',
+                    'return': True,
+                },
+                status=HTTP_400_BAD_REQUEST)
 
         try:
             user = User.objects.get(pk=request.data['user_id'])
-            if  request.data['group_id']:
+            if request.data['group_id']:
                 groups = Group.objects.get(pk=request.data['group_id'])
                 user.groups.add(groups)
-            if  request.data['permission_id']:
-                permission = Permission.objects.get(pk=request.data['permission_id'])
+            if request.data['permission_id']:
+                permission = Permission.objects.get(
+                    pk=request.data['permission_id'])
                 user.user_permissions.add(permission)
 
             return Response(

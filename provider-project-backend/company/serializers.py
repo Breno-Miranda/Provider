@@ -43,4 +43,4 @@ class CatalogCompanySerializer(ModelSerializer):
 
     class Meta:
         model = Catalog
-        fields = ("company","reference","initial_date", "end_date","minimum_order", "_catalog")
+        fields = ("id", "company","reference","initial_date", "end_date","minimum_order", "_catalog")

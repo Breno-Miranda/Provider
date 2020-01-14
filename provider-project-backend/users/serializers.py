@@ -42,7 +42,8 @@ class UsersAllSerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'groups','user_permissions')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name',
+                  'groups', 'user_permissions')
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -85,3 +86,15 @@ class BankAccountUsersSerializers(ModelSerializer):
                   "kind_of_person")
 
 
+class UserBindProfileSerializers(ModelSerializer):
+
+    _bind = UserBindSerializers(source='bind', read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ("id", "matriculation", "full_name", "company", "user_bind",
+                  "user", "bind", "cpf", "rg", "genre", "recommendation",
+                  "address", "complement", "reference", "neighborhood", "city",
+                  "state", "zipcode", "number", "birthday", "civil_sate",
+                  "date_register", "photo", "anexo", "about",
+                  "is_term_accepted", "is_active", "_bind")
