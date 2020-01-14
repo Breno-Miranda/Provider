@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Informações Gerais</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et omnis similique odit quidem distinctio aliquid.</p>
+                <p>Abaixo se encontra os campos de identificações de pedidos. <code>Observação: Todos os campos são obrigatorios. </code></p>
                 <form [formGroup]="requestForm">
                     <div class="form-group col-md-8">
                         <label for="">Catalogo</label>
@@ -42,13 +42,13 @@
     <div class="col-6 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Adicionar produto</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus ab, facere quam asperiores ipsa eaque facilis repudiandae.</p>
+                <h4 class="card-title">Referencia dos Produtos</h4>
+                <p>Pesquise o produto pela referencia e em seguida adicione a tabela de itens. <code>Observações: Campo TAMANHO não é obrigatorio.</code></p>
                 <form [formGroup]="requestForm" (ngSubmit)="setProducts()">
 
                     <div class="form-group col-md-12">
                         <label for="">Referencia</label>
-                        <input id="username" type="text" class="form-control" placeholder="referencia produto" formControlName="reference" [ngClass]="{ 'is-invalid': submitted && f.reference.errors }">
+                        <input id="username" type="text" class="form-control" placeholder="referencia" formControlName="reference" [ngClass]="{ 'is-invalid': submitted && f.reference.errors }">
                         <div *ngIf="submitted && f.reference.errors" class="invalid-feedback">
                             <div *ngIf="f.reference.errors.required">Informação é obrigatório</div>
                         </div>
@@ -56,11 +56,20 @@
 
                     <div class="form-group col-md-12">
                         <label for="">Quantidade</label>
-                        <input id="username" type="text" class="form-control" placeholder="quantidade produto" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                        <input id="amount" type="number" class="form-control" placeholder="quantidade" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
                         <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
                             <div *ngIf="f.amount.errors.required">Informação é obrigatório</div>
                         </div>
                     </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="">Tamanho</label>
+                        <input id="size" type="text" class="form-control" placeholder="Tamanho" formControlName="size" [ngClass]="{ 'is-invalid': submitted && f.size.errors }">
+                        <div *ngIf="submitted && f.size.errors" class="invalid-feedback">
+                            <div *ngIf="f.size.errors.required">Informação é obrigatório</div>
+                        </div>
+                    </div>
+
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary submit-btn text-uppercase"> Adicionar

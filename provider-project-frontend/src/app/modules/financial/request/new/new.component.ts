@@ -1,5 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from 'src/app/core/services/products.service';
+import { first } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -11,9 +13,19 @@ declare var $: any;
 export class NewComponent implements OnInit {
   [x: string]: any;
 
+  itens: any;
+
   constructor(
      private formBuilder: FormBuilder,
+     private productsService: ProductsService,
   ) {
+
+    this.ProductsService.search( {
+      reference: this.f.reference
+    } ).pipe(first()).subscribe(data => {
+      this.itens.push(data);
+    });
+
   }
 
 
@@ -39,6 +51,7 @@ export class NewComponent implements OnInit {
       lot: ['', Validators.required],
       reference: ['', Validators.required],
       amount: ['', Validators.required],
+      size: ['', Validators.required],
     });
     // console.log(this.f);
     // Table
