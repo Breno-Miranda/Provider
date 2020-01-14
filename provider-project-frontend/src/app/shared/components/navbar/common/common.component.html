@@ -1,0 +1,104 @@
+<nav class="navbar horizontal-layout col-lg-12 col-12 p-0">
+    <div class="container d-flex flex-row nav-top">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top">
+            <a class="navbar-brand brand-logo" [routerLink]="['/dashboard']">
+                <img [src]="currentUser.logo" alt="logo" />
+            </a>
+            <a class="navbar-brand brand-logo-mini" [routerLink]="['/dashboard']">
+                <img [src]="currentUser.logo" alt="logo" />
+            </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    Empresa: {{currentUser.name_company}}
+                </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    CNPJ: {{currentUser.cnpj}}
+                </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    Setor: {{currentUser.sector}}
+                </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    Time: {{currentUser.team}}
+                </li>
+
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
+                        <div class="wrapper d-flex flex-column">
+                            <span class="profile-text">{{currentUser.first_name}} {{currentUser.last_name}}</span>
+                            <span class="user-designation">{{currentUser.type}}</span>
+                        </div>
+                        <div class="display-avatar bg-inverse-primary text-primary">AS</div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+                            <img class="img-md rounded-circle" [src]="currentUser.photo ? currentUser.photo : 'assets/img/users/perfil.jpg'" alt="">
+                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser.first_name}} {{currentUser.last_name}}
+                            </p>
+                            <p class="font-weight-light text-muted mb-0">{{currentUser.email}}</p>
+                        </div>
+                        <a routerLink="/dashboard/admin/profile" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-account-outline text-primary"></i>
+                            Meu Perfil </a>
+                        <a routerLink="/dashboard/admin/permission" href="javascript:void()" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-key text-primary"></i> Permissões</a>
+                        <a href="javascript:void()" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-help-circle-outline text-primary"></i> FAQ</a>
+                        <a href="javascript:void()" class="dropdown-item" (click)="logout()"><i
+                                class="dropdown-item-icon mdi mdi-power text-primary"></i>Deslogar</a>
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
+    </div>
+    <div class="nav-bottom" [ngStyle]="{background: currentUser.color_primary}">
+        <div class="container">
+            <ul class="nav page-navigation" [ngStyle]="{background: currentUser.color_primary}">
+                <li class="nav-item" (mouseover)="houverInit=true" (mouseleave)="houverInit=false" [ngStyle]="{backgroundColor: houverInit==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                    <a [routerLink]="['/dashboard/admin']" class="nav-link">
+                        <i class="link-icon mdi mdi-home"></i>
+                        <span class="menu-title">Inicio</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" (mouseover)="houverPed=true" (mouseleave)="houverPed=false" [ngStyle]="{backgroundColor: houverPed==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                    <a [routerLink]="['/dashboard/admin/financial/requests/new']" class="nav-link">
+                        <i class="link-icon mdi mdi-library-books"></i>
+                        <span class="menu-title">Digitar pedido</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mega-menu" (mouseover)="hoverCad=true" (mouseleave)="hoverCad=false" [ngStyle]="{backgroundColor: hoverCad==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                    <a href=" javascript:void() " class="nav-link ">
+                        <i class="link-icon mdi mdi-content-copy "></i>
+                        <span class="menu-title ">Cadastros</span>
+                        <i class="menu-arrow "></i>
+                    </a>
+                    <div class="submenu ">
+                        <div class="col-group-wrapper row ">
+
+                            <div class="col-group col-md-3 ">
+                                <p class="category-heading "> Colaboradores, Lideres e Clientes</p>
+                                <ul class="submenu-item ">
+                                    <li class="nav-item ">
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/manager'] ">Gerentes</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/leader'] ">Lider</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " [routerLink]="[ '/dashboard/admin/register/consultant'] ">Consultor(a)s</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>

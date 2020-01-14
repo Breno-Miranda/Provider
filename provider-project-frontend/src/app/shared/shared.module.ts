@@ -11,6 +11,7 @@ import { AdminComponent } from './components/navbar/admin/admin.component';
 import { ConsultantComponent } from './components/navbar/consultant/consultant.component';
 import { ManagerComponent } from './components/navbar/manager/manager.component';
 import { LeaderComponent } from './components/navbar/leader/leader.component';
+import { CommonComponent } from './components/navbar/common/common.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { LeaderComponent } from './components/navbar/leader/leader.component';
     AdminComponent,
     ConsultantComponent,
     ManagerComponent,
-    LeaderComponent
+    LeaderComponent,
+    CommonComponent,
   ],
   declarations: [
     SidebarComponent,
@@ -29,6 +31,7 @@ import { LeaderComponent } from './components/navbar/leader/leader.component';
     ConsultantComponent,
     ManagerComponent,
     LeaderComponent,
+    CommonComponent,
   ],
   imports: [
     CommonModule,
