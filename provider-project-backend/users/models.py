@@ -64,7 +64,7 @@ class Profile(models.Model):
     rg = models.IntegerField(null=True, blank=True)
     genre = models.CharField(max_length=1, default='F')
     recommendation = models.BooleanField(default=False, null=True, blank=True)
-    address = models.CharField(max_length=150)
+    address = models.CharField(max_length=150, null=True, blank=True)
     complement = models.CharField(max_length=150 , null=True, blank=True)
     reference = models.CharField(max_length=150, null=True, blank=True)
     neighborhood = models.CharField(max_length=150 , null=True, blank=True)
