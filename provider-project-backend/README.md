@@ -31,5 +31,5 @@ Rodando o banco de dados
 ##Comandos Uteis do Python
 
 * python manage.py collectstatic
-* pip freeze > requirements.txt
-* pip install -R requirements.txt
+* pip3 freeze > requirements.txt
+* pip3 install -r requirements.txt
