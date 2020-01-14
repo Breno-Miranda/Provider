@@ -25,10 +25,10 @@ class ItensSerializers(ModelSerializer):
         
 class RequestSerializers(ModelSerializer):
     
-    _user = UsersSerializer(source='users', read_only=True)
+    _user = UsersSerializer(source='user', read_only=True)
     _status = StatusSerializers(source='status', read_only=True)
-    _catalog = CatalogSerializer(source='catalogs', read_only=True)
+    _catalog = CatalogSerializer(source='catalog', read_only=True)
     
     class Meta:
         model = Request
-        fields = ("company", "lot", "user_bind", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog")
+        fields = ("id", "company", "lot", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog")
