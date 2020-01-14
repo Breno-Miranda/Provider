@@ -67,8 +67,7 @@ class UserBindSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Bind
-        fields = ('id', 'user', 'is_collaborator', 'is_business',
-                  'is_individual', 'is_active', '_company', '_type', '_team',
+        fields = ('id', 'user', 'is_active', '_company', '_type', '_team',
                   '_sector', '_user')
 
 
