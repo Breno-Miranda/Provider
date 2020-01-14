@@ -5,6 +5,10 @@ from .models import Status, Request, Itens
 from product.serializers import ProductSerializer
 from product.models import Product
 
+from users.serializers import UsersSerializer
+from common.serializers import CatalogSerializer
+
+
 class StatusSerializers(ModelSerializer):
     
     class Meta:
@@ -21,6 +25,10 @@ class ItensSerializers(ModelSerializer):
         
 class RequestSerializers(ModelSerializer):
     
+    _user = UsersSerializer(source='users', read_only=True)
+    _status = StatusSerializers(source='status', read_only=True)
+    _catalog = CatalogSerializer(source='catalog', read_only=True)
+    
     class Meta:
         model = Request
-        fields = ("__all__" )
+        fields = ("company", "lot", "user_bind", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog")
