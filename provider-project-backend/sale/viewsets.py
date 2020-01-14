@@ -2,7 +2,8 @@ from rest_framework.viewsets import ModelViewSet
 
 from django.contrib.auth.models import User
 
-from .models import Payment_form, Flags_card, Accrediting, Nature_operation, Sale
+from common.models import Payment_methods
+from .models import  Flags_card, Accrediting, Nature_operation, Sale
 
 from .serializers import PaymentFormSerializers, FlagsCardSerializers, AccreditingSerializers, NatureOperationSerializers, SaleSerializers
 
@@ -33,7 +34,7 @@ from datetime import datetime
 
 
 class PaymentFormViewSet(ModelViewSet):
-    queryset = Payment_form.objects.all()
+    queryset = Payment_methods.objects.all()
     serializer_class = PaymentFormSerializers
 
 class FlagsCardViewSet(ModelViewSet):

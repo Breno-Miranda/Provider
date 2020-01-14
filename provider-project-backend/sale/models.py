@@ -1,4 +1,6 @@
 from django.db import models
+
+from common.models import Flags_card, Payment_methods
 from request.models import Request
 from company.models import Company
 from django.contrib.auth.models import User
@@ -19,34 +21,7 @@ class Status(models.Model):
     def __str__(self):
         return self.type
 
-    
-class Flags_card(models.Model):
-    company = models.ForeignKey(Company, on_delete=None)
-    number = models.IntegerField() 
-    type = models.CharField(max_length=150)
-    initials = models.CharField(max_length=1 ,  blank=True  ,  null=True)
-    description = models.CharField(max_length=150)
-    is_active = models.BooleanField(default=False)
-    
-    class Meta:
-        managed = True
-        
-    def __str__(self):
-        return self.type
-    
-class Payment_form(models.Model):
-    company = models.ForeignKey(Company, on_delete=None)
-    number = models.IntegerField() 
-    type = models.CharField(max_length=150) 
-    initials = models.CharField(max_length=1 ,  blank=True  ,  null=True)
-    description = models.CharField(max_length=150)
-    is_active = models.BooleanField(default=False)
-    
-    class Meta:
-        managed = True
-    
-    def __str__(self):
-        return self.type
+
     
 class Accrediting(models.Model):
     company = models.ForeignKey(Company, on_delete=None)
@@ -131,7 +106,7 @@ class Sale(models.Model):
     ]
     
     flags_card = models.ForeignKey(Flags_card, on_delete=None ,  blank=True  ,  null=True)
-    payment_form = models.ForeignKey(Payment_form, on_delete=None ,  blank=True  ,  null=True)
+    payment_form = models.ForeignKey(Payment_methods, on_delete=None ,  blank=True  ,  null=True)
     payment_form_amount = models.IntegerField(null=True, blank=True)
     accrediting = models.ForeignKey(Accrediting, on_delete=None ,  blank=True  ,  null=True)
     integration_type = models.IntegerField(choices=INTEGRATION_TYPE, default=POS)

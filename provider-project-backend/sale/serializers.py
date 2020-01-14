@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from .models import Payment_form, Flags_card, Accrediting, Nature_operation, Sale
+from common.models import Payment_methods
+from .models import  Flags_card, Accrediting, Nature_operation, Sale
 
 
 class PaymentFormSerializers(serializers.ModelSerializer):
 
 	class Meta:
-	    model = Payment_form
+	    model = Payment_methods
 	    fields = ("__all__")
 
 class FlagsCardSerializers(serializers.ModelSerializer):
