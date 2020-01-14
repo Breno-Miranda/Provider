@@ -27,7 +27,7 @@ class RequestSerializers(ModelSerializer):
     
     _user = UsersSerializer(source='users', read_only=True)
     _status = StatusSerializers(source='status', read_only=True)
-    _catalog = CatalogSerializer(source='catalog', read_only=True)
+    _catalog = CatalogSerializer(source='catalogs', read_only=True)
     
     class Meta:
         model = Request
