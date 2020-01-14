@@ -14,23 +14,26 @@ export class NewComponent implements OnInit {
   [x: string]: any;
 
   itens: any;
+  requestForm: FormGroup;
 
   constructor(
      private formBuilder: FormBuilder,
      private productsService: ProductsService,
   ) {
 
-    this.ProductsService.search( {
-      reference: this.f.reference
-    } ).pipe(first()).subscribe(data => {
-      this.itens.push(data);
+    this.requestForm = this.formBuilder.group({
+      catalog: ['', Validators.required],
+      campaign: ['', Validators.required],
+      lot: ['', Validators.required],
+      reference: ['', Validators.required],
+      amount: ['', Validators.required],
+      size: ['', Validators.required],
     });
 
+
+  
+
   }
-
-
-  requestForm: FormGroup;
-
 
   ngOnInit() {
     // Form
@@ -44,15 +47,6 @@ export class NewComponent implements OnInit {
       }
     });
 
-
-    this.requestForm = this.formBuilder.group({
-      catalog: ['', Validators.required],
-      campaign: ['', Validators.required],
-      lot: ['', Validators.required],
-      reference: ['', Validators.required],
-      amount: ['', Validators.required],
-      size: ['', Validators.required],
-    });
     // console.log(this.f);
     // Table
     $('#order-listing').DataTable({
@@ -75,17 +69,18 @@ export class NewComponent implements OnInit {
       // const s = datatable.closest('.dataTables_wrapper').find('.dataTables_filter').append('<button type="button" class="btn btn-primary ml-2">New Record</button>');
     });
 
-
   }
-
-
 
   get f() {
     return this.requestForm.controls;
   }
 
-  setProducts() {
-    alert('oi')
+  searchProducts() {
+    this.productsService.getSearch( {
+      search: this.f.reference.value
+    } ).pipe(first()).subscribe(data => {
+      this.itens.push(data);
+    });
   }
 
 }

@@ -15,7 +15,7 @@ export class ProductsService {
   
   
   getAll() {
-    return this.http.get<any[]>(`${environment.apiUrl}/api/request/`, {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/products/`, {
       params: 
       {
         company_id: this.authenticationService.currentUserValue.companyId.toString(),
@@ -23,14 +23,23 @@ export class ProductsService {
     });
   }
 
-  setRequest( data: object)
-  {
-    return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);
+
+  getSearch( data: any) {
+
+    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+
+    return this.http.get<any[]>(`${environment.apiUrl}/api/products/`,   {params: data 
+    });
   }
 
-  putRequest( data: object)
+  setProducts( data: object)
   {
-    return this.http.put<any[]>(`${environment.apiUrl}/api/request/`, data);
+    return this.http.post<any[]>(`${environment.apiUrl}/api/products/`, data);
+  }
+
+  putProducts( data: object)
+  {
+    return this.http.put<any[]>(`${environment.apiUrl}/api/products/`, data);
   }
 
 }
