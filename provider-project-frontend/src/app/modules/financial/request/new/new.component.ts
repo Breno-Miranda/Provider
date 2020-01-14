@@ -1,3 +1,4 @@
+import { RequestService } from './../../../../core/services/requets.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/core/services/products.service';
@@ -19,6 +20,7 @@ export class NewComponent implements OnInit {
   constructor(
      private formBuilder: FormBuilder,
      private productsService: ProductsService,
+     private requestService: RequestService,
   ) {
     this.requestForm = this.formBuilder.group({
       catalog: ['', Validators.required],
@@ -32,7 +34,14 @@ export class NewComponent implements OnInit {
     });
   }
 
+
+  lots: any;
+
   ngOnInit() {
+
+    this.requestService.getLots().pipe(first()).subscribe(data => {
+      this.lots = data;
+    });
   
   }
 

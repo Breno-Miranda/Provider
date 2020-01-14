@@ -27,6 +27,7 @@
                         <label for="">Lote</label>
                         <select class="form-control" name="lot" id="lot" formControlName="lot" [ngClass]="{ 'is-invalid': submitted && f.lot.errors }">
                             <option value="">Escolha uma opção</option>
+                            <option *ngFor="let data of lots" value="{{data.id}}">{{data.id}}</option>
                         </select>
                         <div *ngIf="submitted && f.lot.errors" class="invalid-feedback">
                             <div *ngIf="f.lot.errors.required">Informação é obrigatório</div>
@@ -37,6 +38,7 @@
                         <label for="">Consultor(a)</label>
                         <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
                             <option value="">Escolha uma opção</option>
+                            <option *ngFor="let data of lots" value="{{data.id}}">{{data.id}}</option>
                         </select>
                         <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
                             <div *ngIf="f.user.errors.required">Informação é obrigatório</div>

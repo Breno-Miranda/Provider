@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('', include('users.urls')),
     path('', include('product.urls')),
+    path('', include('lote.urls')),
     path('', include('request.urls')),
     path('', include('company.urls')),
     path('', include('information.urls')),
