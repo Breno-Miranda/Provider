@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 
-export class SystemService {
+export class RequestService {
   
   constructor(
     private http: HttpClient,
@@ -15,12 +15,10 @@ export class SystemService {
   
   
   getAll() {
-    return this.http.get<any[]>(`${environment.apiUrl}/api/system/info/`, {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/request/`, {
       params: 
       {
         company_id: this.authenticationService.currentUserValue.companyId.toString(),
-        user_id: this.authenticationService.currentUserValue.id.toString(),
-        type_code: this.authenticationService.currentUserValue.type_code,
       }
     });
   }

@@ -6,12 +6,12 @@
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et omnis similique odit quidem distinctio aliquid.</p>
                 <form [formGroup]="requestForm">
                     <div class="form-group col-md-8">
-                        <label for="">Fornecedor</label>
-                        <select class="form-control" name="provider" id="provider" formControlName="provider" [ngClass]="{ 'is-invalid': submitted && f.provider.errors }">
+                        <label for="">Catalogo</label>
+                        <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
                             <option value="">Escolha uma opção</option>
                         </select>
-                        <div *ngIf="submitted && f.provider.errors" class="invalid-feedback">
-                            <div *ngIf="f.provider.errors.required">Informação é obrigatório</div>
+                        <div *ngIf="submitted && f.catalog.errors" class="invalid-feedback">
+                            <div *ngIf="f.catalog.errors.required">Informação é obrigatório</div>
                         </div>
                     </div>
                     <div class="form-group col-md-8">
@@ -32,6 +32,7 @@
                             <div *ngIf="f.lot.errors.required">Informação é obrigatório</div>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>

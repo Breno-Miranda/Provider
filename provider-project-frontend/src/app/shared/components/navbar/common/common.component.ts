@@ -9,6 +9,8 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 })
 export class CommonComponent implements OnInit {
   currentUser: any;
+  urlBase: any;
+  display: any;
 
   constructor(
     private router: Router,
@@ -19,6 +21,21 @@ export class CommonComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authenticationService.currentUserValue;
+
+    if(this.currentUser.type_code == 1){
+      this.urlBase = "/dashboard/admin";
+      this.display = true;
+    } else if(this.currentUser.type_code == 2){
+      this.urlBase = "/dashboard/manager";
+      this.display = true;
+    } else if(this.currentUser.type_code == 3){
+      this.urlBase = "/dashboard/leader";
+      this.display = false;
+    } else if(this.currentUser.type_code == 4){
+      this.urlBase = "/dashboard/consultant";
+      this.display = false;
+    }
+
   }
 
   logout() {

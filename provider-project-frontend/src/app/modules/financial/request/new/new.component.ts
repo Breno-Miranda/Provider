@@ -34,7 +34,7 @@ export class NewComponent implements OnInit {
 
 
     this.requestForm = this.formBuilder.group({
-      provider: ['', Validators.required],
+      catalog: ['', Validators.required],
       campaign: ['', Validators.required],
       lot: ['', Validators.required],
       reference: ['', Validators.required],
