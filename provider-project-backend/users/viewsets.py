@@ -433,39 +433,6 @@ class BusinesViewSet(viewsets.ViewSet):
 
 # Auth Permission
 
-# group de permission 
-# Adicionando a listagem de grupo
-
-class GroupPermissionViewSet(viewsets.ViewSet):
-    
-    def list(self, request):
-        
-        companyId = request.GET.get('company_id', None)
-
-        if not request.user.has_perm('auth.view_permission'):
-            return Response(
-                {
-                    'msm':
-                    'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
-                    'status': 'danger',
-                    'return': True
-                },
-                status=HTTP_403_FORBIDDEN)
-            
-    def get_permissions(self):
-
-        if self.action == 'list':
-            permission_classes = [IsAuthenticated]
-        elif self.action == 'create':
-            permission_classes = [IsAuthenticated]
-        elif self.action == 'update':
-            permission_classes = [IsAuthenticated]
-        elif self.action == 'destroy':
-            permission_classes = [IsAuthenticated]
-        else:
-            permission_classes = [IsAdmin]
-        return [permission() for permission in permission_classes]
-
 # modulo criado para liberação de permissões ao usuario.
 # precisa adicionar os GRUPOS para facilitar para o usuario MASTER
 
@@ -482,7 +449,7 @@ class PermissionViewSet(viewsets.ViewSet):
                     'msm':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
-                    'return': True
+                    'return': False
                 },
                 status=HTTP_403_FORBIDDEN)
 
@@ -495,23 +462,26 @@ class PermissionViewSet(viewsets.ViewSet):
                 many=True,
                 context={"request": request})
 
+            queryGroup = GroupSerializer(Group.objects.all(), many=True)
+
             queryset = {
                 "permission": querysetPermission.data,
-                "users": querysetUsers.data
+                "users": querysetUsers.data,
+                'groups': queryGroup.data
             }
             return Response(queryset, status=HTTP_200_OK)
         except:
             return Response(
                 {
-                    'msm': 'Não perfil cadastrado',
+                    'msm':
+                    'ops, aconteceu algum problema com as permissões. Tente novamente.',
                     'status': 'danger'
                 },
                 status=HTTP_404_NOT_FOUND)
 
     def create(self, request):
-
-        try:
-            if not request.user.has_perm('auth.add_permission'):
+        
+        if not request.user.has_perm('auth.add_permission'):
                 return Response(
                     {
                         'msm':
@@ -521,23 +491,14 @@ class PermissionViewSet(viewsets.ViewSet):
                     },
                     status=HTTP_400_BAD_REQUEST)
 
-            if not request.data:
-                return Response(
-                    {
-                        'error': 'Selecione as permissions necessarias.',
-                        'status': False
-                    },
-                    status=HTTP_404_NOT_FOUND)
-
-            for p in request.data['obj_permission']:
-                users = User.objects.get(pk=p['user_id'])
-                permission = Permission.objects.get(pk=p['permission_id'])
-                users.user_permissions.add(permission)
-
-            for p in request.data['obj_permission_delete']:
-                users = User.objects.get(pk=p['user_id'])
-                permission = Permission.objects.get(pk=p['permission_id'])
-                users.user_permissions.remove(permission)
+        try:
+            user = User.objects.get(pk=request.data['user_id'])
+            if  request.data['group_id']:
+                groups = Group.objects.get(pk=request.data['group_id'])
+                user.groups.add(groups)
+            if  request.data['permission_id']:
+                permission = Permission.objects.get(pk=request.data['permission_id'])
+                user.user_permissions.add(permission)
 
             return Response(
                 {

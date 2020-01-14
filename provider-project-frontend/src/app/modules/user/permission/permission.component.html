@@ -5,9 +5,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 grid-margin stretch-card center">
+    <div class="col-md-12 grid-margin stretch-card center" style="height: 350px;">
         <div class="card">
             <div class="card-body">
+                <h4>Usuarios</h4>
                 <p>Abaixo escolha um usuario para definir acesso. Lembrando que poderar escolher mais de um usuario por vez.
                 </p>
 
@@ -21,7 +22,7 @@
                     </form>
                 </div>
 
-                <div class="col-12 table-responsive col-tb">
+                <div class="col-12 table-responsive col-tb" style="overflow-y: 350px;">
                     <table id="order-listing" class="table table-striped w-100 dataTable no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
                         <thead>
                             <tr role="row" class="bg-light">
@@ -36,7 +37,7 @@
                                 <td>{{u._user.username}}</td>
                                 <td>{{u._company.name_company}}</td>
                                 <td>{{u._type.type}}</td>
-                                <td align="center"><input type="checkbox" [(ngModel)]="u.selected" (change)="selectUsers( u )"></td>
+                                <td align="center"><input type="radio" [(ngModel)]="u.selected" value="{{u.id}}" (change)="selectUser( u )"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -45,9 +46,10 @@
         </div>
     </div>
 
-    <div class="col-md-4 grid-margin stretch-card center">
+    <div class="col-md-6  stretch-card center">
         <div class="card">
             <div class="card-body">
+                <h4>Grupos</h4>
                 <p>Informe abaixo apos escolhido usuario, qual as pagina que ele deverar ter acesso. </p>
 
                 <div class="col-12 table-responsive col-tb">
@@ -55,15 +57,13 @@
                         <thead>
                             <tr role="row" class="bg-light">
                                 <th style="width: 219px;">Evento</th>
-                                <!-- <th style="width: 80px;">Ação</th> -->
                                 <th align="center" style="width: 66px;">Selecionar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let p of permission">
-                                <td i18n>{{p.name}}</td>
-                                <!-- <td i18n>{{p.codename}}</td> -->
-                                <td align="center"><input type="checkbox" [(ngModel)]="p.selected" (change)="selectPermission()"></td>
+                            <tr *ngFor="let data of groups">
+                                <td i18n>{{data.name}}</td>
+                                <td align="center"><input type="checkbox" [(ngModel)]="data.selected" [checked]="data.selected" (change)="selectGroup(data)"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -73,9 +73,10 @@
     </div>
 
 
-    <div class="col-md-4 grid-margin stretch-card center">
+    <div class="col-md-6  stretch-card center">
         <div class="card">
             <div class="card-body">
+                <h4>Permissões</h4>
                 <p>Informe abaixo apos escolhido usuario, qual as pagina que ele deverar ter acesso. </p>
 
                 <div class="col-12 table-responsive col-tb">
@@ -83,15 +84,13 @@
                         <thead>
                             <tr role="row" class="bg-light">
                                 <th style="width: 219px;">Evento</th>
-                                <!-- <th style="width: 80px;">Ação</th> -->
                                 <th align="center" style="width: 66px;">Selecionar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let p of permission">
-                                <td i18n>{{p.name}}</td>
-                                <!-- <td i18n>{{p.codename}}</td> -->
-                                <td align="center"><input type="checkbox" [(ngModel)]="p.selected" (change)="selectPermission()"></td>
+                            <tr *ngFor="let data of permission">
+                                <td i18n>{{data.name}}</td>
+                                <td align="center"><input type="checkbox" [(ngModel)]="data.selected" (change)="selectPermission( data )"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -102,10 +101,10 @@
 
 </div>
 
-
+<!-- 
 
 <div class="row">
     <div class="col-12">
-        <button type="button" class="btn btn-primary float-right mb-2  submit-btn text-uppercase" (click)="set()">Finalizar</button>
+        <button type="button" class="btn btn-primary float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar</button>
     </div>
-</div>
+</div> -->
