@@ -79,7 +79,7 @@ export class NewComponent implements OnInit {
     this.productsService.getSearch( {
       search: this.f.reference.value
     } ).pipe(first()).subscribe(data => {
-      this.itens.push(data);
+      this.itens.push(data['result']);
     });
   }
 

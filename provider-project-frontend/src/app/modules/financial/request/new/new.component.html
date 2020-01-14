@@ -93,16 +93,25 @@
                                 <th style="width: 219px;">Referencia</th>
                                 <th style="width: 219px;">Produto</th>
                                 <th style="width: 219px;">Quantidade</th>
-                                <th style="width: 80px;">Estoque</th>
+                                <th style="width: 80px;">Page</th>
                                 <th style="width: 80px;">Preço/Und</th>
                                 <th style="width: 80px;">Preço/Total</th>
                                 <th style="width: 66px;">Selecionar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let u of users">
-                                <td>{{u._user.username}}</td>
-                                <td>{{u._type.type}}</td>
+
+
+
+
+                            <tr *ngFor="let data of itens">
+                                <td>{{data.ean}}</td>
+                                <td>{{data.reference}}</td>
+                                <td>{{data.description}}</td>
+                                <td>{{data.amount}}</td>
+                                <td>{{data.page}}</td>
+                                <td>{{data.sale_price}}</td>
+                                <td>{{data.sale_price}}</td>
                                 <td><input type="checkbox" (click)="selectUsers()"></td>
                             </tr>
                         </tbody>
