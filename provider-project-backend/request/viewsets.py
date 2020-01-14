@@ -21,7 +21,7 @@ class RequestViewSet(viewsets.ViewSet):
         requestId = request.GET.get('request_id', None)
         companyId = request.GET.get('company_id', None)
 
-        querysetRequest = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) & Q(id=requestId) ), many=True)
+        querysetRequest = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) | Q(id=requestId) ), many=True)
 
 
         if not querysetRequest:
