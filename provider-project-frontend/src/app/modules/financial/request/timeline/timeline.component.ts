@@ -16,14 +16,19 @@ export class TimelineComponent implements OnInit {
 
   constructor(
     private requestService: RequestService ,
-  ) { }
+  ) {
+
+   }
 
   ngOnInit() {
+    this.getRequest();
+  }
 
-    this.requestService.getAll( ).pipe(first()).subscribe(data => {
-      this.requests = data;
-    });
-
+  getRequest() {
+    this.requestService.getAll()
+    .subscribe((requests: any) => {
+      this.requests = requests;
+    }, () => { });
   }
 
 }

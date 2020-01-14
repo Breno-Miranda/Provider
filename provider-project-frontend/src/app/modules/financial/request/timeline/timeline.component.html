@@ -9,20 +9,22 @@
                         <tr>
                             <th>#</th>
                             <th>User</th>
-                            <th>Product</th>
-                            <th>Sale</th>
+                            <th>Catalogo</th>
                             <th>Status</th>
+                            <th>Itens</th>
+                            <th>Valor</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of request">
+                        <tr *ngFor="let data of requests">
                             <td>{{data.id}}</td>
-                            <td>Photoshop</td>
-                            <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
-                            </td>
+                            <td>{{data.user}}</td>
+                            <td>{{data.catalog}}</td>
                             <td>
-                                <label class="badge badge-danger">Pending</label>
+                                <label class="badge badge-danger">{{data.status}}</label>
                             </td>
+                            <td>{{data.itens}}</td>
+                            <td>{{data.amount}}</td>
                         </tr>
 
                     </tbody>
