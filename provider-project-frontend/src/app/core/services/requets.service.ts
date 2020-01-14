@@ -23,5 +23,16 @@ export class RequestService {
     });
   }
 
+  setRequest( data: object)
+  {
+    return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);
+  }
+
+  putRequest( data: object)
+  {
+    return this.http.put<any[]>(`${environment.apiUrl}/api/request/`, data);
+  }
+
+
 }
 
