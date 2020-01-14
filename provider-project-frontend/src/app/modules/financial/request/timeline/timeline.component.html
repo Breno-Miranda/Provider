@@ -8,22 +8,21 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>User</th>
+                            <th>Cliente</th>
                             <th>Catalogo</th>
                             <th>Status</th>
-                            <th>Itens</th>
                             <th>Valor</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of requests">
                             <td>{{data.id}}</td>
-                            <td>{{data.user}}</td>
-                            <td>{{data.catalog}}</td>
+                            <td>{{data._user['username']}}</td>
+                            <td>{{data._catalog._catalog['name']}}</td>
                             <td>
-                                <label class="badge badge-danger">{{data.status}}</label>
+                                <label class="badge badge-danger">{{data._status['initials']}}</label>
                             </td>
-                            <td>{{data.itens}}</td>
+                            
                             <td>{{data.amount}}</td>
                         </tr>
 
