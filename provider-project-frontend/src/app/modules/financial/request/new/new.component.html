@@ -33,6 +33,16 @@
                         </div>
                     </div>
 
+                    <div class="form-group col-md-8">
+                        <label for="">Consultor(a)</label>
+                        <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
+                            <option value="">Escolha uma opção</option>
+                        </select>
+                        <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                            <div *ngIf="f.user.errors.required">Informação é obrigatório</div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -81,12 +91,12 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="itens.length > 0">
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
                 <div class="col-12 table-responsive col-tb">
-                    <table id="order-listing" class="table table-striped w-100 dataTable no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
+                    <table class="table table-striped w-100  no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
                         <thead>
                             <tr role="row" class="bg-light">
                                 <th style="width: 219px;">EAN</th>
@@ -94,24 +104,22 @@
                                 <th style="width: 219px;">Produto</th>
                                 <th style="width: 219px;">Quantidade</th>
                                 <th style="width: 80px;">Page</th>
+                                <th style="width: 80px;">size</th>
                                 <th style="width: 80px;">Preço/Und</th>
                                 <th style="width: 80px;">Preço/Total</th>
                                 <th style="width: 66px;">Selecionar</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
-
-
                             <tr *ngFor="let data of itens">
                                 <td>{{data.ean}}</td>
                                 <td>{{data.reference}}</td>
                                 <td>{{data.description}}</td>
                                 <td>{{data.amount}}</td>
                                 <td>{{data.page}}</td>
+                                <td>{{data.size}}</td>
                                 <td>{{data.sale_price}}</td>
-                                <td>{{data.sale_price}}</td>
+                                <td>{{data.total_price}}</td>
                                 <td><input type="checkbox" (click)="selectUsers()"></td>
                             </tr>
                         </tbody>
