@@ -4,9 +4,9 @@ from .models import Provider, Catalog
 class ProviderSerializer(ModelSerializer):
     class Meta:
         model = Provider
-        fields = ("_all_")
+        fields = ("__all__")
         
 class CatalogSerializer(ModelSerializer):
     class Meta:
         model = Catalog
-        fields = ("_all_")
+        fields = ("__all__")
