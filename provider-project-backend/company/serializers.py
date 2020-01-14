@@ -2,6 +2,8 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from .models import Company, Contact, Catalog
 
+from common.serializers import CatalogSerializer
+
 
 class CompanyContactSerializers(serializers.ModelSerializer):
 
@@ -36,6 +38,9 @@ class CompanyKeySecretSerializer(serializers.ModelSerializer):
 
 
 class CatalogCompanySerializer(ModelSerializer):
+    
+    _catalog = CatalogSerializer(source='catalog', read_only=True)
+
     class Meta:
         model = Catalog
-        fields = ("__all__")
+        fields = ("company","reference","initial_date", "end_date","minimum_order", "_catalog")
