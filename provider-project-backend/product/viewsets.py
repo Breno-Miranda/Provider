@@ -29,12 +29,12 @@ class ProductViewSet(viewsets.ViewSet):
         
         if _limit is not None:
             if _search is not None:
-                products = Product.objects.all().filter(Q(company_id=companyId) & Q(description__icontains=_search) | Q(ean__contains=_search) )[:int(_limit)]
+                products = Product.objects.all().filter(Q(company_id=companyId) & Q(reference=_search) )[:int(_limit)]
             else:
                 products = Product.objects.all().filter(company_id=companyId)[:int(_limit)]
         else:
             if _search is not None:
-                products = Product.objects.all().filter(Q(company_id=companyId) & Q(description__icontains=_search) | Q(ean__contains=_search) )
+                products = Product.objects.all().filter(Q(company_id=companyId) & Q(reference=_search) )
             else:
                 products = Product.objects.all().filter(company_id=companyId)
   
