@@ -3,7 +3,8 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Informações Gerais</h4>
-                <p>Abaixo se encontra os campos de identificações de pedidos. <code>Observação: Todos os campos são obrigatorios. </code></p>
+                <p>Abaixo se encontra os campos de identificações de pedidos.
+                    <code>Observação: Todos os campos são obrigatorios. </code></p>
                 <form [formGroup]="requestForm">
                     <div class="form-group col-md-8">
                         <label for="">Catalogo</label>
@@ -40,7 +41,7 @@
                         <label for="">Consultor(a)</label>
                         <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
                             <option value="">Escolha uma opção</option>
-                            <option *ngFor="let data of lots" value="{{data.id}}">{{data.id}}</option>
+                            <option *ngFor="let data of users" value="{{data.user}}">{{data.full_name}}</option>
                         </select>
                         <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
                             <div *ngIf="f.user.errors.required">Informação é obrigatório</div>
@@ -57,7 +58,8 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Referencia dos Produtos</h4>
-                <p>Pesquise o produto pela referencia e em seguida adicione a tabela de itens. <code>Observações: Campo TAMANHO não é obrigatorio.</code></p>
+                <p>Pesquise o produto pela referencia e em seguida adicione a tabela de itens.
+                    <code>Observações: Campo TAMANHO não é obrigatorio.</code></p>
                 <form [formGroup]="requestForm" (ngSubmit)="searchProducts()">
 
                     <div class="form-group col-md-12">
@@ -132,4 +134,12 @@
             </div>
         </div>
     </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar</button>
+        </div>
+    </div>
+
 </div>

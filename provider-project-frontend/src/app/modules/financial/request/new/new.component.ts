@@ -29,6 +29,7 @@ export class NewComponent implements OnInit {
       amount: [1, Validators.required],
       size: ['', Validators.required],
       user: ['', Validators.required],
+      total_amount: [0, Validators.required],
       
     });
   }
@@ -36,6 +37,7 @@ export class NewComponent implements OnInit {
   lots: any;
   campaigns: any;
   catalogs: any;
+  users: any;
 
   ngOnInit() {
     this.requestService.getLots().pipe(first()).subscribe(data => {
@@ -49,11 +51,19 @@ export class NewComponent implements OnInit {
     this.requestService.getCatalog().pipe(first()).subscribe(data => {
       this.catalogs = data;
     });
+
+    this.requestService.getUsers({type_user_number: 3}).pipe(first()).subscribe(data => {
+      this.users = data;
+    });
   }
 
   itens : Array<object> = [];
+  total_price = 0;
+
 
   searchProducts() {
+
+
     this.productsService.getSearch( {
       search: this.f.reference.value
     } ).pipe(first()).subscribe(data => {
@@ -62,6 +72,12 @@ export class NewComponent implements OnInit {
       data['results']['size'] = this.f.size.value
       data['results']['total_price'] = this.f.amount.value * data['results']['sale_price']
 
+      this.total_price += data['results']['total_price'];
+      this.f.total_amount.setValue( this.total_price );
+
+      this.f.amount.setValue(1);
+      this.f.size.setValue('');
+      this.f.reference.setValue('');
 
       this.itens.push(data['results']);
     });
@@ -72,6 +88,19 @@ export class NewComponent implements OnInit {
   get f() {
     return this.requestForm.controls;
   }
+
+setFinaly()
+{
+  this.requestService.setRequest({
+    lot: this.f.lot.value,
+    catalog:this.f.catalog.value,
+    user_id:this.f.user.value,
+    amount:this.f.total_amount.value,
+    itens: this.itens
+  }).pipe(first()).subscribe(data => {
+    this.users = data;
+  });
+}
 
 
   

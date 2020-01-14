@@ -50,16 +50,26 @@ export class RequestService {
     });
   }
 
+  getUsers( data: any ) {
 
-  
+    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+
+    return this.http.get<any[]>(`${environment.apiUrl}/api/users/profile/`, {
+      params: data
+    });
+  }
 
   setRequest( data: object)
   {
+    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+
     return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);
   }
 
   putRequest( data: object)
   {
+    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+    
     return this.http.put<any[]>(`${environment.apiUrl}/api/request/`, data);
   }
 

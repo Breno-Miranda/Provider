@@ -40,30 +40,30 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         companyId = request.GET.get('company_id', None)
-        type_number = request.GET.get('type_number', None)
+        type_user_number = request.GET.get('type_user_number', None)
 
-        # try:
+        try:
 
-        if not type_number:
-            queryset_profile = UserBindProfileSerializers(
-                Profile.objects.all().filter(company_id=companyId), many=True)
+            if not type_user_number:
+                queryset_profile = UserBindProfileSerializers(
+                    Profile.objects.all().filter(company_id=companyId), many=True)
 
-        else:
+            else:
 
-            queryset_profile = UserBindProfileSerializers(
-                Profile.objects.all().filter(company_id=companyId,
-                                             bind__type__code=type_number),
-                many=True)
+                queryset_profile = UserBindProfileSerializers(
+                    Profile.objects.all().filter(company_id=companyId,
+                                                bind__type__code=type_user_number),
+                    many=True)
 
-        return Response(queryset_profile.data, status=HTTP_200_OK)
-        # except:
-        #     return Response(
-        #         {
-        #             'msm':
-        #             "Oops! Houve um erro na listagem dos dados.  Tente novamente...",
-        #             'status': 'danger'
-        #         },
-        #         status=HTTP_404_NOT_FOUND)
+            return Response(queryset_profile.data, status=HTTP_200_OK)
+        except:
+            return Response(
+                {
+                    'msm':
+                    "Oops! Houve um erro na listagem dos dados.  Tente novamente...",
+                    'status': 'danger'
+                },
+                status=HTTP_404_NOT_FOUND)
 
     def create(self, request):
 
