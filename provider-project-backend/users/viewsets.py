@@ -2,7 +2,8 @@ from rest_framework.viewsets import ModelViewSet
 
 from django.contrib.auth.models import Permission, Group, User
 from users.models import Contact, Bank_Account,  Profile, Bind
-from .serializers import ContactsSerializers, UsersSerializer, GroupSerializer, PermissionSerializer, UsersSerializer, UserBindSerializers, BankAccountUsersSerializers
+from .serializers import ContactsSerializers, UsersSerializer, GroupSerializer, PermissionSerializer, UsersSerializer, \
+    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -23,7 +24,7 @@ class IsAdmin(permissions.BasePermission):
         return obj.owner == request.user or request.user.is_admin
 
 
-class IndividualViewSet(viewsets.ViewSet):
+class ProfileViewSet(viewsets.ViewSet):
     def list(self, request):
 
         if not request.user.has_perm('users.view_individual'):
@@ -40,8 +41,8 @@ class IndividualViewSet(viewsets.ViewSet):
         user_id = request.GET.get('user_id', None)
 
         try:
-            queryset_individual = IndividualUsersSerializers(
-                Individual.objects.get(user_id=user_id, company_id=companyId))
+            queryset_individual = ProfileSerializers(
+                Profile.objects.get(user_id=user_id, company_id=companyId))
             return Response(queryset_individual.data, status=HTTP_200_OK)
         except:
             return Response(
@@ -65,10 +66,10 @@ class IndividualViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         try:
-            serializerIndividual = IndividualUsersSerializers(
+            serializerProfile = ProfileSerializers(
                 data=request.data)
-            if serializerIndividual.is_valid():
-                serializerIndividual.save()
+            if serializerProfile.is_valid():
+                serializerProfile.save()
                 return Response(
                     {
                         'success': 'Heey! Ação efetuado acom sucesso.',
@@ -97,14 +98,14 @@ class IndividualViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         try:
-            individual = IndividualUsersSerializers(
-                Individual.objects.get(id=pk,
+            individual = ProfileSerializers(
+                Profile.objects.get(id=pk,
                                        user_id=user_id,
                                        company_id=companyId))
-            serializerIndividual = IndividualUsersSerializers(
+            serializerProfile = ProfileSerializers(
                 individual, data=request.data)
-            if serializerIndividual.is_valid():
-                serializerIndividual.save()
+            if serializerProfile.is_valid():
+                serializerProfile.save()
                 return Response(
                     {
                         'success': 'Heey! Ação efetuado acom sucesso.',
@@ -132,8 +133,8 @@ class IndividualViewSet(viewsets.ViewSet):
                 },
                 status=HTTP_403_FORBIDDEN)
         try:
-            individual = IndividualUsersSerializers(
-                Individual.objects.get(id=pk,
+            individual = ProfileSerializers(
+                Profile.objects.get(id=pk,
                                        user_id=user_id,
                                        company_id=companyId))
             individual.is_active = request.data['is_active']
