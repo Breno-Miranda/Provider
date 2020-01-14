@@ -6,7 +6,7 @@ from product.serializers import ProductSerializer
 from product.models import Product
 
 from users.serializers import UsersSerializer
-from common.serializers import CatalogSerializer
+from company.serializers import CatalogCompanySerializer
 
 
 class StatusSerializers(ModelSerializer):
@@ -27,7 +27,7 @@ class RequestSerializers(ModelSerializer):
     
     _user = UsersSerializer(source='user', read_only=True)
     _status = StatusSerializers(source='status', read_only=True)
-    _catalog = CatalogSerializer(source='catalog', read_only=True)
+    _catalog = CatalogCompanySerializer(source='catalog', read_only=True)
     
     class Meta:
         model = Request
