@@ -21,7 +21,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('product', 'ean', 'description', 'unidade', 'ncm', 'sale_price', 'bind_name', 'amount', 'discount', '_category')
+        fields = ('reference', 'sale_price','product', 'ean', 'page', 'size', 'description', 'unidade', 'ncm', 'bind_name',
+                  'amount', 'discount', '_category')
         
     
     def get_product(self, obj):
@@ -55,4 +56,3 @@ class ProductNewSerializer(serializers.ModelSerializer):
         model = Product
         fields = ( 'ean' , 'description' , 'unidade' , 'ncm' , 'origin', 'cest' , 'sale_price' , 'resale_price','discount' ,
                    'amount' , 'category' , 'company', 'status' , 'taxation' )
-  

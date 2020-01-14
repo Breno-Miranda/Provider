@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from django.contrib.auth.models import Permission, Group, User
 from users.models import Contact, Bank_Account,  Profile, Bind
-from .serializers import ContactsSerializers, UsersSerializer, GroupSerializer, PermissionSerializer, UsersSerializer, \
+from .serializers import ContactsSerializers, GroupSerializer, PermissionSerializer, UsersSerializer, \
     UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers
 
 from rest_framework import viewsets
@@ -38,12 +38,11 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         companyId = request.GET.get('company_id', None)
-        user_id = request.GET.get('user_id', None)
 
         try:
-            queryset_individual = ProfileSerializers(
-                Profile.objects.get(user_id=user_id, company_id=companyId))
-            return Response(queryset_individual.data, status=HTTP_200_OK)
+            queryset_profile = ProfileSerializers(
+                Profile.objects.all().filter(company_id=companyId), many=True)
+            return Response(queryset_profile.data, status=HTTP_200_OK)
         except:
             return Response(
                 {
@@ -98,12 +97,10 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         try:
-            individual = ProfileSerializers(
-                Profile.objects.get(id=pk,
-                                       user_id=user_id,
-                                       company_id=companyId))
+            profile = ProfileSerializers(
+                Profile.objects.get(id=pk, company_id=companyId))
             serializerProfile = ProfileSerializers(
-                individual, data=request.data)
+                profile, data=request.data)
             if serializerProfile.is_valid():
                 serializerProfile.save()
                 return Response(
@@ -134,9 +131,7 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
         try:
             individual = ProfileSerializers(
-                Profile.objects.get(id=pk,
-                                       user_id=user_id,
-                                       company_id=companyId))
+                Profile.objects.get(id=pk, company_id=companyId))
             individual.is_active = request.data['is_active']
             individual.save()
             return Response(

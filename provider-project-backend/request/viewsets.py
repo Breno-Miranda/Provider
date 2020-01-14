@@ -20,30 +20,21 @@ class RequestViewSet(viewsets.ViewSet):
         
         requestId = request.GET.get('request_id', None)
         companyId = request.GET.get('company_id', None)
-        typeResult = request.GET.get('type_result', None)
-        
-        if typeResult is not None:
-            querysetRequest = RequestSerializers(Request.objects.get(company_id=companyId ,  id=requestId))
-            querysetItens = ItensSerializers(Itens.objects.all().filter(request_id=requestId) , many=True)
-            queryset = {
-                'sale': querysetRequest.data,
-                'itens': querysetItens.data,
-            }
-            
-        else:
-            queryset = RequestSerializers(Request.objects.all().filter(company_id=companyId ,id=requestId), many=True)
-            queryset = queryset.data
-        if not queryset:
+
+        querysetRequest = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) & Q(id=requestId) ), many=True)
+
+
+        if not querysetRequest:
                 return Response({"erro": "Não há registro.","status": False}, status=HTTP_404_NOT_FOUND) 
 
-        return Response(queryset, status=HTTP_200_OK)
+        return Response(querysetRequest.data, status=HTTP_200_OK)
     
     def create(self , request):
      
         if not request.data:
             return Response({'error': 'Campos vazios, preencha os obrigatorios.', 'status': False}, status=HTTP_404_NOT_FOUND) 
 
-        serializer = RequestSerializer(data=request.data)
+        serializer = RequestSerializers(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -56,7 +47,7 @@ class RequestViewSet(viewsets.ViewSet):
         if not request.data:
             return Response({'error': 'Campos vazios, preencha os obrigatorios.', 'status': False},status=HTTP_404_NOT_FOUND) 
 
-        serializer = RequestSerializer(data=request.data)
+        serializer = RequestSerializers(data=request.data)
         
         if serializer.is_valid():
             serializer.update()
@@ -141,5 +132,4 @@ class ItensViewSet(viewsets.ViewSet):
             serializer.update()
             return  Response({'success': 'Registro atualizado com sucesso.', 'status': True},status=HTTP_200_OK)
         return  Response({'error': 'Error ao atualizar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.', 'status': False},status=HTTP_404_NOT_FOUND) 
-    
     
