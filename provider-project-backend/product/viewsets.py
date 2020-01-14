@@ -30,15 +30,16 @@ class ProductViewSet(viewsets.ViewSet):
         if _limit is not None:
             if _search is not None:
                 products = Product.objects.all().filter(Q(company_id=companyId) & Q(reference=_search) )[:int(_limit)]
-            else:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-                products = Product.objects.all().filter(company_id=companyId)[:int(_limit)]
+
+            else:
+                products = ProductSerializer(Product.objects.all().filter(company_id=companyId)[:int(_limit)], many=True)
+
         else:
             if _search is not None:
-                products = Product.objects.all().filter(Q(company_id=companyId) & Q(reference=_search) )
+                products = ProductSerializer(Product.objects.get(Q(company_id=companyId) & Q(reference=_search) ))
             else:
-                products = Product.objects.all().filter(company_id=companyId)
+                products = ProductSerializer(Product.objects.all().filter(company_id=companyId), many=True)
   
-        products = ProductSerializer(products, many=True)
             
         if _pagination is not None:
             paginator = pagination.CustomPagination()
