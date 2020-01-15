@@ -52,7 +52,7 @@ export class NewComponent implements OnInit {
       this.catalogs = data;
     });
 
-    this.requestService.getUsers({type_user_number: 3}).pipe(first()).subscribe(data => {
+    this.requestService.getUsers({type_user_number: 4}).pipe(first()).subscribe(data => {
       this.users = data;
     });
   }
@@ -95,6 +95,7 @@ setFinaly()
   this.requestService.setRequest({
     lot: this.f.lot.value,
     catalog:this.f.catalog.value,
+    campaign:this.f.campaign.value,
     user:this.f.user.value,
     amount:this.f.total_amount.value,
     itens: this.itens
