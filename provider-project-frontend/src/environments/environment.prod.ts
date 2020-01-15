@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://159.65.217.103:8000'
+  apiUrl: 'https://nataldev.com.br'
 };
