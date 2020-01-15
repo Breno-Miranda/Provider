@@ -37,7 +37,7 @@ registerLocaleData(localePt);
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
-    ToastrModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

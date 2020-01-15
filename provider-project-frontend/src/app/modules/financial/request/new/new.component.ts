@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 
@@ -23,6 +24,7 @@ export class NewComponent implements OnInit {
      private formBuilder: FormBuilder,
      private productsService: ProductsService,
      private requestService: RequestService,
+     private toastr: ToastrService
   ) {
     this.requestForm = this.formBuilder.group({
       catalog: ['', Validators.required],
@@ -63,21 +65,17 @@ export class NewComponent implements OnInit {
   itens : Array<object> = [];
   total_price = 0;
 
-
   searchProducts() {
-
-
     this.productsService.getSearch( {
       search: this.f.reference.value
     } ).pipe(first()).subscribe(data => {
 
       data['results']['amount'] = this.f.amount.value
-      data['results']['size'] = this.f.size.value
-      data['results']['total_price'] = (this.f.amount.value * data['results']['sale_price']).toFixed(2);
-      data['results']['total'] = (this.f.amount.value * data['results']['sale_price']).toFixed(2);
+      data['results']['size']   = this.f.size.value
+      data['results']['total']  = (this.f.amount.value * data['results']['sale_price']).toFixed(2);
 
-      this.total_price += data['results']['total_price'].toFixed(2);
-      this.f.total_amount.setValue( this.total_price );
+      this.total_price += parseFloat(data['results']['total']);
+      this.f.total_amount.setValue( parseFloat(this.total_price.toFixed(2)) ) 
 
       this.f.amount.setValue(1);
       this.f.size.setValue('');
@@ -85,8 +83,6 @@ export class NewComponent implements OnInit {
 
       this.itens.push(data['results']);
     });
-
-    console.log(this.itens)
   }
 
   get f() {
@@ -103,7 +99,10 @@ setFinaly()
     amount:this.f.total_amount.value,
     itens: this.itens
   }).pipe(first()).subscribe(data => {
-    this.success = data['success']
+    // this.success = data['success']
+
+    this.toastr.success(data['success']);
+
     this.itens = [];
     this.f.user.setValue('');
   });

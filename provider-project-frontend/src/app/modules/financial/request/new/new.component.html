@@ -6,93 +6,102 @@
 </div>
 
 <div class="row">
-    <div class="col-6 grid-margin">
+    <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Informações Gerais</h4>
                 <p>Abaixo se encontra os campos de identificações de pedidos.
                     <code>Observação: Todos os campos são obrigatorios. </code></p>
                 <form [formGroup]="requestForm">
-                    <div class="form-group col-md-8">
-                        <label for="">Catalogo</label>
-                        <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
-                            <option value="">Escolha uma opção</option>
-                            <option *ngFor="let data of catalogs" value="{{data.id}}">{{data._catalog.name}}</option>
-                        </select>
-                        <div *ngIf="submitted && f.catalog.errors" class="invalid-feedback">
-                            <div *ngIf="f.catalog.errors.required">Informação é obrigatório</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="">Campanha</label>
-                        <select class="form-control" name="campaign" id="campaign" formControlName="campaign" [ngClass]="{ 'is-invalid': submitted && f.campaign.errors }">
-                            <option value="">Escolha uma opção</option>
-                            <option *ngFor="let data of campaigns" value="{{data.id}}">{{data.send_date}}</option>
-                        </select>
-                        <div *ngIf="submitted && f.campaign.errors" class="invalid-feedback">
-                            <div *ngIf="f.campaign.errors.required">Informação é obrigatório</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="">Lote</label>
-                        <select class="form-control" name="lot" id="lot" formControlName="lot" [ngClass]="{ 'is-invalid': submitted && f.lot.errors }">
-                            <option value="">Escolha uma opção</option>
-                            <option *ngFor="let data of lots" value="{{data.id}}">{{data.id}}</option>
-                        </select>
-                        <div *ngIf="submitted && f.lot.errors" class="invalid-feedback">
-                            <div *ngIf="f.lot.errors.required">Informação é obrigatório</div>
-                        </div>
-                    </div>
 
-                    <div class="form-group col-md-8">
-                        <label for="">Consultor(a)</label>
-                        <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
-                            <option value="">Escolha uma opção</option>
-                            <option *ngFor="let data of users" value="{{data._bind.user}}">{{data.full_name}}</option>
-                        </select>
-                        <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
-                            <div *ngIf="f.user.errors.required">Informação é obrigatório</div>
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col">
+                            <label for="">Catalogo</label>
+                            <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of catalogs" value="{{data.id}}">{{data._catalog.name}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f.catalog.errors" class="invalid-feedback">
+                                <div *ngIf="f.catalog.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="">Campanha</label>
+                            <select class="form-control" name="campaign" id="campaign" formControlName="campaign" [ngClass]="{ 'is-invalid': submitted && f.campaign.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of campaigns" value="{{data.id}}">{{data.send_date}}</option>
+                            </select>
+                            <div *ngIf="submitted && f.campaign.errors" class="invalid-feedback">
+                                <div *ngIf="f.campaign.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="">Lote</label>
+                            <select class="form-control" name="lot" id="lot" formControlName="lot" [ngClass]="{ 'is-invalid': submitted && f.lot.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of lots" value="{{data.id}}">{{data.id}}</option>
+                            </select>
+                            <div *ngIf="submitted && f.lot.errors" class="invalid-feedback">
+                                <div *ngIf="f.lot.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label for="">Consultor(a)</label>
+                            <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of users" value="{{data._bind.user}}">{{data.full_name}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                                <div *ngIf="f.user.errors.required">Informação é obrigatório</div>
+                            </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 
 
-    <div class="col-6 grid-margin">
+    <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Referencia dos Produtos</h4>
+                <h4 class="card-title">Produtos</h4>
                 <p>Pesquise o produto pela referencia e em seguida adicione a tabela de itens.
                     <code>Observações: Campo TAMANHO não é obrigatorio.</code></p>
                 <form [formGroup]="requestForm" (ngSubmit)="searchProducts()">
 
-                    <div class="form-group col-md-12">
-                        <label for="">Referencia</label>
-                        <input id="username" type="text" class="form-control" placeholder="referencia" formControlName="reference" [ngClass]="{ 'is-invalid': submitted && f.reference.errors }">
-                        <div *ngIf="submitted && f.reference.errors" class="invalid-feedback">
-                            <div *ngIf="f.reference.errors.required">Informação é obrigatório</div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label for="">Referencia</label>
+                            <input id="username" type="text" class="form-control" placeholder="Referencia" formControlName="reference" [ngClass]="{ 'is-invalid': submitted && f.reference.errors }">
+                            <div *ngIf="submitted && f.reference.errors" class="invalid-feedback">
+                                <div *ngIf="f.reference.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label for="">Quantidade</label>
+                            <input id="amount" type="number" class="form-control" placeholder="quantidade" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                            <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+                                <div *ngIf="f.amount.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label for="">Tamanho</label>
+                            <input id="size" type="text" class="form-control" placeholder="Tamanho" formControlName="size" [ngClass]="{ 'is-invalid': submitted && f.size.errors }">
+                            <div *ngIf="submitted && f.size.errors" class="invalid-feedback">
+                                <div *ngIf="f.size.errors.required">Informação é obrigatório</div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group col-md-12">
-                        <label for="">Quantidade</label>
-                        <input id="amount" type="number" class="form-control" placeholder="quantidade" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
-                        <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
-                            <div *ngIf="f.amount.errors.required">Informação é obrigatório</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <label for="">Tamanho</label>
-                        <input id="size" type="text" class="form-control" placeholder="Tamanho" formControlName="size" [ngClass]="{ 'is-invalid': submitted && f.size.errors }">
-                        <div *ngIf="submitted && f.size.errors" class="invalid-feedback">
-                            <div *ngIf="f.size.errors.required">Informação é obrigatório</div>
-                        </div>
-                    </div>
-
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary submit-btn text-uppercase"> Adicionar
@@ -108,6 +117,8 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
+                <h4 class="card-title">Lista de Itens</h4>
+                <p>Segue abaixo os produto refrenciados na tabela de itens.<code> Observações: Campo SELECIONAR não é obrigatorio.</code></p>
                 <div class="col-12 table-responsive col-tb">
                     <table class="table table-striped w-100  no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
                         <thead>
@@ -124,7 +135,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of itens">
+                            <tr *ngFor="let data of itens.reverse()">
                                 <td>{{data.ean}}</td>
                                 <td>{{data.reference}}</td>
                                 <td>{{data.description}}</td>
@@ -132,7 +143,7 @@
                                 <td>{{data.page}}</td>
                                 <td>{{data.size}}</td>
                                 <td>{{data.sale_price}}</td>
-                                <td>{{data.total_price | currency:'BRL':'symbol':'0.1-2':'pt'}}</td>
+                                <td>{{data.total | currency:'BRL':'symbol':'0.1-2':'pt'}}</td>
                                 <td><input type="checkbox" (click)="selectUsers()"></td>
                             </tr>
                         </tbody>
@@ -145,7 +156,7 @@
 
     <div class="row">
         <div class="col-12">
-            <button type="button" class="btn btn-primary float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar</button>
+            <button type="button" class="btn btn-success float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar Pedido</button>
         </div>
     </div>
 

@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NewComponent } from './new/new.component';
+import { RequestComponent } from './request.component';
 import { RequestRouter } from './request.routing.module';
 import { ExtractComponent } from './extract/extract.component';
 import { TimelineComponent } from './timeline/timeline.component';
@@ -14,7 +15,9 @@ import { TimelineComponent } from './timeline/timeline.component';
   declarations: [
     NewComponent,
     TimelineComponent,
-    ExtractComponent],
+    ExtractComponent,
+    RequestComponent
+  ],
   imports: [
     CommonModule,
     NgbModule,
