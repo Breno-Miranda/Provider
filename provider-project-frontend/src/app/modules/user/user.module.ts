@@ -8,10 +8,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { PermissionComponent } from './permission/permission.component';
 import { ManagerComponent } from './manager/manager.component';
 
-
+import { ConsultantComponent } from './consultant/consultant.component';
 import { InputFilterPipe } from 'src/app/shared/pipe/inputfilter.pipe';
 import { LeaderComponent } from './leader/leader.component';
-import { ConsultantComponent } from './consultant/consultant.component';
+import { UserComponent } from './user.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ConsultantComponent } from './consultant/consultant.component';
    ManagerComponent,
    InputFilterPipe,
    LeaderComponent,
-   ConsultantComponent
+   ConsultantComponent,
+   UserComponent
   ],
   imports: [
     CommonModule,

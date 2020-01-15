@@ -82,11 +82,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:8000",
     "http://localhost:4200",
-    "http://localhost:4000",
-    "http://localhost:4100",
-    "http://167.71.243.11:8000",
-    "http://brenomirandaster.com.br",
-    "http://brenomirandaster.com"
+    "https://sivendiweb.com.br",
+    "http://sivendiweb.com.br"
 ]
 
 
