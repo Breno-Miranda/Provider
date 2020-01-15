@@ -73,10 +73,10 @@ export class NewComponent implements OnInit {
 
       data['results']['amount'] = this.f.amount.value
       data['results']['size'] = this.f.size.value
-      data['results']['total_price'] = this.f.amount.value * data['results']['sale_price']
-      data['results']['total'] = this.f.amount.value * data['results']['sale_price']
+      data['results']['total_price'] = (this.f.amount.value * data['results']['sale_price']).toFixed(2);
+      data['results']['total'] = (this.f.amount.value * data['results']['sale_price']).toFixed(2);
 
-      this.total_price += data['results']['total_price'];
+      this.total_price += data['results']['total_price'].toFixed(2);
       this.f.total_amount.setValue( this.total_price );
 
       this.f.amount.setValue(1);
