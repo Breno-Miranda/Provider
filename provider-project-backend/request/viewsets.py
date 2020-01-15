@@ -21,7 +21,7 @@ class RequestViewSet(viewsets.ViewSet):
         requestId = request.GET.get('request_id', None)
         companyId = request.GET.get('company_id', None)
 
-        querysetRequest = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) | Q(id=requestId) ), many=True)
+        querysetRequest = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) | Q(id=requestId) ).order_by('-id'), many=True)
 
 
         if not querysetRequest:
@@ -34,27 +34,21 @@ class RequestViewSet(viewsets.ViewSet):
         if not request.data:
             return Response({'error': 'Campos vazios, preencha os obrigatorios.', 'status': False}, status=HTTP_404_NOT_FOUND) 
 
-        request_serializer = requestCreateSerializers(data=request.data)
-        if request_serializer.is_valid():
-            objRequets = request_serializer.save()
-            
-            for itens in request.data['itens']:
-                itens['request'] = objRequets.id
+        try:
+            request_serializer = requestCreateSerializers(data=request.data)
+            if request_serializer.is_valid():
+                objRequets = request_serializer.save()
                 
-            print(request.data['itens'])   
-            request_itens_serializer = requestItensCreateSerializers(data=request.data['itens'], many=True)
-            # print(request.data['itens'])
-            print(request_itens_serializer.is_valid())
-            # print(request_itens_serializer)
-            if request_itens_serializer.is_valid():
-                request_itens_serializer.save()
-            
-            
-            
-        #     return Response({'success': 'Registro criado com sucesso.', 'status': True},status=HTTP_200_OK)
-        # return Response({'error': 'Error ao criar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.', 'status': False},status=HTTP_404_NOT_FOUND) 
-        pass
-        return Response({'success':  request.data, 'status': True},status=HTTP_200_OK)
+                for itens in request.data['itens']:
+                    itens['request'] = objRequets.id
+                    
+                request_itens_serializer = requestItensCreateSerializers(data=request.data['itens'], many=True)
+                if request_itens_serializer.is_valid():
+                    request_itens_serializer.save()
+                    
+                    return Response({'success': 'Registro criado com sucesso.', 'status': True},status=HTTP_200_OK)
+        except:
+            return Response({'error': 'Error ao criar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.', 'status': False},status=HTTP_404_NOT_FOUND) 
 
     def update(self , request):
 

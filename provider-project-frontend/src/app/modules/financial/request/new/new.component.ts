@@ -16,6 +16,9 @@ export class NewComponent implements OnInit {
 
   requestForm: FormGroup;
 
+  error: any;
+  success: any;
+
   constructor(
      private formBuilder: FormBuilder,
      private productsService: ProductsService,
@@ -100,7 +103,9 @@ setFinaly()
     amount:this.f.total_amount.value,
     itens: this.itens
   }).pipe(first()).subscribe(data => {
-    this.users = data;
+    this.success = data['success']
+    this.itens = [];
+    this.f.user.setValue('');
   });
 }
 

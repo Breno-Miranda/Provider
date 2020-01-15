@@ -18,6 +18,11 @@ import { ErrorInterceptor } from './core/http/error.interceptor';
 import { JwtInterceptor } from './core/authentication/jwt.interceptor';
 
 
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localePt);
+
+
 @NgModule({
   declarations: [
     AppComponent,

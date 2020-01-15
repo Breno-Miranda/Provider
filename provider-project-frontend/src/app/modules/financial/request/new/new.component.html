@@ -1,3 +1,10 @@
+<div class="row  ">
+    <div class="col-12">
+        <div *ngIf="error" class="alert alert-danger mt-3  mb-3">{{ error }}</div>
+        <div *ngIf="success" class="alert alert-success mt-3 mb-3">{{ success }}</div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-6 grid-margin">
         <div class="card">
@@ -41,7 +48,7 @@
                         <label for="">Consultor(a)</label>
                         <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
                             <option value="">Escolha uma opção</option>
-                            <option *ngFor="let data of users" value="{{data.user}}">{{data.full_name}}</option>
+                            <option *ngFor="let data of users" value="{{data._bind.user}}">{{data.full_name}}</option>
                         </select>
                         <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
                             <div *ngIf="f.user.errors.required">Informação é obrigatório</div>
@@ -125,7 +132,7 @@
                                 <td>{{data.page}}</td>
                                 <td>{{data.size}}</td>
                                 <td>{{data.sale_price}}</td>
-                                <td>{{data.total_price}}</td>
+                                <td>{{data.total_price | currency:'BRL':'symbol':'0.1-2':'pt'}}</td>
                                 <td><input type="checkbox" (click)="selectUsers()"></td>
                             </tr>
                         </tbody>

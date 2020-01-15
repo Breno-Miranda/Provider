@@ -27,7 +27,7 @@ class Request(models.Model):
     user = models.ForeignKey(User, on_delete=None)
     user_bind = models.ForeignKey(Bind, on_delete=None, blank=True, null=True)
     is_user_bind = models.BooleanField(default=False)
-    status = models.ForeignKey(Status, on_delete=None, blank=True, null=True)
+    status = models.ForeignKey(Status, on_delete=None, default=1 )
     create_date = models.DateTimeField(auto_now=True)
     billing_date = models.DateTimeField(null=True, blank=True)
     payment_date = models.DateTimeField(null=True, blank=True)
