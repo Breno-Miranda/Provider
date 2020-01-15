@@ -298,6 +298,58 @@ class UsersViewSet(viewsets.ViewSet):
                     'status': 'danger'
                 },
                 status=HTTP_404_NOT_FOUND)
+            
+    def create(self, request):
+
+        if not request.user.has_perm('users.create_user'):
+            return Response(
+                {
+                    'msm':
+                    'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
+                    'status': 'danger',
+                    'return': True
+                },
+                status=HTTP_403_FORBIDDEN)
+        
+        try:
+            if not request.data:
+                
+                return Response(
+                {
+                    'msm':
+                    'Preencha todos os campos, as informações estão vazia.',
+                    'status': 'danger',
+                    'return': True
+                },
+                status=HTTP_403_FORBIDDEN)
+                
+            serializerUser = UsersCreateSerializer(data=request.data['user'])
+            if serializerUser.is_valid():
+                user = serializerUser.save()
+                
+                serializerUserBind = UsersCreateSerializer(data=request.data['bind'])
+                if serializerUserBind.is_valid():
+                    userbind = serializerUserBind.save()
+                    
+                    serializerUserBindProfile = UsersCreateSerializer(data=request.data['bind'])
+                    if serializerUserBindProfile.is_valid():
+                        serializerUserBindProfile.save()
+                    
+                return Response(
+                    {
+                        'success': 'Heey! Ação efetuado acom sucesso.',
+                        'status': True
+                    },
+                    status=HTTP_200_OK)
+        except:
+            return Response(
+            {
+                'msm':
+                "Oops! Houve um erro na exclusão dos dados.  Tente novamente...",
+                'status': 'danger'
+            },
+            status=HTTP_404_NOT_FOUND)
+
 
     def get_permissions(self):
 

@@ -118,4 +118,16 @@ export class UserService {
     }
   }
 
+  // create user bind profile
+  
+  setUser(formData )
+  {
+    formData.append('user_bind_id',  this.authenticationService.currentUserValue.id.toString())
+    formData.append('company_id', this.authenticationService.currentUserValue.companyId.toString())
+
+    return this.http.post<any[]>(`${environment.apiUrl}/api/users/`, formData);
+
+  }
+
+
 }
