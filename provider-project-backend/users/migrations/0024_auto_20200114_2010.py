@@ -12,85 +12,12 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='collaborator',
-            name='company',
-        ),
-        migrations.RemoveField(
-            model_name='collaborator',
-            name='user',
-        ),
-        migrations.RemoveField(
-            model_name='collaborator',
-            name='user_bond',
-        ),
-        migrations.RemoveField(
-            model_name='individual',
-            name='company',
-        ),
-        migrations.RemoveField(
-            model_name='individual',
-            name='user',
-        ),
-        migrations.RemoveField(
-            model_name='individual',
-            name='user_bond',
-        ),
         migrations.AlterModelOptions(
             name='profile',
             options={'managed': True},
         ),
-        migrations.RemoveField(
-            model_name='bind',
-            name='is_business',
-        ),
-        migrations.RemoveField(
-            model_name='bind',
-            name='is_collaborator',
-        ),
-        migrations.RemoveField(
-            model_name='bind',
-            name='is_individual',
-        ),
-        migrations.RemoveField(
-            model_name='profile',
-            name='banner',
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='anexo',
-            field=models.FileField(blank=True, null=True, upload_to='anexo/doc/individual'),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='full_name',
-            field=models.CharField(blank=True, max_length=150, null=True),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='genre',
-            field=models.CharField(default='F', max_length=1),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='is_active',
-            field=models.BooleanField(blank=True, default=False, null=True),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='matriculation',
-            field=models.BigIntegerField(blank=True, null=True),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='recommendation',
-            field=models.BooleanField(blank=True, default=False, null=True),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='user_bind',
-            field=models.ForeignKey(blank=True, null=True, on_delete=None, related_name='person_individual_bond', to=settings.AUTH_USER_MODEL),
-        ),
+
+
         migrations.AlterField(
             model_name='profile',
             name='about',
@@ -101,11 +28,7 @@ class Migration(migrations.Migration):
             name='city',
             field=models.CharField(blank=True, max_length=150, null=True),
         ),
-        migrations.AlterField(
-            model_name='profile',
-            name='company',
-            field=models.ForeignKey(on_delete=None, related_name='enterprise_individual', to='company.Company'),
-        ),
+
         migrations.AlterField(
             model_name='profile',
             name='complement',
@@ -151,13 +74,5 @@ class Migration(migrations.Migration):
             name='zipcode',
             field=models.IntegerField(blank=True, null=True),
         ),
-        migrations.DeleteModel(
-            name='Busines',
-        ),
-        migrations.DeleteModel(
-            name='Collaborator',
-        ),
-        migrations.DeleteModel(
-            name='Individual',
-        ),
+
     ]
