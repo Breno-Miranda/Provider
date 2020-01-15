@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 
@@ -23,6 +24,7 @@ export class NewComponent implements OnInit {
      private formBuilder: FormBuilder,
      private productsService: ProductsService,
      private requestService: RequestService,
+     private toastr: ToastrService
   ) {
     this.requestForm = this.formBuilder.group({
       catalog: ['', Validators.required],
@@ -97,7 +99,10 @@ setFinaly()
     amount:this.f.total_amount.value,
     itens: this.itens
   }).pipe(first()).subscribe(data => {
-    this.success = data['success']
+    // this.success = data['success']
+
+    this.toastr.success(data['success']);
+
     this.itens = [];
     this.f.user.setValue('');
   });

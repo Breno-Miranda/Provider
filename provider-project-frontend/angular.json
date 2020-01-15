@@ -39,7 +39,8 @@
                             "src/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css",
                             "src/assets/vendors/icheck/skins/all.css",
                             "src/assets/css/shared/style.css",
-                            "src/assets/css/demo_11/style.css"
+                            "src/assets/css/demo_11/style.css",
+                            "node_modules/ngx-toastr/toastr.css"
                         ],
                         "scripts": [
                             "src/assets/vendors/js/vendor.bundle.base.js",
