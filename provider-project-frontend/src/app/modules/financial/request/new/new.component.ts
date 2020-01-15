@@ -71,6 +71,7 @@ export class NewComponent implements OnInit {
       data['results']['amount'] = this.f.amount.value
       data['results']['size'] = this.f.size.value
       data['results']['total_price'] = this.f.amount.value * data['results']['sale_price']
+      data['results']['total'] = this.f.amount.value * data['results']['sale_price']
 
       this.total_price += data['results']['total_price'];
       this.f.total_amount.setValue( this.total_price );
@@ -94,7 +95,7 @@ setFinaly()
   this.requestService.setRequest({
     lot: this.f.lot.value,
     catalog:this.f.catalog.value,
-    user_id:this.f.user.value,
+    user:this.f.user.value,
     amount:this.f.total_amount.value,
     itens: this.itens
   }).pipe(first()).subscribe(data => {

@@ -33,3 +33,19 @@ class RequestSerializers(ModelSerializer):
     class Meta:
         model = Request
         fields = ("id", "company", "lot", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog")
+
+
+
+# serializer to insert
+
+class requestCreateSerializers(ModelSerializer):
+    
+    class Meta:
+        model = Request
+        fields = ("company", "lot", "catalog", "user", "amount")
+        
+class requestItensCreateSerializers(ModelSerializer):
+    
+    class Meta:
+        model = Itens
+        fields = ("request" , "product" , "amount" , "total")

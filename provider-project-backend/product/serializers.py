@@ -21,8 +21,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('reference', 'sale_price','product', 'ean', 'page', 'size', 'description', 'unidade', 'ncm', 'bind_name',
-                  'amount', 'discount', '_category')
+        fields = ('id', 'reference', 'sale_price','product', 'ean', 'page', 'size', 'description', 'unidade', 'ncm', 'bind_name',
+                  'amount', 'discount','catalog_id','_category')
         
     
     def get_product(self, obj):
