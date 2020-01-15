@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Status, Request, Itens
-from .serializers import ItensSerializers, RequestSerializers, StatusSerializers
+from .serializers import ItensSerializers, RequestSerializers, StatusSerializers, requestCreateSerializers, requestItensCreateSerializers
 
 from core import pagination
 from django.db.models import Q
@@ -34,13 +34,27 @@ class RequestViewSet(viewsets.ViewSet):
         if not request.data:
             return Response({'error': 'Campos vazios, preencha os obrigatorios.', 'status': False}, status=HTTP_404_NOT_FOUND) 
 
-        serializer = RequestSerializers(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'success': 'Registro criado com sucesso.', 'status': True},status=HTTP_200_OK)
-        return Response({'error': 'Error ao criar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.', 'status': False},status=HTTP_404_NOT_FOUND) 
-
+        request_serializer = requestCreateSerializers(data=request.data)
+        if request_serializer.is_valid():
+            objRequets = request_serializer.save()
+            
+            for itens in request.data['itens']:
+                itens['request'] = objRequets.id
+                
+            print(request.data['itens'])   
+            request_itens_serializer = requestItensCreateSerializers(data=request.data['itens'], many=True)
+            # print(request.data['itens'])
+            print(request_itens_serializer.is_valid())
+            # print(request_itens_serializer)
+            if request_itens_serializer.is_valid():
+                request_itens_serializer.save()
+            
+            
+            
+        #     return Response({'success': 'Registro criado com sucesso.', 'status': True},status=HTTP_200_OK)
+        # return Response({'error': 'Error ao criar resgistro, certifique-se se tudo ocorreu como o correto e tente novamente.', 'status': False},status=HTTP_404_NOT_FOUND) 
+        pass
+        return Response({'success':  request.data, 'status': True},status=HTTP_200_OK)
 
     def update(self , request):
 

@@ -61,14 +61,14 @@ export class RequestService {
 
   setRequest( data: object)
   {
-    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+    data['company'] = this.authenticationService.currentUserValue.companyId.toString();
 
     return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);
   }
 
   putRequest( data: object)
   {
-    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+    data['company_id'] = this.authenticationService.currentUserValue.companyId.toString();
     
     return this.http.put<any[]>(`${environment.apiUrl}/api/request/`, data);
   }

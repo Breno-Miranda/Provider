@@ -6,11 +6,13 @@ from company.models import Company, Catalog
 from django.contrib.auth.models import User
 from users.models import Profile, Bind
 from common.models import Payment_methods
+from campaign.models import Campaign
 
 class Status(models.Model):
     company = models.ForeignKey(Company, related_name="enterprise_request_status", on_delete=None)
     type = models.CharField(max_length=150)
     initials = models.CharField(max_length=1 , null=True, blank=True)
+    code = models.IntegerField()
     description = models.CharField(max_length=150)
     is_active = models.BooleanField(default=False)
     
@@ -19,6 +21,7 @@ class Status(models.Model):
 
 class Request(models.Model):
     company = models.ForeignKey(Company, on_delete=None)
+    campaign = models.ForeignKey(Campaign, on_delete=None)
     lot = models.ForeignKey(Lote, on_delete=None)
     catalog = models.ForeignKey(Catalog, on_delete=None)
     user = models.ForeignKey(User, on_delete=None)
@@ -47,7 +50,7 @@ class Itens(models.Model):
     product = models.ForeignKey(Product, on_delete=None)
     amount = models.IntegerField()
     discount = models.DecimalField(max_digits=10, decimal_places=2 ,  blank=True  ,  null=True)
-    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2 ,  blank=True  ,  null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     is_checked = models.BooleanField(blank=True,null=True)
      
