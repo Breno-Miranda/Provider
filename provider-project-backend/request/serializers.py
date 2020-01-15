@@ -43,7 +43,7 @@ class requestCreateSerializers(ModelSerializer):
     
     class Meta:
         model = Request
-        fields = ("company", "lot", "catalog", "user", "amount")
+        fields = ("company", "campaign",  "lot", "catalog", "user", "amount")
         
 class requestItensCreateSerializers(ModelSerializer):
     
