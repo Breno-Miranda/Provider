@@ -19,7 +19,8 @@ from core import pagination
 from django.db.models import Q
 
 class ProductViewSet(viewsets.ViewSet):
-    
+
+    # TODO: O CAMPO COMPANY ID DEVE SER OPCIONAL, FAZER A BUSCAR TBM PELO CATALOGO_COMPANY OBRIGATORIO
     def list(self, request):
         companyId = request.GET.get('company_id', None)
         _pagination = request.GET.get('pagination', None)

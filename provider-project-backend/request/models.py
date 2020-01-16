@@ -8,6 +8,7 @@ from users.models import Profile, Bind
 from common.models import Payment_methods
 from campaign.models import Campaign
 
+# TODO: OS STATUS SERÃO COMUM AO TODOS OS USERS DO SISTEMA. MUDAR PARA O COMUM
 class Status(models.Model):
     company = models.ForeignKey(Company, related_name="enterprise_request_status", on_delete=None)
     type = models.CharField(max_length=150)
