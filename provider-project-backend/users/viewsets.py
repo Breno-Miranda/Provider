@@ -625,10 +625,12 @@ class CommonUserBindProfileViewSets(viewsets.ViewSet):
     def list(self, request):
 
         companyId = request.GET.get('company_id', None)
+        typecode = request.GET.get('type_code', None)
 
         try:
             queryset_type = TypeSerializers(
-                Type.objects.all(), many=True, context={"request": request})
+                Type.objects.all().filter(code=typecode, is_active=1).first())
+
             queryset_team = TeamSerializers(
                 Team.objects.filter(company_id=companyId, is_active=1).first())
 
