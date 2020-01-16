@@ -3,7 +3,9 @@ from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import Permission, Group, User
 from users.models import Contact, Bank_Account, Profile, Bind
 from .serializers import ContactsSerializers, GroupSerializer, PermissionSerializer, UsersSerializer, \
-    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers, UserBindProfileSerializers, UsersCreateSerializer, UsersCreateBindSerializer, UserCreateProfileSerializers
+    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers, UserBindProfileSerializers, \
+    UsersCreateSerializer, UsersCreateBindSerializer, UserCreateProfileSerializers, TypeSerializers, TeamSerializers, \
+    SectorSerializers
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -17,7 +19,7 @@ from rest_framework import permissions
 from rest_framework.decorators import action
 from django.core.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
-
+from .models import Type, Team, Sector
 
 class IsAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -617,3 +619,30 @@ class UserContactViewSet(viewsets.ViewSet):
         else:
             permission_classes = [IsAdmin]
         return [permission() for permission in permission_classes]
+
+
+class CommonUserBindProfileViewSets(viewsets.ViewSet):
+    def list(self, request):
+
+        companyId = request.GET.get('company_id', None)
+
+        try:
+            queryset_type = TypeSerializers(
+                Type.objects.all(), many=True, context={"request": request})
+            queryset_team = TeamSerializers(
+                Team.objects.filter(company_id=companyId, is_active=1).first())
+
+            queryset_sector = SectorSerializers(
+                Sector.objects.filter(company_id=companyId, is_active=1).first())
+
+            return Response({'type': queryset_type.data,
+                             'team': queryset_team.data,
+                             'sector': queryset_sector.data
+                             },
+                             status=HTTP_200_OK)
+        except:
+            return Response({
+                'msm': 'Sem informações.',
+                'status': 'danger'
+            },
+                status=HTTP_404_NOT_FOUND)

@@ -3,7 +3,8 @@ from django.conf import settings
 from rest_framework import routers
 from django.urls import path, include
 from django.conf.urls.static import static
-from users.viewsets import ProfileViewSet, PermissionViewSet,UsersViewSet, UserAccountViewSet, UserContactViewSet, User
+from users.viewsets import ProfileViewSet, PermissionViewSet,UsersViewSet, UserAccountViewSet,\
+    UserContactViewSet, User, CommonUserBindProfileViewSets
 
 router = routers.DefaultRouter()
 router.register(r'api/users', UsersViewSet, basename='UsersView')
@@ -22,7 +23,9 @@ router.register(r'api/users/account',
 router.register(r'api/users/contact',
                 UserContactViewSet,
                 basename='UserContactView')
-
+router.register(r'api/user-bind-profile',
+                CommonUserBindProfileViewSets,
+                basename='CommonUserBindProfileView')
 urlpatterns = [
     path('', include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
