@@ -21,6 +21,7 @@ from django.core.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from .models import Type, Team, Sector
 
+
 class IsAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -315,67 +316,57 @@ class UsersViewSet(viewsets.ViewSet):
                 },
                 status=HTTP_403_FORBIDDEN)
 
-        # try:
-        #     if not request.data:
+        try:
 
-        #         return Response(
-        #             {
-        #                 'error':
-        #                 'Preencha todos os campos, as informações estão vazia.',
-        #                 'status': 'danger',
-        #                 'return': True
-        #             },
-        #             status=HTTP_403_FORBIDDEN)
+            if not request.data:
 
-        serializerUser = UsersCreateSerializer(data=request.data)
-        print(serializerUser.is_valid())
-        if serializerUser.is_valid():
-            userId = serializerUser.save()
+                return Response(
+                    {
+                        'error':
+                        'Preencha todos os campos, as informações estão vazia.',
+                        'status': 'danger',
+                        'return': True
+                    },
+                    status=HTTP_403_FORBIDDEN)
 
-    # ALTERAR O TIPO DE USUARIOS
-            userBind = dict()
-            
-            userBind.update(request.data)
-            userBind.update({'user': userId.id})
-            # userBind.update({'type': 1})
-            # userBind.update({'team': 1})
-            # userBind.update({'sector': 1})
-            userBind.update({'is_active': True})
+            serializerUser = UsersCreateSerializer(data=request.data)
+            if serializerUser.is_valid():
+                userId = serializerUser.save()
 
-            print(userBind)
+                userBind = dict()
+                userBind.update(request.data)
+                userBind.update({'user': userId.id})
+                userBind.update({'is_active': True})
 
-            serializerUserBind = UsersCreateBindSerializer(data=userBind)
-            print(serializerUserBind.is_valid())
-            if serializerUserBind.is_valid():
-                userbindId = serializerUserBind.save()
+                serializerUserBind = UsersCreateBindSerializer(data=userBind)
+                if serializerUserBind.is_valid():
+                    userbindId = serializerUserBind.save()
 
-                userBindProfile = dict()
-                userBindProfile.update(request.data)
-                userBindProfile.update({'bind': userbindId.id})
-                userBindProfile.update({'matriculation': "%010d" % userId.id })
-                
-                print(userBindProfile)
+                    userBindProfile = dict()
+                    userBindProfile.update(request.data)
+                    userBindProfile.update({'bind': userbindId.id})
+                    userBindProfile.update(
+                        {'matriculation': "%010d" % userId.id})
 
-                serializerUserBindProfile = UserCreateProfileSerializers(
-                    data=userBindProfile)
-                print(serializerUserBindProfile.is_valid())
-                if serializerUserBindProfile.is_valid():
-                    serializerUserBindProfile.save()
+                    serializerUserBindProfile = UserCreateProfileSerializers(
+                        data=userBindProfile)
+                    if serializerUserBindProfile.is_valid():
+                        serializerUserBindProfile.save()
 
+                        return Response(
+                            {
+                                'success': 'Heey! Ação efetuado acom sucesso.',
+                                'status': True
+                            },
+                            status=HTTP_200_OK)
+        except:
             return Response(
                 {
-                    'success': 'Heey! Ação efetuado acom sucesso.',
-                    'status': True
+                    'error':
+                    "Oops! Houve um erro na inserção dos dados.  Tente novamente mais tarde ou entre em contato com suporte.",
+                    'status': 'danger'
                 },
-                status=HTTP_200_OK)
-        # except:
-        #     return Response(
-        #         {
-        #             'error':
-        #             "Oops! Houve um erro na inserção dos dados.  Tente novamente mais tarde ou entre em contato com suporte.",
-        #             'status': 'danger'
-        #         },
-        #         status=HTTP_404_NOT_FOUND)
+                status=HTTP_404_NOT_FOUND)
 
     def get_permissions(self):
 
@@ -629,23 +620,28 @@ class CommonUserBindProfileViewSets(viewsets.ViewSet):
         typecode = request.GET.get('type_code', None)
 
         try:
-            queryset_type = TypeSerializers(
-                Type.objects.all().filter(code=typecode, is_active=1), many=True)
+            queryset_type = TypeSerializers(Type.objects.all().filter(
+                code=typecode, is_active=1),
+                                            many=True)
 
-            queryset_team = TeamSerializers(
-                Team.objects.filter(company_id=companyId, is_active=1), many=True)
+            queryset_team = TeamSerializers(Team.objects.filter(
+                company_id=companyId, is_active=1),
+                                            many=True)
 
-            queryset_sector = SectorSerializers(
-                Sector.objects.filter(company_id=companyId, is_active=1), many=True)
+            queryset_sector = SectorSerializers(Sector.objects.filter(
+                company_id=companyId, is_active=1),
+                                                many=True)
 
-            return Response({'type': queryset_type.data,
-                             'team': queryset_team.data,
-                             'sector': queryset_sector.data
-                             },
-                             status=HTTP_200_OK)
+            return Response(
+                {
+                    'type': queryset_type.data,
+                    'team': queryset_team.data,
+                    'sector': queryset_sector.data
+                },
+                status=HTTP_200_OK)
         except:
             return Response({
                 'msm': 'Sem informações.',
                 'status': 'danger'
             },
-                status=HTTP_404_NOT_FOUND)
+                            status=HTTP_404_NOT_FOUND)
