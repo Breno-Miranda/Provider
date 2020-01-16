@@ -8,16 +8,16 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
-  
+
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService
   ) { }
 
 
-  getUserSearch( search: string) {
+  getUserSearch(search: string) {
     return this.http.get<any[]>(`${environment.apiUrl}/api/users/search/`, {
-      params: 
+      params:
       {
         search: search,
       }
@@ -26,31 +26,30 @@ export class UserService {
 
   getAll() {
     return this.http.get<User[]>(`${environment.apiUrl}/api/users/all/`, {
-      params: 
+      params:
       {
         company_id: this.authenticationService.currentUserValue.companyId.toString(),
       }
     });
   }
 
-  getAllPermission()
-  {
+  getAllPermission() {
     return this.http.get<User[]>(`${environment.apiUrl}/api/users/permission/`, {
-      params: 
+      params:
       {
         company_id: this.authenticationService.currentUserValue.companyId.toString(),
       }
     });
   }
 
- 
+
   // PERMISSAO USER
 
-  setUserPermission( user_id: any, permission_id: any , group_id: any) {
+  setUserPermission(user_id: any, permission_id: any, group_id: any) {
     return this.http.post<any[]>(`${environment.apiUrl}/api/users/permission/`, {
-        user_id: user_id,
-        permission_id: permission_id,
-        group_id: group_id
+      user_id: user_id,
+      permission_id: permission_id,
+      group_id: group_id
     });
   }
 
@@ -58,80 +57,74 @@ export class UserService {
 
   getUserProfile() {
 
-    if(this.authenticationService.currentUserValue.is_business)
-    {
+    if (this.authenticationService.currentUserValue.is_business) {
       return this.http.get<any[]>(`${environment.apiUrl}/api/users/business/`, {
-        params: 
+        params:
         {
           company_id: this.authenticationService.currentUserValue.companyId.toString(),
           user_id: this.authenticationService.currentUserValue.id.toString(),
         }
       });
-    } else if(this.authenticationService.currentUserValue.is_individual){
+    } else if (this.authenticationService.currentUserValue.is_individual) {
       return this.http.get<any[]>(`${environment.apiUrl}/api/users/individual/`, {
-        params: 
+        params:
         {
           company_id: this.authenticationService.currentUserValue.companyId.toString(),
           user_id: this.authenticationService.currentUserValue.id.toString(),
         }
       });
-    }else if(this.authenticationService.currentUserValue.is_collaborator){
+    } else if (this.authenticationService.currentUserValue.is_collaborator) {
       return this.http.get<any[]>(`${environment.apiUrl}/api/users/collaborator/`, {
-        params: 
+        params:
         {
           company_id: this.authenticationService.currentUserValue.companyId.toString(),
           user_id: this.authenticationService.currentUserValue.id.toString(),
         }
       });
     }
-    
+
   }
 
-  setUserProfile( formData )
-  {
-    formData.append('user_id',  this.authenticationService.currentUserValue.id.toString())
+  setUserProfile(formData) {
+    formData.append('user_id', this.authenticationService.currentUserValue.id.toString())
     formData.append('company_id', this.authenticationService.currentUserValue.companyId.toString())
 
-    if(this.authenticationService.currentUserValue.is_business)
-    {
+    if (this.authenticationService.currentUserValue.is_business) {
       return this.http.post<any[]>(`${environment.apiUrl}/api/users/business/`, formData);
-    } else if(this.authenticationService.currentUserValue.is_individual){
+    } else if (this.authenticationService.currentUserValue.is_individual) {
       return this.http.post<any[]>(`${environment.apiUrl}/api/users/individual/`, formData);
-    }else if(this.authenticationService.currentUserValue.is_collaborator){
+    } else if (this.authenticationService.currentUserValue.is_collaborator) {
       return this.http.post<any[]>(`${environment.apiUrl}/api/users/collaborator/`, formData);
     }
 
   }
 
-  upUserProfile( formData )
-  {
-    formData.append('user_id',  this.authenticationService.currentUserValue.id.toString())
+  upUserProfile(formData) {
+    formData.append('user_id', this.authenticationService.currentUserValue.id.toString())
     formData.append('company_id', this.authenticationService.currentUserValue.companyId.toString())
 
-    if(this.authenticationService.currentUserValue.is_business)
-    {
-      return this.http.put<any[]>(`${environment.apiUrl}/api/users/business/`+ formData.get('id') +'/', formData);
-    } else if(this.authenticationService.currentUserValue.is_individual){
-      return this.http.put<any[]>(`${environment.apiUrl}/api/users/individual/`+ formData.get('id') +'/', formData);
-    }else if(this.authenticationService.currentUserValue.is_collaborator){
-      return this.http.put<any[]>(`${environment.apiUrl}/api/users/collaborator/`+ formData.get('id') +'/', formData);
+    if (this.authenticationService.currentUserValue.is_business) {
+      return this.http.put<any[]>(`${environment.apiUrl}/api/users/business/` + formData.get('id') + '/', formData);
+    } else if (this.authenticationService.currentUserValue.is_individual) {
+      return this.http.put<any[]>(`${environment.apiUrl}/api/users/individual/` + formData.get('id') + '/', formData);
+    } else if (this.authenticationService.currentUserValue.is_collaborator) {
+      return this.http.put<any[]>(`${environment.apiUrl}/api/users/collaborator/` + formData.get('id') + '/', formData);
     }
   }
 
   // create user bind profile
 
-  getUser(  data : any ) {
-
+  // listando usuario
+  getUser(data: any) {
     data['company_id'] = this.authenticationService.currentUserValue.companyId;
-
-    return this.http.get<any[]>(`${environment.apiUrl}/api/user-bind-profile/`,  {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/users/`, {
       params: data
     });
   }
-
-  
-  setUser( data ) {
-   
+  //  criando usuario. 
+  setUser(data: object) {
+    data['user_id'], this.authenticationService.currentUserValue.id.toString();
+    data['company'] = this.authenticationService.currentUserValue.companyId.toString();
     return this.http.post<any[]>(`${environment.apiUrl}/api/users/`, data);
   }
 

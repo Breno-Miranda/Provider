@@ -8,6 +8,7 @@ from product.models import Product
 from users.serializers import UsersSerializer
 from company.serializers import CatalogCompanySerializer
 from campaign.serializers import CampaignSerializers
+from users.serializers import UserBindProfileSerializers
 
 class StatusSerializers(ModelSerializer):
     
@@ -30,10 +31,9 @@ class RequestSerializers(ModelSerializer):
     _catalog = CatalogCompanySerializer(source='catalog', read_only=True)
     _campaign = CampaignSerializers(source='campaign', read_only=True)
 
-    
     class Meta:
         model = Request
-        fields = ("id", "company", "lot", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog" , "_campaign")
+        fields = ("id", "company", "lot", "user_bind", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog" , "_campaign")
 
 
 

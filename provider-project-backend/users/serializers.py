@@ -58,20 +58,6 @@ class PermissionSerializer(serializers.ModelSerializer):
         fields = ("__all__")
 
 
-class UserBindSerializers(serializers.ModelSerializer):
-
-    _company = CompanySerializer(source='company', read_only=True)
-    _type = TypeSerializers(source='type', read_only=True)
-    _team = TeamSerializers(source='team', read_only=True)
-    _sector = SectorSerializers(source='sector', read_only=True)
-    _user = UsersSerializer(source='user', read_only=True)
-
-    class Meta:
-        model = Bind
-        fields = ('id', 'user', 'is_active', '_company', '_type', '_team',
-                  '_sector', '_user')
-
-
 # INFORMATION USER CATEGORY FIXED SYSTEM
 class ContactsSerializers(ModelSerializer):
     class Meta:
@@ -84,6 +70,20 @@ class BankAccountUsersSerializers(ModelSerializer):
         model = Bank_Account
         fields = ("id", "account", "agency", "bank", "type_account",
                   "kind_of_person")
+
+
+class UserBindSerializers(serializers.ModelSerializer):
+
+    _company = CompanySerializer(source='company', read_only=True)
+    _type = TypeSerializers(source='type', read_only=True)
+    _team = TeamSerializers(source='team', read_only=True)
+    _sector = SectorSerializers(source='sector', read_only=True)
+    _user = UsersSerializer(source='user', read_only=True)
+
+    class Meta:
+        model = Bind
+        fields = ('id', 'user', 'is_active', '_company', '_type', '_team',
+                  '_sector', '_user')
 
 
 class UserBindProfileSerializers(ModelSerializer):

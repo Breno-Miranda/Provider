@@ -44,7 +44,8 @@ class Bind(models.Model):
     user = models.ForeignKey(User,related_name="person_bind", on_delete=None)
     type = models.ForeignKey(Type, on_delete=None , null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=None , null=True, blank=True)
-    sector = models.ForeignKey(Sector, on_delete=None)
+    sector = models.ForeignKey(Sector, on_delete=None),
+    user_bind = models.ForeignKey(User,  on_delete=None ,  blank=True,  null=True)
     is_active = models.BooleanField(default=False)
     
     class Meta:
@@ -56,8 +57,8 @@ class Bind(models.Model):
 class Profile(models.Model):
     matriculation = models.BigIntegerField(null=True, blank=True)
     full_name = models.CharField(max_length=150, blank=True, null=True)
-    company = models.ForeignKey(Company, related_name="enterprise_individual", on_delete=None)
-    user_bind = models.ForeignKey(User, related_name="person_individual_bond",  on_delete=None ,  blank=True,  null=True)
+    company = models.ForeignKey(Company, on_delete=None)
+    user = models.ForeignKey(User,  on_delete=None ,  blank=True,  null=True)
     bind = models.ForeignKey(Bind, related_name="bind_user",  on_delete=None ,  blank=True,  null=True)
     cpf = models.BigIntegerField(null=True, blank=True)
     rg = models.IntegerField(null=True, blank=True)

@@ -79,7 +79,6 @@ export class ConsultantComponent implements OnInit {
 
   setFinaly() {
 
-
     var full_name = this.f.full_name.value.replace(" da ", " ").replace(" de ", " ").split(' ')
 
     var data = {
@@ -106,8 +105,6 @@ export class ConsultantComponent implements OnInit {
       'sector': this.f.sector.value,
       'team': this.f.team.value,
       'type': this.f.type.value,
-      'user_bind': this.authenticationService.currentUserValue.id.toString(),
-      'company': this.authenticationService.currentUserValue.companyId.toString()
     }
 
     this.userService.setUser(data).pipe(first()).subscribe(data => {
