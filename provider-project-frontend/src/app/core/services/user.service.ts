@@ -120,12 +120,13 @@ export class UserService {
 
   // create user bind profile
 
-  getUser( data: Object ) {
+  getUser(  data : any ) {
 
-    data['params'] = data
-    data['params']['company'] =  this.authenticationService.currentUserValue.companyId.toString();
+    data['company_id'] = this.authenticationService.currentUserValue.companyId;
 
-    return this.http.get<any[]>(`${environment.apiUrl}/api/user-bind-profile/`, data);
+    return this.http.get<any[]>(`${environment.apiUrl}/api/user-bind-profile/`,  {
+      params: data
+    });
   }
 
   

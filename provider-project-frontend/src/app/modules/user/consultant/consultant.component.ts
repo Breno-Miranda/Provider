@@ -17,13 +17,13 @@ export class ConsultantComponent implements OnInit {
 
 
   consultantForm: FormGroup;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastr: ToastrService,
     private authenticationService: AuthenticationService
-  ) { 
+  ) {
 
     this.consultantForm = this.formBuilder.group({
       cpf: ['', Validators.required],
@@ -45,62 +45,70 @@ export class ConsultantComponent implements OnInit {
       full_name: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
+      sector: ['', Validators.required],
+      type: ['', Validators.required],
+      team: ['', Validators.required],
 
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       matriculation: ['', Validators.required],
-      
+
 
     });
   }
 
+  types:any;
+  teams:any;
+  sectors:any;
+
   ngOnInit() {
-  
     this.userService.getUser({
-      type_code: 4
+        type_code: 4
     }).pipe(first()).subscribe(data => {
-      console.log(data)
+      this.types = data['type'];
+      this.teams = data['team'];
+      this.sectors = data['sector'];
     }, error => {
       this.toastr.error(error['error']);
     });
-
   }
 
   get f() {
     return this.consultantForm.controls;
   }
 
-  setFinaly(){
+  setFinaly() {
 
-    
+
     var full_name = this.f.full_name.value.replace(" da ", " ").replace(" de ", " ").split(' ')
 
-    var data = {'cpf':this.f.cpf.value,
-    'rg':this.f.rg.value,
-    'address':this.f.address.value,
-    'complement':this.f.complement.value,
-    'city':this.f.city.value,
-    'state':this.f.state.value,
-    'zipcode':this.f.zipcode.value,
-    'number':this.f.number.value,
-    'birthday':this.f.birthday.value,
-    'civil_sate':this.f.civil_sate.value,
-    'recommendation':this.f.recommendation.value,
-    'full_name':this.f.full_name.value,
-    'genre':this.f.genre.value,
-    'phone':this.f.phone.value,
-    'cell':this.f.cell.value,
-    'email':this.f.email.value,
-    'matriculation':this.f.email.value,
-    'username':this.f.cpf.value,
-    'password':"@"+ full_name[0]+full_name[1]+"#",
-    'first_name':full_name[0],
-    'last_name':full_name[1],
-    'user_bind': this.authenticationService.currentUserValue.id.toString(),
-    'company':  this.authenticationService.currentUserValue.companyId.toString()
-  }
-
-    console.log(data);
+    var data = {
+      'cpf': this.f.cpf.value,
+      'rg': this.f.rg.value,
+      'address': this.f.address.value,
+      'complement': this.f.complement.value,
+      'city': this.f.city.value,
+      'state': this.f.state.value,
+      'zipcode': this.f.zipcode.value,
+      'number': this.f.number.value,
+      'birthday': this.f.birthday.value,
+      'civil_sate': this.f.civil_sate.value,
+      'recommendation': this.f.recommendation.value,
+      'full_name': this.f.full_name.value,
+      'genre': this.f.genre.value,
+      'phone': this.f.phone.value,
+      'cell': this.f.cell.value,
+      'email': this.f.email.value,
+      'username': this.f.cpf.value,
+      'password': "@" + full_name[0] + full_name[1] + "#",
+      'first_name': full_name[0],
+      'last_name': full_name[1],
+      'sector': this.f.sector.value,
+      'team': this.f.team.value,
+      'type': this.f.type.value,
+      'user_bind': this.authenticationService.currentUserValue.id.toString(),
+      'company': this.authenticationService.currentUserValue.companyId.toString()
+    }
 
     this.userService.setUser(data).pipe(first()).subscribe(data => {
       this.toastr.success(data['success']);

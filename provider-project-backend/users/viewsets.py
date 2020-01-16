@@ -334,11 +334,12 @@ class UsersViewSet(viewsets.ViewSet):
 
     # ALTERAR O TIPO DE USUARIOS
             userBind = dict()
-            userBind.update({'company': request.data['company']})
+            
+            userBind.update(request.data)
             userBind.update({'user': userId.id})
-            userBind.update({'type': 1})
-            userBind.update({'team': 1})
-            userBind.update({'sector': 1})
+            # userBind.update({'type': 1})
+            # userBind.update({'team': 1})
+            # userBind.update({'sector': 1})
             userBind.update({'is_active': True})
 
             print(userBind)
@@ -629,13 +630,13 @@ class CommonUserBindProfileViewSets(viewsets.ViewSet):
 
         try:
             queryset_type = TypeSerializers(
-                Type.objects.all().filter(code=typecode, is_active=1).first())
+                Type.objects.all().filter(code=typecode, is_active=1), many=True)
 
             queryset_team = TeamSerializers(
-                Team.objects.filter(company_id=companyId, is_active=1).first())
+                Team.objects.filter(company_id=companyId, is_active=1), many=True)
 
             queryset_sector = SectorSerializers(
-                Sector.objects.filter(company_id=companyId, is_active=1).first())
+                Sector.objects.filter(company_id=companyId, is_active=1), many=True)
 
             return Response({'type': queryset_type.data,
                              'team': queryset_team.data,
