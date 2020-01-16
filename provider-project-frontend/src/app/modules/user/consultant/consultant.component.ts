@@ -56,6 +56,14 @@ export class ConsultantComponent implements OnInit {
 
   ngOnInit() {
   
+    this.userService.getUser({
+      type_code: 4
+    }).pipe(first()).subscribe(data => {
+      console.log(data)
+    }, error => {
+      this.toastr.error(error['error']);
+    });
+
   }
 
   get f() {
