@@ -37,11 +37,6 @@ class UsersAllSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("__all__")
-        
-class UsersCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ( 'email', 'username', 'first_name', 'last_name','password')
 
 
 class UsersSerializer(serializers.ModelSerializer):
@@ -103,3 +98,30 @@ class UserBindProfileSerializers(ModelSerializer):
                   "zipcode", "number", "birthday", "civil_sate",
                   "date_register", "photo", "anexo", "about",
                   "is_term_accepted", "is_active", "_bind")
+
+
+# Create user, bind  e profile
+
+
+class UsersCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'first_name', 'last_name', 'password')
+
+    def create(self, validated_data):
+        user = super().create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+
+class UsersCreateBindSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bind
+        fields = ('user', 'company', 'type', 'team', 'sector', 'is_active')
+
+
+class UserCreateProfileSerializers(ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("full_name", "matriculation",  "company", "user_bind", "bind", "cpf", "genre", "address")

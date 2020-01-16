@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import Permission, Group, User
 from users.models import Contact, Bank_Account, Profile, Bind
 from .serializers import ContactsSerializers, GroupSerializer, PermissionSerializer, UsersSerializer, \
-    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers, UserBindProfileSerializers
+    UserBindSerializers, BankAccountUsersSerializers, ProfileSerializers, UserBindProfileSerializers, UsersCreateSerializer, UsersCreateBindSerializer, UserCreateProfileSerializers
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -46,13 +46,15 @@ class ProfileViewSet(viewsets.ViewSet):
 
             if not type_user_number:
                 queryset_profile = UserBindProfileSerializers(
-                    Profile.objects.all().filter(company_id=companyId), many=True)
+                    Profile.objects.all().filter(company_id=companyId),
+                    many=True)
 
             else:
 
                 queryset_profile = UserBindProfileSerializers(
-                    Profile.objects.all().filter(company_id=companyId,
-                                                bind__type__code=type_user_number),
+                    Profile.objects.all().filter(
+                        company_id=companyId,
+                        bind__type__code=type_user_number),
                     many=True)
 
             return Response(queryset_profile.data, status=HTTP_200_OK)
@@ -294,62 +296,83 @@ class UsersViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm': '0 usuarios cadastrados.',
+                    'msm': 'Ops !! Não há informações..',
                     'status': 'danger'
                 },
                 status=HTTP_404_NOT_FOUND)
-            
+
     def create(self, request):
 
         if not request.user.has_perm('users.create_user'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
                 },
                 status=HTTP_403_FORBIDDEN)
-        
-        try:
-            if not request.data:
-                
-                return Response(
-                {
-                    'msm':
-                    'Preencha todos os campos, as informações estão vazia.',
-                    'status': 'danger',
-                    'return': True
-                },
-                status=HTTP_403_FORBIDDEN)
-                
-            serializerUser = UsersCreateSerializer(data=request.data['user'])
-            if serializerUser.is_valid():
-                user = serializerUser.save()
-                
-                serializerUserBind = UsersCreateSerializer(data=request.data['bind'])
-                if serializerUserBind.is_valid():
-                    userbind = serializerUserBind.save()
-                    
-                    serializerUserBindProfile = UsersCreateSerializer(data=request.data['bind'])
-                    if serializerUserBindProfile.is_valid():
-                        serializerUserBindProfile.save()
-                    
-                return Response(
-                    {
-                        'success': 'Heey! Ação efetuado acom sucesso.',
-                        'status': True
-                    },
-                    status=HTTP_200_OK)
-        except:
-            return Response(
-            {
-                'msm':
-                "Oops! Houve um erro na exclusão dos dados.  Tente novamente...",
-                'status': 'danger'
-            },
-            status=HTTP_404_NOT_FOUND)
 
+        # try:
+        #     if not request.data:
+
+        #         return Response(
+        #             {
+        #                 'error':
+        #                 'Preencha todos os campos, as informações estão vazia.',
+        #                 'status': 'danger',
+        #                 'return': True
+        #             },
+        #             status=HTTP_403_FORBIDDEN)
+
+        serializerUser = UsersCreateSerializer(data=request.data)
+        print(serializerUser.is_valid())
+        if serializerUser.is_valid():
+            userId = serializerUser.save()
+
+    # ALTERAR O TIPO DE USUARIOS
+            userBind = dict()
+            userBind.update({'company': request.data['company']})
+            userBind.update({'user': userId.id})
+            userBind.update({'type': 1})
+            userBind.update({'team': 1})
+            userBind.update({'sector': 1})
+            userBind.update({'is_active': True})
+
+            print(userBind)
+
+            serializerUserBind = UsersCreateBindSerializer(data=userBind)
+            print(serializerUserBind.is_valid())
+            if serializerUserBind.is_valid():
+                userbindId = serializerUserBind.save()
+
+                userBindProfile = dict()
+                userBindProfile.update(request.data)
+                userBindProfile.update({'bind': userbindId.id})
+                userBindProfile.update({'matriculation': "%010d" % userId.id })
+                
+                print(userBindProfile)
+
+                serializerUserBindProfile = UserCreateProfileSerializers(
+                    data=userBindProfile)
+                print(serializerUserBindProfile.is_valid())
+                if serializerUserBindProfile.is_valid():
+                    serializerUserBindProfile.save()
+
+            return Response(
+                {
+                    'success': 'Heey! Ação efetuado acom sucesso.',
+                    'status': True
+                },
+                status=HTTP_200_OK)
+        # except:
+        #     return Response(
+        #         {
+        #             'error':
+        #             "Oops! Houve um erro na inserção dos dados.  Tente novamente mais tarde ou entre em contato com suporte.",
+        #             'status': 'danger'
+        #         },
+        #         status=HTTP_404_NOT_FOUND)
 
     def get_permissions(self):
 

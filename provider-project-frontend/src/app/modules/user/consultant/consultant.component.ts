@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { UserService } from 'src/app/core/services/user.service';
+
+
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-consultant',
@@ -15,6 +20,9 @@ export class ConsultantComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
+    private userService: UserService,
+    private toastr: ToastrService,
+    private authenticationService: AuthenticationService
   ) { 
 
     this.consultantForm = this.formBuilder.group({
@@ -34,41 +42,62 @@ export class ConsultantComponent implements OnInit {
       cell: ['', Validators.required],
       email: ['', Validators.required],
       about: ['', Validators.required],
-      username: ['', Validators.required],
       full_name: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      matriculation: ['', Validators.required],
+      
+
     });
   }
 
   ngOnInit() {
-
   
+  }
+
+  get f() {
+    return this.consultantForm.controls;
   }
 
   setFinaly(){
 
-    const formData = new FormData();
+    
+    var full_name = this.f.full_name.value.replace(" da ", " ").replace(" de ", " ").split(' ')
 
-    formData.append('cpf', this.f.cpf.value)
-    formData.append('rg', this.f.rg.value)
-    formData.append('address', this.f.address.value)
-    formData.append('complement', this.f.complement.value)
-    formData.append('city', this.f.city.value)
-    formData.append('state', this.f.state.value)
-    formData.append('zipcode', this.f.zipcode.value)
-    formData.append('number', this.f.number.value)
-    formData.append('birthday', this.f.birthday.value)
-    formData.append('civil_sate', this.f.civil_sate.value)
-    formData.append('recommendation', this.f.recommendation.value)
-    formData.append('full_name', this.f.full_name.value)
-    formData.append('genre', this.f.genre.value)
-    formData.append('phone', this.f.phone.value)
-    formData.append('cell', this.f.cell.value)
-    formData.append('email', this.f.email.value)
+    var data = {'cpf':this.f.cpf.value,
+    'rg':this.f.rg.value,
+    'address':this.f.address.value,
+    'complement':this.f.complement.value,
+    'city':this.f.city.value,
+    'state':this.f.state.value,
+    'zipcode':this.f.zipcode.value,
+    'number':this.f.number.value,
+    'birthday':this.f.birthday.value,
+    'civil_sate':this.f.civil_sate.value,
+    'recommendation':this.f.recommendation.value,
+    'full_name':this.f.full_name.value,
+    'genre':this.f.genre.value,
+    'phone':this.f.phone.value,
+    'cell':this.f.cell.value,
+    'email':this.f.email.value,
+    'matriculation':this.f.email.value,
+    'username':this.f.cpf.value,
+    'password':"@"+ full_name[0]+full_name[1]+"#",
+    'first_name':full_name[0],
+    'last_name':full_name[1],
+    'user_bind': this.authenticationService.currentUserValue.id.toString(),
+    'company':  this.authenticationService.currentUserValue.companyId.toString()
+  }
 
-    this.userService.setUser(formData).pipe(first()).subscribe(data => {
+    console.log(data);
+
+    this.userService.setUser(data).pipe(first()).subscribe(data => {
       this.toastr.success(data['success']);
     }, error => {
-      this.toastr.success(error['error']);
+      this.toastr.error(error['error']);
     });
   }
 

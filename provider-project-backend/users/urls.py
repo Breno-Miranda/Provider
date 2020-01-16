@@ -3,9 +3,10 @@ from django.conf import settings
 from rest_framework import routers
 from django.urls import path, include
 from django.conf.urls.static import static
-from users.viewsets import ProfileViewSet, PermissionViewSet,UsersViewSet, UserAccountViewSet, UserContactViewSet
+from users.viewsets import ProfileViewSet, PermissionViewSet,UsersViewSet, UserAccountViewSet, UserContactViewSet, User
 
 router = routers.DefaultRouter()
+router.register(r'api/users', UsersViewSet, basename='UsersView')
 router.register(r'api/users/all', UsersViewSet, basename='UsersView')
 router.register(r'api/users/search', UsersViewSet, basename='UsersViewSearch')
 router.register(r'api/users/profile',

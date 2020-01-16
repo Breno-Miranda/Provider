@@ -13,6 +13,7 @@ declare var $: any;
   styleUrls: ['./new.component.scss']
 })
 export class NewComponent implements OnInit {
+  
   [x: string]: any;
 
   requestForm: FormGroup;
