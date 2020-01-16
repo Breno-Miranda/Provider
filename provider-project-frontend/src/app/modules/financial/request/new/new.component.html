@@ -13,11 +13,6 @@
                 <p>Abaixo se encontra os campos de identificações de pedidos.
                     <code>Observação: Todos os campos são obrigatorios. </code></p>
                 <form [formGroup]="requestForm">
-
-
-
-
-
                     <div class="form-group row">
                         <div class="col">
                             <label for="">Catalogo</label>
@@ -34,7 +29,7 @@
                             <label for="">Campanha</label>
                             <select class="form-control" name="campaign" id="campaign" formControlName="campaign" [ngClass]="{ 'is-invalid': submitted && f.campaign.errors }">
                                 <option value="">Escolha uma opção</option>
-                                <option *ngFor="let data of campaigns" value="{{data.id}}">{{data.send_date}}</option>
+                                <option *ngFor="let data of campaigns" value="{{data.id}}">{{data.order_send_name}}</option>
                             </select>
                             <div *ngIf="submitted && f.campaign.errors" class="invalid-feedback">
                                 <div *ngIf="f.campaign.errors.required">Informação é obrigatório</div>
@@ -118,7 +113,8 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Lista de Itens</h4>
-                <p>Segue abaixo os produto refrenciados na tabela de itens.<code> Observações: Campo SELECIONAR não é obrigatorio.</code></p>
+                <p>Segue abaixo os produto refrenciados na tabela de itens.
+                    <code> Observações: Campo SELECIONAR não é obrigatorio.</code></p>
                 <div class="col-12 table-responsive col-tb">
                     <table class="table table-striped w-100  no-footer" role="grid" aria-describedby="order-listing_info" style="width: 1042px;">
                         <thead>

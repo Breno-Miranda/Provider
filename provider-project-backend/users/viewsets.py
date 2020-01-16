@@ -21,6 +21,7 @@ from django.core.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from .models import Type, Team, Sector
 
+
 class IsAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -42,11 +43,11 @@ class ProfileViewSet(viewsets.ViewSet):
                 status=HTTP_403_FORBIDDEN)
 
         companyId = request.GET.get('company_id', None)
-        type_user_number = request.GET.get('type_user_number', None)
+        type_code = request.GET.get('type_code', None)
 
         try:
 
-            if not type_user_number:
+            if not type_code:
                 queryset_profile = UserBindProfileSerializers(
                     Profile.objects.all().filter(company_id=companyId),
                     many=True)
@@ -56,7 +57,7 @@ class ProfileViewSet(viewsets.ViewSet):
                 queryset_profile = UserBindProfileSerializers(
                     Profile.objects.all().filter(
                         company_id=companyId,
-                        bind__type__code=type_user_number),
+                        bind__type__code=type_code),
                     many=True)
 
             return Response(queryset_profile.data, status=HTTP_200_OK)
@@ -275,9 +276,12 @@ class PermissionViewSet(viewsets.ViewSet):
 
 
 class UsersViewSet(viewsets.ViewSet):
+    
+    
     def list(self, request):
 
         companyId = request.GET.get('company_id', None)
+        type_code = request.GET.get('type_code', None)
 
         if not request.user.has_perm('users.view_bind'):
             return Response(
@@ -288,20 +292,41 @@ class UsersViewSet(viewsets.ViewSet):
                     'return': True
                 },
                 status=HTTP_403_FORBIDDEN)
-
         try:
-            queryset = UserBindSerializers(
-                Bind.objects.all().filter(company_id=companyId),
-                many=True,
-                context={"request": request})
-            return Response(queryset.data, status=HTTP_200_OK)
+        
+            if not type_code:
+                
+                queryset = UserBindProfileSerializers(Profile.objects.all().filter(
+                    company_id=companyId | Q(bind__type__code=type_code)),
+                many=True)
+                
+                return Response(queryset.data, status=HTTP_200_OK)
+            else:
+                
+                queryset_type = TypeSerializers(Type.objects.all().filter(
+                    code=type_code, is_active=1),
+                                                    many=True)
+                queryset_team = TeamSerializers(Team.objects.filter(
+                    company_id=companyId, is_active=1),
+                                                many=True)
+                queryset_sector = SectorSerializers(Sector.objects.filter(
+                    company_id=companyId, is_active=1),
+                                                    many=True)
+
+                return Response(
+                    {
+                        'type': queryset_type.data,
+                        'team': queryset_team.data,
+                        'sector': queryset_sector.data
+                    },
+                    status=HTTP_200_OK)
         except:
             return Response(
-                {
-                    'msm': 'Ops !! Não há informações..',
-                    'status': 'danger'
-                },
-                status=HTTP_404_NOT_FOUND)
+                    {
+                        'msm': 'Opss! Ocorreu um error. Caso pesista entre em contato com o suporte.',
+                        'status': 'danger'
+                    },
+                    status=HTTP_404_NOT_FOUND)
 
     def create(self, request):
 
@@ -315,66 +340,66 @@ class UsersViewSet(viewsets.ViewSet):
                 },
                 status=HTTP_403_FORBIDDEN)
 
-        # try:
-        #     if not request.data:
+        try:
 
-        #         return Response(
-        #             {
-        #                 'error':
-        #                 'Preencha todos os campos, as informações estão vazia.',
-        #                 'status': 'danger',
-        #                 'return': True
-        #             },
-        #             status=HTTP_403_FORBIDDEN)
+            if not request.data:
 
-        serializerUser = UsersCreateSerializer(data=request.data)
-        print(serializerUser.is_valid())
-        if serializerUser.is_valid():
-            userId = serializerUser.save()
+                return Response(
+                    {
+                        'error':
+                        'Preencha todos os campos, as informações estão vazia.',
+                        'status': 'danger',
+                        'return': True
+                    },
+                    status=HTTP_403_FORBIDDEN)
 
-    # ALTERAR O TIPO DE USUARIOS
-            userBind = dict()
-            userBind.update({'company': request.data['company']})
-            userBind.update({'user': userId.id})
-            userBind.update({'type': 1})
-            userBind.update({'team': 1})
-            userBind.update({'sector': 1})
-            userBind.update({'is_active': True})
+            serializerUser = UsersCreateSerializer(data=request.data)
+            if serializerUser.is_valid():
+                userId = serializerUser.save()
 
-            print(userBind)
+                userBind = dict()
+                userBind.update(request.data)
+                userBind.update({'user': userId.id})
+                userBind.update({'is_active': True})
 
-            serializerUserBind = UsersCreateBindSerializer(data=userBind)
-            print(serializerUserBind.is_valid())
-            if serializerUserBind.is_valid():
-                userbindId = serializerUserBind.save()
+                serializerUserBind = UsersCreateBindSerializer(data=userBind)
+                if serializerUserBind.is_valid():
+                    userbindId = serializerUserBind.save()
 
-                userBindProfile = dict()
-                userBindProfile.update(request.data)
-                userBindProfile.update({'bind': userbindId.id})
-                userBindProfile.update({'matriculation': "%010d" % userId.id })
-                
-                print(userBindProfile)
+                    userBindProfile = dict()
+                    userBindProfile.update(request.data)
+                    userBindProfile.update({'bind': userbindId.id})
+                    userBindProfile.update({'user': userId.id})
+                    userBindProfile.update(
+                        {'matriculation': "%010d" % userId.id})
 
-                serializerUserBindProfile = UserCreateProfileSerializers(
-                    data=userBindProfile)
-                print(serializerUserBindProfile.is_valid())
-                if serializerUserBindProfile.is_valid():
-                    serializerUserBindProfile.save()
+                    serializerUserBindProfile = UserCreateProfileSerializers(
+                        data=userBindProfile)
+                    if serializerUserBindProfile.is_valid():
+                        serializerUserBindProfile.save()
 
+                        return Response(
+                            {
+                                'success': 'Heey! Ação efetuado acom sucesso.',
+                                'status': True
+                            },
+                            status=HTTP_200_OK)
+                        
+            return Response(
+            {
+                'error':
+                "Oops! Houve um erro na inserção dos dados.  Tente novamente mais tarde ou entre em contato com suporte.",
+                'status': 'danger'
+            },
+            status=HTTP_404_NOT_FOUND)
+        except:
             return Response(
                 {
-                    'success': 'Heey! Ação efetuado acom sucesso.',
-                    'status': True
+                    'error':
+                    "Oops! Houve um erro na inserção dos dados.  Tente novamente mais tarde ou entre em contato com suporte.",
+                    'status': 'danger'
                 },
-                status=HTTP_200_OK)
-        # except:
-        #     return Response(
-        #         {
-        #             'error':
-        #             "Oops! Houve um erro na inserção dos dados.  Tente novamente mais tarde ou entre em contato com suporte.",
-        #             'status': 'danger'
-        #         },
-        #         status=HTTP_404_NOT_FOUND)
+                status=HTTP_404_NOT_FOUND)
 
     def get_permissions(self):
 
@@ -620,31 +645,3 @@ class UserContactViewSet(viewsets.ViewSet):
             permission_classes = [IsAdmin]
         return [permission() for permission in permission_classes]
 
-
-class CommonUserBindProfileViewSets(viewsets.ViewSet):
-    def list(self, request):
-
-        companyId = request.GET.get('company_id', None)
-        typecode = request.GET.get('type_code', None)
-
-        try:
-            queryset_type = TypeSerializers(
-                Type.objects.all().filter(code=typecode, is_active=1).first())
-
-            queryset_team = TeamSerializers(
-                Team.objects.filter(company_id=companyId, is_active=1).first())
-
-            queryset_sector = SectorSerializers(
-                Sector.objects.filter(company_id=companyId, is_active=1).first())
-
-            return Response({'type': queryset_type.data,
-                             'team': queryset_team.data,
-                             'sector': queryset_sector.data
-                             },
-                             status=HTTP_200_OK)
-        except:
-            return Response({
-                'msm': 'Sem informações.',
-                'status': 'danger'
-            },
-                status=HTTP_404_NOT_FOUND)
