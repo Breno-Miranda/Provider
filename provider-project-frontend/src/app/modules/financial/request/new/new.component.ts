@@ -13,6 +13,7 @@ declare var $: any;
   styleUrls: ['./new.component.scss']
 })
 export class NewComponent implements OnInit {
+  
   [x: string]: any;
 
   requestForm: FormGroup;
@@ -80,7 +81,7 @@ export class NewComponent implements OnInit {
       this.f.amount.setValue(1);
       this.f.size.setValue('');
       this.f.reference.setValue('');
-
+      
       this.itens.push(data['results']);
     });
   }
@@ -99,16 +100,10 @@ setFinaly()
     amount:this.f.total_amount.value,
     itens: this.itens
   }).pipe(first()).subscribe(data => {
-    // this.success = data['success']
-
     this.toastr.success(data['success']);
-
     this.itens = [];
     this.f.user.setValue('');
   });
 }
-
-
-  
 
 }

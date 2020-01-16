@@ -118,4 +118,12 @@ export class UserService {
     }
   }
 
+  // create user bind profile
+  
+  setUser( data ) {
+   
+    return this.http.post<any[]>(`${environment.apiUrl}/api/users/`, data);
+  }
+
+
 }
