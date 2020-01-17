@@ -127,7 +127,7 @@ class UserCreateProfileSerializers(ModelSerializer):
     class Meta:
         model = Profile
         fields = ("full_name", "matriculation", "company", "bind",
-                  "cpf", "genre", "address")
+                  "cpf", "genre", "cell", "phone" , "address")
 
 
 # Grupo & permissão

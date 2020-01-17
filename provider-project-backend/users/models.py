@@ -76,6 +76,8 @@ class Profile(models.Model):
     number = models.CharField(max_length=20, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
     civil_sate = models.CharField(max_length=40, null=True, blank=True)
+    phone = models.CharField(max_length=40, null=True, blank=True)
+    cell = models.CharField(max_length=40, null=True, blank=True)
     date_register = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to='photo/perfil', null=True, blank=True)
     anexo = models.FileField(upload_to='anexo/doc/individual', null=True, blank=True)
