@@ -283,7 +283,7 @@ class UsersViewSet(viewsets.ViewSet):
         companyId = request.GET.get('company_id', None)
         type_code = request.GET.get('type_code', None)
 
-        if not request.user.has_perm('users.view_user'):
+        if not request.user.has_perm('auth.view_user'):
             return Response(
                 {
                     'msm':
@@ -330,7 +330,7 @@ class UsersViewSet(viewsets.ViewSet):
 
     def create(self, request):
 
-        if not request.user.has_perm('users.create_user'):
+        if not request.user.has_perm('auth.create_user'):
             return Response(
                 {
                     'error':
