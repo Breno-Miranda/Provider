@@ -24,12 +24,10 @@ export const UserRouter: Routes = [
   { path: 'manager/register/manager', component: ManagerComponent },
   { path: 'manager/register/leader', component: LeaderComponent },
   { path: 'manager/register/consultant', component: ConsultantComponent },
-  { path: 'manager/register/admin', component: AdminComponent },
 
-  { path: 'consultant/register/manager', component: ManagerComponent },
-  { path: 'consultant/register/leader', component: LeaderComponent },
-  { path: 'consultant/register/consultant', component: ConsultantComponent },
-  { path: 'consultant/register/admin', component: AdminComponent },
+
+  { path: 'leader/register/leader', component: LeaderComponent },
+  { path: 'leader/register/consultant', component: ConsultantComponent },
 
   { path: 'admin/permission', component: PermissionComponent },
 ];
