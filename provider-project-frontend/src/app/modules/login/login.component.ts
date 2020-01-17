@@ -71,35 +71,30 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
 
-    setTimeout(() => {
       this.submitted = true;
-      // stop here if form is invalid
       if (this.loginForm.invalid) {
         return;
       }
-
       this.loading = true;
-      this.authenticationService.login(this.f.username.value, this.f.password.value, bind)
+      this.authenticationService.login(this.f.username.value, this.f.password.value, bind['id'])
         .pipe(first())
         .subscribe(
           data => {
             // this.router.navigate([this.returnUrl]);
-            if(data.type_code == 1){
+            if(data._type.code == 1){
               this.router.navigate(['/dashboard/admin']);
-            } else if(data.type_code == 2){
+            } else if(data._type.code == 2){
               this.router.navigate(['/dashboard/manager']);
-            } else if(data.type_code == 3){
+            } else if(data._type.code == 3){
               this.router.navigate(['/dashboard/leader']);
-            } else if(data.type_code == 4){
+            } else if(data._type.code == 4){
               this.router.navigate(['/dashboard/consultant']);
             }
           },
           error => {
-            console.log(error)
             this.error = error.error;
             this.loading = false;
           });
-    }, 1000);
   }
 
   resetLogin(){

@@ -18,7 +18,7 @@ export class SystemService {
     return this.http.get<any[]>(`${environment.apiUrl}/api/system/info/`, {
       params: 
       {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+        company_id: this.authenticationService.currentUserValue.company.toString(),
         user_id: this.authenticationService.currentUserValue.id.toString(),
         type_code: this.authenticationService.currentUserValue.type_code,
       }

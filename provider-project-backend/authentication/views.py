@@ -10,6 +10,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 # Serializers
 from users.serializers import UserBindSerializers, UsersSerializer
+
 from company.serializers import CompanyKeySecretSerializer, CompanyKeySimplesSerializer
 # Models
 from django.contrib.auth.models import User
@@ -64,28 +65,12 @@ class Authentication(generics.ListCreateAPIView):
                     status=HTTP_404_NOT_FOUND)
 
             token, _ = Token.objects.get_or_create(user=user)
-
-            return Response(
-                {
-                    'token': token.key,
-                    'id': user.id,
-                    'email': user.email,
-                    'bindId': bind['id'],
-                    'last_name': user.last_name,
-                    'first_name': user.first_name,
-                    'companyId': bind['_company']['id'],
-                    'color_primary': bind['_company']['color_primary'],
-                    'color_secudary': bind['_company']['color_secudary'],
-                    'type': bind['_type']['type'],
-                    'team': bind['_team']['name'],
-                    # 'sector': bind['_sector']['name'],
-                    'type_code': bind['_type']['code'],
-                    'cnpj': bind['_company']['cnpj'],
-                    'logo': bind['_company']['logo'],
-                    'website': bind['_company']['website'],
-                    'name_company': bind['_company']['name_company'],
-                },
-                status=HTTP_200_OK)
+            
+            queryset = dict()
+            queryset.update({'token': token.key}) 
+            queryset.update(UserBindSerializers(Bind.objects.get(id=bind), context={"request": request}).data)
+            
+            return Response( queryset,status=HTTP_200_OK)
 
         except:
             return Response(

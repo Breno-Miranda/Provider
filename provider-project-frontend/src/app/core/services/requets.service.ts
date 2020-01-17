@@ -18,13 +18,13 @@ export class RequestService {
     return this.http.get<any[]>(`${environment.apiUrl}/api/request/`, {
       params: 
       {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+        company_id: this.authenticationService.currentUserValue.company.toString(),
       }
     });
   }
 
   getRequest( data: any ) {
-    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+    data['company_id'] = this.authenticationService.currentUserValue.company;
 
     return this.http.get<any[]>(`${environment.apiUrl}/api/request/`, {
       params: data
@@ -33,7 +33,7 @@ export class RequestService {
 
   setRequest( data: object)
   {
-    data['company'] = this.authenticationService.currentUserValue.companyId.toString();
+    data['company'] = this.authenticationService.currentUserValue.company.toString();
     data['user_bind_typeit'] = this.authenticationService.currentUserValue.id.toString();
 
     return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);
@@ -41,7 +41,7 @@ export class RequestService {
 
   putRequest( data: object)
   {
-    data['company_id'] = this.authenticationService.currentUserValue.companyId.toString();
+    data['company_id'] = this.authenticationService.currentUserValue.company.toString();
     data['user_bind_typeit'] = this.authenticationService.currentUserValue.id.toString();
     return this.http.put<any[]>(`${environment.apiUrl}/api/request/`, data);
   }

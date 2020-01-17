@@ -1,6 +1,6 @@
 export class User {
   id: number;
-  companyId: string;
+  company: string;
   username: string;
   email: string;
   color_primary: string;

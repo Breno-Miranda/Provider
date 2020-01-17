@@ -8,66 +8,62 @@ from users.models import Contact, Bind, Profile, Type, Team, Sector, Bank_Accoun
 # Serializers
 from company.serializers import CompanySerializer
 
-
 # Usuarios
 
+
 class UsersAllSerializer(serializers.ModelSerializer):
-    
     class Meta:
-        
+
         model = User
         fields = ("__all__")
 
 
 class UsersSerializer(serializers.ModelSerializer):
-    
     class Meta:
-        
+
         model = User
         fields = ('id', 'email', 'username', 'first_name', 'last_name',
                   'groups', 'user_permissions')
-        
+
 
 class ContactsSerializers(ModelSerializer):
-    
     class Meta:
-        
+
         model = Contact
         fields = ("id", "phone", "email", "cell")
 
 
 class BankAccountUsersSerializers(ModelSerializer):
-    
     class Meta:
-        
+
         model = Bank_Account
         fields = ("id", "account", "agency", "bank", "type_account",
                   "kind_of_person")
 
-#  Bind 
+
+#  Bind
+
 
 class TypeSerializers(ModelSerializer):
-    
     class Meta:
-        
+
         model = Type
         fields = ("__all__")
 
 
 class TeamSerializers(ModelSerializer):
-    
     class Meta:
-        
+
         model = Team
         fields = ("__all__")
 
 
 class SectorSerializers(ModelSerializer):
-    
     class Meta:
-        
+
         model = Sector
         fields = ("__all__")
+
 
 class UserBindSerializers(serializers.ModelSerializer):
 
@@ -78,9 +74,10 @@ class UserBindSerializers(serializers.ModelSerializer):
     _user = UsersSerializer(source='user', read_only=True)
 
     class Meta:
-        
+
         model = Bind
-        fields = ('id', 'user', '_company', '_type', '_team','_sector', '_user', 'is_active')
+        fields = ('id', 'user', 'company', '_company', '_type', '_team',
+                  '_sector', '_user', 'is_active')
 
 
 class UserBindProfileSerializers(ModelSerializer):
@@ -89,14 +86,15 @@ class UserBindProfileSerializers(ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("id", "matriculation", "full_name", "company",
-                  "bind", "cpf", "rg", "genre", "recommendation", "address",
-                  "complement", "reference", "neighborhood", "city", "state",
-                  "zipcode", "number", "birthday", "civil_sate",
-                  "date_register", "photo", "anexo", "about",
-                  "is_term_accepted", "is_active", "_bind")
+        fields = ("id", "matriculation", "full_name", "company", "bind", "cpf",
+                  "rg", "genre", "recommendation", "address", "complement",
+                  "reference", "neighborhood", "city", "state", "zipcode",
+                  "number", "birthday", "civil_sate", "date_register", "photo",
+                  "anexo", "about", "is_term_accepted", "is_active", "_bind")
 
-# Profile 
+
+# Profile
+
 
 class ProfileSerializers(ModelSerializer):
     class Meta:
@@ -105,6 +103,7 @@ class ProfileSerializers(ModelSerializer):
 
 
 # Criar usuario para bind e profile.
+
 
 class UsersCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -117,6 +116,7 @@ class UsersCreateSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class UsersCreateBindSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bind
@@ -126,10 +126,11 @@ class UsersCreateBindSerializer(serializers.ModelSerializer):
 class UserCreateProfileSerializers(ModelSerializer):
     class Meta:
         model = Profile
-        fields = ("full_name", "matriculation",  "company", "user_bind", "bind", "cpf", "genre", "address")
-        
+        fields = ("full_name", "matriculation", "company", "user_bind", "bind",
+                  "cpf", "genre", "address")
 
-# Grupo & permissão 
+
+# Grupo & permissão
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
@@ -140,5 +141,4 @@ class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = ("__all__")
-
 

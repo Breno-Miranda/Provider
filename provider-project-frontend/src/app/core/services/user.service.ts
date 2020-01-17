@@ -28,7 +28,7 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/api/users/all/`, {
       params:
       {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+        company_id: this.authenticationService.currentUserValue.company.toString(),
       }
     });
   }
@@ -37,7 +37,7 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/api/users/permission/`, {
       params:
       {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+        company_id: this.authenticationService.currentUserValue.company.toString(),
       }
     });
   }
@@ -61,7 +61,7 @@ export class UserService {
       return this.http.get<any[]>(`${environment.apiUrl}/api/users/business/`, {
         params:
         {
-          company_id: this.authenticationService.currentUserValue.companyId.toString(),
+          company_id: this.authenticationService.currentUserValue.company.toString(),
           user_id: this.authenticationService.currentUserValue.id.toString(),
         }
       });
@@ -69,7 +69,7 @@ export class UserService {
       return this.http.get<any[]>(`${environment.apiUrl}/api/users/individual/`, {
         params:
         {
-          company_id: this.authenticationService.currentUserValue.companyId.toString(),
+          company_id: this.authenticationService.currentUserValue.company.toString(),
           user_id: this.authenticationService.currentUserValue.id.toString(),
         }
       });
@@ -77,7 +77,7 @@ export class UserService {
       return this.http.get<any[]>(`${environment.apiUrl}/api/users/collaborator/`, {
         params:
         {
-          company_id: this.authenticationService.currentUserValue.companyId.toString(),
+          company_id: this.authenticationService.currentUserValue.company.toString(),
           user_id: this.authenticationService.currentUserValue.id.toString(),
         }
       });
@@ -87,7 +87,7 @@ export class UserService {
 
   setUserProfile(formData) {
     formData.append('user_id', this.authenticationService.currentUserValue.id.toString())
-    formData.append('company_id', this.authenticationService.currentUserValue.companyId.toString())
+    formData.append('company_id', this.authenticationService.currentUserValue.company.toString())
 
     if (this.authenticationService.currentUserValue.is_business) {
       return this.http.post<any[]>(`${environment.apiUrl}/api/users/business/`, formData);
@@ -101,7 +101,7 @@ export class UserService {
 
   upUserProfile(formData) {
     formData.append('user_id', this.authenticationService.currentUserValue.id.toString())
-    formData.append('company_id', this.authenticationService.currentUserValue.companyId.toString())
+    formData.append('company_id', this.authenticationService.currentUserValue.company.toString())
 
     if (this.authenticationService.currentUserValue.is_business) {
       return this.http.put<any[]>(`${environment.apiUrl}/api/users/business/` + formData.get('id') + '/', formData);
@@ -112,11 +112,11 @@ export class UserService {
     }
   }
 
-  // create user bind profile
+  // create user bind profile 
 
   // listando usuario
   getUser(data: any) {
-    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+    data['company_id'] = this.authenticationService.currentUserValue.company;
     return this.http.get<any[]>(`${environment.apiUrl}/api/users/`, {
       params: data
     });
@@ -124,7 +124,7 @@ export class UserService {
   //  criando usuario. 
   setUser(data: object) {
     data['user_id'], this.authenticationService.currentUserValue.id.toString();
-    data['company'] = this.authenticationService.currentUserValue.companyId.toString();
+    data['company'] = this.authenticationService.currentUserValue.company.toString();
     return this.http.post<any[]>(`${environment.apiUrl}/api/users/`, data);
   }
 

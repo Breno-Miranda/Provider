@@ -18,7 +18,7 @@ export class ProductsService {
     return this.http.get<any[]>(`${environment.apiUrl}/api/products/`, {
       params: 
       {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
+        company_id: this.authenticationService.currentUserValue.company.toString(),
       }
     });
   }
@@ -26,7 +26,7 @@ export class ProductsService {
 
   getSearch( data: any) {
 
-    data['company_id'] = this.authenticationService.currentUserValue.companyId;
+    data['company_id'] = this.authenticationService.currentUserValue.company;
 
     return this.http.get<any[]>(`${environment.apiUrl}/api/products/`,   {params: data 
     });

@@ -23,36 +23,36 @@ export class SidebarComponent implements OnInit {
   ngOnInit() { }
   
   redirectHome(){
-    if(this.currentUser.type_code == 1){
+    if(this.currentUser._type.code == 1){
       this.router.navigate(['/dashboard/admin']);
-    } else if(this.currentUser.type_code == 2){
+    } else if(this.currentUser._type.code == 2){
       this.router.navigate(['/dashboard/manager']);
-    } else if(this.currentUser.type_code == 3){
+    } else if(this.currentUser._type.code == 3){
       this.router.navigate(['/dashboard/leader']);
-    } else if(this.currentUser.type_code == 4){
+    } else if(this.currentUser._type.code == 4){
       this.router.navigate(['/dashboard/consultant']);
     }
   }
   redirectProfile()
   {
-    if(this.currentUser.type_code == 1){
+    if(this.currentUser._type.code == 1){
       this.router.navigate(['/dashboard/admin/profile']);
-    } else if(this.currentUser.type_code == 2){
+    } else if(this.currentUser._type.code == 2){
       this.router.navigate(['/dashboard/manager/profile']);
-    } else if(this.currentUser.type_code == 3){
+    } else if(this.currentUser._type.code == 3){
       this.router.navigate(['/dashboard/leader/profile']);
-    } else if(this.currentUser.type_code == 4){
+    } else if(this.currentUser._type.code == 4){
       this.router.navigate(['/dashboard/consultant/profile']);
     }
   }
   redirectRequest(){
-    if(this.currentUser.type_code == 1){
+    if(this.currentUser._type.code == 1){
       this.router.navigate(['/dashboard/admin/financial/requests/new']);
-    } else if(this.currentUser.type_code == 2){
+    } else if(this.currentUser._type.code == 2){
       this.router.navigate(['/dashboard/manager/financial/requests/new']);
-    } else if(this.currentUser.type_code == 3){
+    } else if(this.currentUser._type.code == 3){
       this.router.navigate(['/dashboard/leader/financial/requests/new']);
-    } else if(this.currentUser.type_code == 4){
+    } else if(this.currentUser._type.code == 4){
       this.router.navigate(['/dashboard/consultant/financial/requests/new']);
     }
   }

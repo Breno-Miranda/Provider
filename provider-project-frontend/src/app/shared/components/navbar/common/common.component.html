@@ -2,32 +2,32 @@
     <div class="container d-flex flex-row nav-top">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top">
             <a class="navbar-brand brand-logo" [routerLink]="[urlBase]">
-                <img [src]="currentUser.logo" alt="logo" />
+                <img [src]="currentUser._company.logo" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" [routerLink]="[urlBase]">
-                <img [src]="currentUser.logo" alt="logo" />
+                <img [src]="currentUser._company.logo" alt="logo" />
             </a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    Empresa: {{currentUser.name_company}}
+                    Empresa: {{currentUser._company.name_company}}
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    CNPJ: {{currentUser.cnpj}}
+                    CNPJ: {{currentUser._company.cnpj}}
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    Setor: {{currentUser.sector}}
+                    Setor: {{currentUser._sector.name}}
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    Time: {{currentUser.team}}
+                    Time: {{currentUser._team.name}}
                 </li>
 
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
                         <div class="wrapper d-flex flex-column">
-                            <span class="profile-text">{{currentUser.first_name}} {{currentUser.last_name}}</span>
+                            <span class="profile-text">{{currentUser._company.first_name}} {{currentUser._companylast_name}}</span>
                             <span class="user-designation">{{currentUser.type}}</span>
                         </div>
                         <div class="display-avatar bg-inverse-primary text-primary">AS</div>
@@ -35,9 +35,9 @@
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                         <div class="dropdown-header text-center">
                             <img class="img-md rounded-circle" [src]="currentUser.photo ? currentUser.photo : 'assets/img/users/perfil.jpg'" alt="">
-                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser.first_name}} {{currentUser.last_name}}
+                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser._company.first_name}} {{currentUser._company.last_name}}
                             </p>
-                            <p class="font-weight-light text-muted mb-0">{{currentUser.email}}</p>
+                            <p class="font-weight-light text-muted mb-0">{{currentUser._user.email}}</p>
                         </div>
                         <a routerLink=" ['/dashboard/profile']" class="dropdown-item"><i
                                 class="dropdown-item-icon mdi mdi-account-outline text-primary"></i>
@@ -56,24 +56,24 @@
             </button>
         </div>
     </div>
-    <div class="nav-bottom" [ngStyle]="{background: currentUser.color_primary}">
+    <div class="nav-bottom" [ngStyle]="{background: currentUser._company.color_primary}">
         <div class="container">
-            <ul class="nav page-navigation" [ngStyle]="{background: currentUser.color_primary}">
-                <li class="nav-item" (mouseover)="houverInit=true" (mouseleave)="houverInit=false" [ngStyle]="{backgroundColor: houverInit==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+            <ul class="nav page-navigation" [ngStyle]="{background: currentUser._company.color_primary}">
+                <li class="nav-item" (mouseover)="houverInit=true" (mouseleave)="houverInit=false" [ngStyle]="{backgroundColor: houverInit==true  ? currentUser._company.color_secudary :  currentUser._company.color_primary  }">
                     <a [routerLink]="[urlBase]" class="nav-link">
                         <i class="link-icon mdi mdi-home"></i>
                         <span class="menu-title">Inicio</span>
                     </a>
                 </li>
 
-                <li class="nav-item" (mouseover)="houverPed=true" (mouseleave)="houverPed=false" [ngStyle]="{backgroundColor: houverPed==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                <li class="nav-item" (mouseover)="houverPed=true" (mouseleave)="houverPed=false" [ngStyle]="{backgroundColor: houverPed==true  ? currentUser._company.color_secudary :  currentUser._company.color_primary  }">
                     <a [routerLink]="urlBase + ['/financial/requests/new']" class="nav-link">
                         <i class="link-icon mdi mdi-library-books"></i>
                         <span class="menu-title">Digitar pedido</span>
                     </a>
                 </li>
 
-                <li class="nav-item mega-menu" (mouseover)="hoverCad=true" (mouseleave)="hoverCad=false" [ngStyle]="{backgroundColor: hoverCad==true  ? currentUser.color_secudary :  currentUser.color_primary  }">
+                <li class="nav-item mega-menu" (mouseover)="hoverCad=true" (mouseleave)="hoverCad=false" [ngStyle]="{backgroundColor: hoverCad==true  ? currentUser._company.color_secudary :  currentUser._company.color_primary  }">
                     <a href=" javascript:void() " class="nav-link ">
                         <i class="link-icon mdi mdi-content-copy "></i>
                         <span class="menu-title ">Cadastros</span>
@@ -84,14 +84,17 @@
 
                             <div class="col-group col-md-3 ">
                                 <p class="category-heading "> Colaboradores, Lideres e Clientes</p>
-                                <ul class="submenu-item ">
-                                    <li class="nav-item ">
+                                <ul class="submenu-item " *ngIf="display">
+                                    <li class="nav-item " *ngIf="display">
+                                        <a class="nav-link " [routerLink]="urlBase + [ '/register/admin'] ">Administrador</a>
+                                    </li>
+                                    <li class="nav-item " *ngIf="display">
                                         <a class="nav-link " [routerLink]="urlBase + [ '/register/manager'] ">Gerentes</a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item " *ngIf="display">
                                         <a class="nav-link " [routerLink]="urlBase + [ '/register/leader'] ">Lider</a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item " *ngIf="display">
                                         <a class="nav-link " [routerLink]="urlBase + [ '/register/consultant'] ">Consultor(a)s</a>
                                     </li>
                                 </ul>
@@ -107,7 +110,7 @@
                                         <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/timeline']">Timeline</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/extract']">Extratos</a>
+                                        <!-- <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/extract']">Extratos</a> -->
                                     </li>
                                 </ul>
                             </div>
