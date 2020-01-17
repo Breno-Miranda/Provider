@@ -30,33 +30,31 @@ export class ManagerComponent implements OnInit {
 
     this.CommonForm = this.formBuilder.group({
       cpf: ['', Validators.required],
-      rg: ['', Validators.required],
+      rg: ['', ],
       address: ['', Validators.required],
       complement: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipcode: ['', Validators.required],
       number: ['', Validators.required],
-      birthday: ['', Validators.required],
-      civil_sate: ['', Validators.required],
-      recommendation: ['', Validators.required],
+      birthday: ['',],
+      civil_sate: ['', ],
+      recommendation: ['',],
       genre: ['', Validators.required],
-      phone: ['', Validators.required],
-      cell: ['', Validators.required],
-      email: ['', Validators.required],
-      about: ['', Validators.required],
+      phone: ['', ],
+      cell: ['', ],
+      email: ['', ],
+      about: ['', ],
       full_name: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: ['', ],
+      password: ['', ],
       sector: ['', Validators.required],
       type: ['', Validators.required],
       team: ['', Validators.required],
 
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      matriculation: ['', Validators.required],
-
-
+      first_name: ['', ],
+      last_name: ['', ],
+      matriculation: ['', ],
     });
   }
 

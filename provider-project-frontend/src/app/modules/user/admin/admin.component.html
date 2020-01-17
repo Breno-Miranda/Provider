@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h1 class=" badge badge-pill badge-info">Dados Cadastrais</h1>
-            <form class="form-sample" [formGroup]="CommonForm" (ngSubmit)="setFinaly()">
+            <form class="form-sample" [formGroup]="CommonForm">
 
 
                 <div class="row">
@@ -11,12 +11,12 @@
                             <label class="col-sm-3 col-form-label">Perfil</label>
                             <div class="col-sm-9">
                                 <label for=""></label>
-                                <select class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                                <select required class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
                                     <option value="">Escolha uma opção</option>
                                     <option *ngFor="let data of types"  value="{{data.id}}">{{data.type}} </option>
           </select>
                                 <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
-                                    <div *ngIf="f.type.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.type.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -30,13 +30,13 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Time</label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
+                                <select required class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
             <option value="">Escolha uma opção</option>
             <option *ngFor="let data of teams" value="{{data.id}}">{{data.name}}
             </option>
           </select>
                                 <div *ngIf="submitted && f.team.errors" class="invalid-feedback">
-                                    <div *ngIf="f.team.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.team.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                     </option>
                                   </select>
                                 <div *ngIf="submitted && f.sector.errors" class="invalid-feedback">
-                                    <div *ngIf="f.sector.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.sector.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nome Completo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"> </div>
+                                <input required type="text" class="form-control" formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"> </div>
                             <div *ngIf="submitted && f.full_name.errors" class="invalid-feedback">
                                 <div *ngIf="f.full_name.errors.required">Campo obrigatório</div>
                             </div>
