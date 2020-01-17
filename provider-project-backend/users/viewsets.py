@@ -330,11 +330,11 @@ class UsersViewSet(viewsets.ViewSet):
 
     def create(self, request):
 
-        if not request.user.has_perm('auth.create_user'):
+        if not request.user.has_perm('auth.add_user'):
             return Response(
                 {
                     'error':
-                    'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
+                    'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
                 },
