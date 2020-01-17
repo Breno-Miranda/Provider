@@ -11,31 +11,31 @@
         <div class="navbar-menu-wrapper d-flex align-items-center">
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown" *ngIf="currentUser._company">
                     Empresa: {{currentUser._company.name_company}}
                 </li>
-                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown" *ngIf="currentUser._company">
                     CNPJ: {{currentUser._company.cnpj}}
                 </li>
-                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown" *ngIf="currentUser._sector">
                     Setor: {{currentUser._sector.name}}
                 </li>
-                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown" *ngIf="currentUser._team">
                     Time: {{currentUser._team.name}}
                 </li>
 
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
                         <div class="wrapper d-flex flex-column">
-                            <span class="profile-text">{{currentUser._company.first_name}} {{currentUser._companylast_name}}</span>
-                            <span class="user-designation">{{currentUser.type}}</span>
+                            <span class="profile-text">{{currentUser._user.first_name}} {{currentUser._user.last_name}}</span>
+                            <span class="user-designation">{{currentUser._type.type}}</span>
                         </div>
                         <div class="display-avatar bg-inverse-primary text-primary">AS</div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                         <div class="dropdown-header text-center">
-                            <img class="img-md rounded-circle" [src]="currentUser.photo ? currentUser.photo : 'assets/img/users/perfil.jpg'" alt="">
-                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser._company.first_name}} {{currentUser._company.last_name}}
+                            <img class="img-md rounded-circle" [src]="'assets/img/users/perfil.jpg'" alt="">
+                            <p class="mb-1 mt-3 font-weight-semibold">{{currentUser._user.first_name}} {{currentUser._user.last_name}}
                             </p>
                             <p class="font-weight-light text-muted mb-0">{{currentUser._user.email}}</p>
                         </div>
