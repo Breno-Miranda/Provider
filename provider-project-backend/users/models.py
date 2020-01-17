@@ -46,6 +46,7 @@ class Bind(models.Model):
     type = models.ForeignKey(Type, on_delete=None , null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=None , null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=None, null=True, blank=True)
+    user_link = models.ForeignKey(User, related_name="user_link",  on_delete=None ,  blank=True,  null=True)
     is_active = models.BooleanField(default=False)
     
     class Meta:
@@ -60,7 +61,6 @@ class Profile(models.Model):
     full_name = models.CharField(max_length=150, blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=None)
     user = models.ForeignKey(User,  on_delete=None ,  blank=True,  null=True)
-    user_link = models.ForeignKey(User, related_name="user_link",  on_delete=None ,  blank=True,  null=True)
     bind = models.ForeignKey(Bind, related_name="bind_user",  on_delete=None ,  blank=True,  null=True)
     cpf = models.BigIntegerField(null=True, blank=True)
     rg = models.IntegerField(null=True, blank=True)

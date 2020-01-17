@@ -82,9 +82,9 @@
                     <div class="submenu ">
                         <div class="col-group-wrapper row ">
 
-                            <div class="col-group col-md-3 ">
+                            <div class="col-group col-md-3" *ngIf="display">
                                 <p class="category-heading "> Colaboradores, Lideres e Clientes</p>
-                                <ul class="submenu-item " *ngIf="display">
+                                <ul class="submenu-item ">
                                     <li class="nav-item " *ngIf="display">
                                         <a class="nav-link " [routerLink]="urlBase + [ '/register/admin'] ">Administrador</a>
                                     </li>

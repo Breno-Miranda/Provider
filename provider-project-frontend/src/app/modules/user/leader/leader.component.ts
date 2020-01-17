@@ -17,10 +17,10 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 
 
 export class LeaderComponent implements OnInit {
+
   [x: string]: any;
 
-
-  leaderForm: FormGroup;
+  CommonForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,7 +29,7 @@ export class LeaderComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
 
-    this.leaderForm = this.formBuilder.group({
+    this.CommonForm = this.formBuilder.group({
       cpf: ['', Validators.required],
       rg: ['', Validators.required],
       address: ['', Validators.required],
@@ -67,7 +67,7 @@ export class LeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUser({
-        type_code: 4
+        type_code: 3
     }).pipe(first()).subscribe(data => {
       this.types = data['type'];
       this.teams = data['team'];
@@ -78,7 +78,7 @@ export class LeaderComponent implements OnInit {
   }
 
   get f() {
-    return this.leaderForm.controls;
+    return this.CommonForm.controls;
   }
 
   setFinaly() {

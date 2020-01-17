@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   [x: string]: any;
 
 
-  consultantForm: FormGroup;
+  CommonForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
 
-    this.consultantForm = this.formBuilder.group({
+    this.CommonForm = this.formBuilder.group({
       cpf: ['', Validators.required],
       rg: ['', Validators.required],
       address: ['', Validators.required],
@@ -53,8 +53,6 @@ export class AdminComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       matriculation: ['', Validators.required],
-
-
     });
   }
 
@@ -64,7 +62,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUser({
-        type_code: 2
+        type_code: 1
     }).pipe(first()).subscribe(data => {
       this.types = data['type'];
       this.teams = data['team'];
@@ -75,7 +73,7 @@ export class AdminComponent implements OnInit {
   }
 
   get f() {
-    return this.consultantForm.controls;
+    return this.CommonForm.controls;
   }
 
   setFinaly() {

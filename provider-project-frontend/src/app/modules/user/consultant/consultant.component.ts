@@ -13,10 +13,11 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
   styleUrls: ['./consultant.component.scss']
 })
 export class ConsultantComponent implements OnInit {
+  
   [x: string]: any;
 
 
-  consultantForm: FormGroup;
+  CommonForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,7 +26,7 @@ export class ConsultantComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
 
-    this.consultantForm = this.formBuilder.group({
+    this.CommonForm = this.formBuilder.group({
       cpf: ['', Validators.required],
       rg: ['', Validators.required],
       address: ['', Validators.required],
@@ -74,7 +75,7 @@ export class ConsultantComponent implements OnInit {
   }
 
   get f() {
-    return this.consultantForm.controls;
+    return this.CommonForm.controls;
   }
 
   setFinaly() {

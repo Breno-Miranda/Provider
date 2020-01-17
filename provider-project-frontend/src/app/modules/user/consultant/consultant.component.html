@@ -2,44 +2,62 @@
     <div class="card">
         <div class="card-body">
             <h1 class=" badge badge-pill badge-info">Dados Cadastrais</h1>
-            <form class="form-sample" [formGroup]="consultantForm" (ngSubmit)="search()">
+            <form class="form-sample" [formGroup]="CommonForm" (ngSubmit)="setFinaly()">
 
-                <div class="form-group row">
-                    <div class="col">
-                        <label for="">Função</label>
-                        <select class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
-              <option value="">Escolha uma opção</option>
-              <option *ngFor="let data of types" value="{{data.id}}">{{data.type}} </option>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Perfil</label>
+                            <div class="col-sm-9">
+                                <label for=""></label>
+                                <select readonly class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+              <option *ngFor="let data of types" [selected]="data.id == data.id" value="{{data.id}}">{{data.type}} </option>
             </select>
-                        <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
-                            <div *ngIf="f.type.errors.required">Informação é obrigatório</div>
+                                <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                                    <div *ngIf="f.type.errors.required">Informação é obrigatório</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col">
-                        <label for="">Setor</label>
-                        <select class="form-control" name="sector" id="sector" formControlName="sector" [ngClass]="{ 'is-invalid': submitted && f.sector.errors }">
-              <option value="">Escolha uma opção</option>
-              <option *ngFor="let data of sectors" value="{{data.id}}">{{data.name}}
-              </option>
-            </select>
-                        <div *ngIf="submitted && f.sector.errors" class="invalid-feedback">
-                            <div *ngIf="f.sector.errors.required">Informação é obrigatório</div>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <label for="">Time</label>
-                        <select class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Time</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
               <option value="">Escolha uma opção</option>
               <option *ngFor="let data of teams" value="{{data.id}}">{{data.name}}
               </option>
             </select>
-                        <div *ngIf="submitted && f.team.errors" class="invalid-feedback">
-                            <div *ngIf="f.team.errors.required">Informação é obrigatório</div>
+                                <div *ngIf="submitted && f.team.errors" class="invalid-feedback">
+                                    <div *ngIf="f.team.errors.required">Informação é obrigatório</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Setor</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="sector" id="sector" formControlName="sector" [ngClass]="{ 'is-invalid': submitted && f.sector.errors }">
+                                      <option value="">Escolha uma opção</option>
+                                      <option *ngFor="let data of sectors" value="{{data.id}}">{{data.name}}
+                                      </option>
+                                    </select>
+                                <div *ngIf="submitted && f.sector.errors" class="invalid-feedback">
+                                    <div *ngIf="f.sector.errors.required">Informação é obrigatório</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -253,128 +271,3 @@
         <button type="button" class="btn btn-success float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar Pedido</button>
     </div>
 </div>
-
-<!-- 
-
-<div class="col-12 grid-margin">
-  <div class="card">
-    <div class="card-body">
-      <h1 class=" badge badge-pill badge-info">Dados Bancários</h1>
-      <form class="form-sample">
-        <p class="card-description"> </p>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Conta Pessoa</label>
-              <div class="col-sm-4">
-                <div class="form-radio">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked=""> Juridica <i class="input-helper"></i><i class="input-helper"></i></label>
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-radio">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"> Fisica <i class="input-helper"></i><i class="input-helper"></i></label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Tipo de Conta</label>
-              <div class="col-sm-4">
-                <div class="form-radio">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked=""> Corrente <i class="input-helper"></i><i class="input-helper"></i></label>
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-radio">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"> Poupança <i class="input-helper"></i><i class="input-helper"></i></label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Banco </label>
-              <div class="col-sm-9">
-                <select class="form-control">
-                  <option>BB</option>
-                  <option>CX</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Agência</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control"> </div>
-            </div>
-          </div>
-        </div>
-        <p class="card-description">  </p>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">N Conta </label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control"> </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="col-12 grid-margin">
-  <div class="card">
-    <div class="card-body">
-      <h1 class=" badge badge-pill badge-info">Dados Mei</h1>
-      <form class="form-sample">
-        <p class="card-description"> </p>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">CNPJ</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control"> </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Razão Social</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control"> </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-<div class="col-12 grid-margin">
-  <div class="card">
-    <div class="card-body">
-      <h1 class=" badge badge-pill badge-info">Documentos Anexos</h1>
-      <form class="form-sample">
-        <p class="card-description"><strong>ATENÇÃO: </strong> Para que o Contrato seja aprovado, é essencial
-        que você anexe todos os documentos listados abaixo de forma legível </p>
-        <div class="row">
-          
-        
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
