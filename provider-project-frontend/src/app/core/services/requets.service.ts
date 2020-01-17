@@ -23,38 +23,10 @@ export class RequestService {
     });
   }
 
-  getLots() {
-    return this.http.get<any[]>(`${environment.apiUrl}/api/lot/`, {
-      params: 
-      {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
-      }
-    });
-  }
-
-  getCampaign() {
-    return this.http.get<any[]>(`${environment.apiUrl}/api/campaign/`, {
-      params: 
-      {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
-      }
-    });
-  }
-
-  getCatalog() {
-    return this.http.get<any[]>(`${environment.apiUrl}/api/companys/catalog/`, {
-      params: 
-      {
-        company_id: this.authenticationService.currentUserValue.companyId.toString(),
-      }
-    });
-  }
-
-  getUsers( data: any ) {
-
+  getRequest( data: any ) {
     data['company_id'] = this.authenticationService.currentUserValue.companyId;
 
-    return this.http.get<any[]>(`${environment.apiUrl}/api/users/profile/`, {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/request/`, {
       params: data
     });
   }
@@ -62,6 +34,7 @@ export class RequestService {
   setRequest( data: object)
   {
     data['company'] = this.authenticationService.currentUserValue.companyId.toString();
+    data['user_bind_typeit'] = this.authenticationService.currentUserValue.id.toString();
 
     return this.http.post<any[]>(`${environment.apiUrl}/api/request/`, data);
   }
@@ -69,7 +42,7 @@ export class RequestService {
   putRequest( data: object)
   {
     data['company_id'] = this.authenticationService.currentUserValue.companyId.toString();
-    
+    data['user_bind_typeit'] = this.authenticationService.currentUserValue.id.toString();
     return this.http.put<any[]>(`${environment.apiUrl}/api/request/`, data);
   }
 

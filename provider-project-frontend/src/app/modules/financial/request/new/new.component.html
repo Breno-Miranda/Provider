@@ -48,13 +48,13 @@
 
                         <div class="col">
                             <label for="">Consultor(a)</label>
-                            <select class="form-control" name="user" id="user" formControlName="user" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
+                            <select class="form-control" name="profile" id="profile" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
                                 <option value="">Escolha uma opção</option>
-                                <option *ngFor="let data of users" value="{{data._bind.user}}">{{data.full_name}}
+                                <option *ngFor="let data of users" value="{{data.id}}">{{data.full_name}}
                                 </option>
                             </select>
-                            <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
-                                <div *ngIf="f.user.errors.required">Informação é obrigatório</div>
+                            <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
+                                <div *ngIf="f.profile.errors.required">Informação é obrigatório</div>
                             </div>
                         </div>
                     </div>

@@ -89,7 +89,7 @@ class UserBindProfileSerializers(ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("id", "matriculation", "full_name", "company", "user_bind",
+        fields = ("id", "matriculation", "full_name", "company",
                   "bind", "cpf", "rg", "genre", "recommendation", "address",
                   "complement", "reference", "neighborhood", "city", "state",
                   "zipcode", "number", "birthday", "civil_sate",

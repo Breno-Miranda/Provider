@@ -44,28 +44,20 @@ export class NewComponent implements OnInit {
       reference: ['', Validators.required],
       amount: [1, Validators.required],
       size: ['', Validators.required],
-      user: ['', Validators.required],
       total_amount: [0, Validators.required],
+      profile: ['', Validators.required],
     });
   }
 
   
-
   ngOnInit() {
-    this.requestService.getLots().pipe(first()).subscribe(data => {
-      this.lots = data;
-    });
-
-    this.requestService.getCampaign().pipe(first()).subscribe(data => {
-      this.campaigns = data;
-    });
-
-    this.requestService.getCatalog().pipe(first()).subscribe(data => {
-      this.catalogs = data;
-    });
-
-    this.requestService.getUsers({type_code: 4}).pipe(first()).subscribe(data => {
-      this.users = data;
+    this.requestService.getRequest({
+      type_code:4
+    }).pipe(first()).subscribe(data => {
+      this.lots = data['lots']
+      this.campaigns = data['campaigns']
+      this.catalogs = data['catalogs']
+      this.users = data['users']
     });
   }
 
@@ -94,8 +86,8 @@ export class NewComponent implements OnInit {
     this.requestService.setRequest({
       lot: this.f.lot.value,
       catalog:this.f.catalog.value,
+      profile:this.f.profile.value,
       campaign:this.f.campaign.value,
-      user:this.f.user.value,
       amount:this.f.total_amount.value,
       itens: this.itens
     }).pipe(first()).subscribe(data => {

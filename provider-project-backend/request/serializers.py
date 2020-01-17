@@ -5,7 +5,7 @@ from .models import Status, Request, Itens
 from product.serializers import ProductSerializer
 from product.models import Product
 
-from users.serializers import UsersSerializer
+from users.serializers import UsersSerializer, ProfileSerializers
 from company.serializers import CatalogCompanySerializer
 from campaign.serializers import CampaignSerializers
 from users.serializers import UserBindProfileSerializers
@@ -26,14 +26,14 @@ class ItensSerializers(ModelSerializer):
         
 class RequestSerializers(ModelSerializer):
     
-    _user = UsersSerializer(source='user', read_only=True)
+    _profile = ProfileSerializers(source='profile', read_only=True)
     _status = StatusSerializers(source='status', read_only=True)
     _catalog = CatalogCompanySerializer(source='catalog', read_only=True)
     _campaign = CampaignSerializers(source='campaign', read_only=True)
 
     class Meta:
         model = Request
-        fields = ("id", "company", "lot", "user_bind", "is_user_bind", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_user" , "_status", "_catalog" , "_campaign")
+        fields = ("id", "company", "lot",  "profile", "user_bind_typeit", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_profile" , "_status", "_catalog" , "_campaign")
 
 
 
@@ -43,7 +43,7 @@ class requestCreateSerializers(ModelSerializer):
     
     class Meta:
         model = Request
-        fields = ("company", "campaign",  "lot", "catalog", "user", "amount")
+        fields = ("company", "campaign",  "lot", "catalog", "profile", "amount", "user_bind_typeit")
         
 class requestItensCreateSerializers(ModelSerializer):
     

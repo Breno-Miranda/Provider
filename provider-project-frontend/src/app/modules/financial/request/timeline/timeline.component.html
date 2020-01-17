@@ -17,12 +17,12 @@
                     <tbody>
                         <tr *ngFor="let data of requests">
                             <td>{{data.id}}</td>
-                            <td>{{data._user['username']}}</td>
+                            <td>{{data._profile['full_name']}}</td>
                             <td>{{data._catalog._catalog['name']}}</td>
                             <td>
                                 <label class="badge badge-danger">{{data._status['initials']}}</label>
                             </td>
-                            
+
                             <td>{{data.amount}}</td>
                         </tr>
 
