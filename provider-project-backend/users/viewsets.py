@@ -35,7 +35,7 @@ class ProfileViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.view_profile'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -64,7 +64,7 @@ class ProfileViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na listagem dos dados.  Tente novamente...",
                     'status': 'danger'
                 },
@@ -75,7 +75,7 @@ class ProfileViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.create_profile'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -95,7 +95,7 @@ class ProfileViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na inserção dos dados.  Tente novamente...",
                     'status': 'danger'
                 },
@@ -106,7 +106,7 @@ class ProfileViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.update_profile'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de atualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -128,7 +128,7 @@ class ProfileViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na atualização dos dados.  Tente novamente...",
                     'status': 'danger'
                 },
@@ -139,7 +139,7 @@ class ProfileViewSet(viewsets.ViewSet):
         if not request.user.has_perm('provider.delete_profile'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de exclusão. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -159,7 +159,7 @@ class ProfileViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na exclusão dos dados.  Tente novamente...",
                     'status': 'danger'
                 },
@@ -194,7 +194,7 @@ class PermissionViewSet(viewsets.ViewSet):
         if not request.user.has_perm('auth.view_permission'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': False
@@ -221,7 +221,7 @@ class PermissionViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     'ops, aconteceu algum problema com as permissões. Tente novamente.',
                     'status': 'danger'
                 },
@@ -232,7 +232,7 @@ class PermissionViewSet(viewsets.ViewSet):
         if not request.user.has_perm('auth.add_permission'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True,
@@ -286,7 +286,7 @@ class UsersViewSet(viewsets.ViewSet):
         if not request.user.has_perm('auth.view_user'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -323,7 +323,7 @@ class UsersViewSet(viewsets.ViewSet):
         except:
             return Response(
                     {
-                        'msm': 'Opss! Ocorreu um error. Caso pesista entre em contato com o suporte.',
+                        'error': 'Opss! Ocorreu um error. Caso pesista entre em contato com o suporte.',
                         'status': 'danger'
                     },
                     status=HTTP_404_NOT_FOUND)
@@ -423,7 +423,7 @@ class UserAccountViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.view_bank_account'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -442,7 +442,7 @@ class UserAccountViewSet(viewsets.ViewSet):
             return Response(queryset_bankaccount.data, status=HTTP_200_OK)
         except:
             return Response({
-                'msm': 'Sem informações.',
+                'error': 'Sem informações.',
                 'status': 'danger'
             },
                             status=HTTP_404_NOT_FOUND)
@@ -452,7 +452,7 @@ class UserAccountViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.view_add'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -473,7 +473,7 @@ class UserAccountViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na atualização dos dados. Tente novamente...",
                     'status': 'danger'
                 },
@@ -484,7 +484,7 @@ class UserAccountViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users._bind'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de atualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -511,7 +511,7 @@ class UserAccountViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na atualização dos dados.  Tente novamente...",
                     'status': 'danger'
                 },
@@ -539,7 +539,7 @@ class UserContactViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.view_contact'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de visualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -558,7 +558,7 @@ class UserContactViewSet(viewsets.ViewSet):
             return Response(queryset_contact.data, status=HTTP_200_OK)
         except:
             return Response({
-                'msm': 'Sem informações.',
+                'error': 'Sem informações.',
                 'status': 'danger'
             },
                             status=HTTP_404_NOT_FOUND)
@@ -568,7 +568,7 @@ class UserContactViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.create_contact'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de criação. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -588,7 +588,7 @@ class UserContactViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na atualização dos dados. Tente novamente...",
                     'status': 'danger'
                 },
@@ -599,7 +599,7 @@ class UserContactViewSet(viewsets.ViewSet):
         if not request.user.has_perm('users.update_contact'):
             return Response(
                 {
-                    'msm':
+                    'error':
                     'Sem permissão de atualização. Você será redirecionad(a) para pagina principal.',
                     'status': 'danger',
                     'return': True
@@ -625,7 +625,7 @@ class UserContactViewSet(viewsets.ViewSet):
         except:
             return Response(
                 {
-                    'msm':
+                    'error':
                     "Oops! Houve um erro na atualização dos dados.  Tente novamente...",
                     'status': 'danger'
                 },
