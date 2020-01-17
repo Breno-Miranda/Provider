@@ -60,6 +60,7 @@ class Profile(models.Model):
     full_name = models.CharField(max_length=150, blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=None)
     user = models.ForeignKey(User,  on_delete=None ,  blank=True,  null=True)
+    user_link = models.ForeignKey(User, related_name="user_link",  on_delete=None ,  blank=True,  null=True)
     bind = models.ForeignKey(Bind, related_name="bind_user",  on_delete=None ,  blank=True,  null=True)
     cpf = models.BigIntegerField(null=True, blank=True)
     rg = models.IntegerField(null=True, blank=True)
