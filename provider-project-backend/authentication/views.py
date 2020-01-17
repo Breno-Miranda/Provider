@@ -78,7 +78,7 @@ class Authentication(generics.ListCreateAPIView):
                     'color_secudary': bind['_company']['color_secudary'],
                     'type': bind['_type']['type'],
                     'team': bind['_team']['name'],
-                    'sector': bind['_sector']['name'],
+                    # 'sector': bind['_sector']['name'],
                     'type_code': bind['_type']['code'],
                     'cnpj': bind['_company']['cnpj'],
                     'logo': bind['_company']['logo'],

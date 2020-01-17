@@ -39,13 +39,13 @@ class Sector(models.Model):
     def __str__(self):
         return self.name
     
+    
 class Bind(models.Model):
-    company = models.ForeignKey(Company, related_name="enterprise_bind", on_delete=None)
-    user = models.ForeignKey(User,related_name="person_bind", on_delete=None)
+    company = models.ForeignKey(Company, related_name="comapny_bind", on_delete=None)
+    user = models.ForeignKey(User, related_name="user_bind", on_delete=None)
     type = models.ForeignKey(Type, on_delete=None , null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=None , null=True, blank=True)
-    sector = models.ForeignKey(Sector, on_delete=None),
-    user_bind = models.ForeignKey(User,  on_delete=None ,  blank=True,  null=True)
+    sector = models.ForeignKey(Sector, on_delete=None, null=True, blank=True)
     is_active = models.BooleanField(default=False)
     
     class Meta:
@@ -53,6 +53,7 @@ class Bind(models.Model):
 
     def __str__(self):
         return self.user.username
+    
 
 class Profile(models.Model):
     matriculation = models.BigIntegerField(null=True, blank=True)

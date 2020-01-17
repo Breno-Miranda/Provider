@@ -12,10 +12,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='bind',
-            name='sector',
-        ),
+       
         migrations.RemoveField(
             model_name='profile',
             name='user_bind',

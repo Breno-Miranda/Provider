@@ -283,7 +283,7 @@ class UsersViewSet(viewsets.ViewSet):
         companyId = request.GET.get('company_id', None)
         type_code = request.GET.get('type_code', None)
 
-        if not request.user.has_perm('users.view_bind'):
+        if not request.user.has_perm('users.view_user'):
             return Response(
                 {
                     'msm':
