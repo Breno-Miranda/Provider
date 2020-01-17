@@ -11,8 +11,9 @@
                             <label class="col-sm-3 col-form-label">Perfil</label>
                             <div class="col-sm-9">
                                 <label for=""></label>
-                                <select readonly class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
-              <option *ngFor="let data of types" [selected]="data.id == data.id" value="{{data.id}}">{{data.type}} </option>
+                                <select class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                                    <option value="">Escolha uma opção</option>
+                                    <option *ngFor="let data of types" value="{{data.id}}">{{data.type}} </option>
             </select>
                                 <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
                                     <div *ngIf="f.type.errors.required">Informação é obrigatório</div>

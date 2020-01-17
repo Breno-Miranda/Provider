@@ -82,7 +82,7 @@
                     <div class="submenu ">
                         <div class="col-group-wrapper row ">
 
-                            <div class="col-group col-md-3" *ngIf="currentUser._type.code > 1">
+                            <div class="col-group col-md-3" *ngIf="currentUser._type.code >= 1">
                                 <p class="category-heading "> Colaboradores, Lideres e Clientes</p>
                                 <ul class="submenu-item ">
                                     <li class="nav-item " *ngIf="currentUser._type.code == 1">
@@ -94,7 +94,7 @@
                                     <li class="nav-item " *ngIf="currentUser._type.code <= 2">
                                         <a class="nav-link " [routerLink]="urlBase + [ '/register/leader'] ">Lider</a>
                                     </li>
-                                    <li class="nav-item " *ngIf="currentUser._type.code >= 3">
+                                    <li class="nav-item " *ngIf="currentUser._type.code <= 3">
                                         <a class="nav-link " [routerLink]="urlBase + [ '/register/consultant'] ">Consultor(a)s</a>
                                     </li>
                                 </ul>
