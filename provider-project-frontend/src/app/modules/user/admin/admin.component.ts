@@ -31,11 +31,11 @@ export class AdminComponent implements OnInit {
       cpf: ['', Validators.required],
       rg: ['', ],
       address: ['', Validators.required],
-      complement: ['', Validators.required],
+      complement: ['', ],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipcode: ['', Validators.required],
-      number: ['', Validators.required],
+      number: ['', ],
       birthday: ['',],
       civil_sate: ['', ],
       recommendation: ['',],
@@ -82,7 +82,7 @@ export class AdminComponent implements OnInit {
      this.submitted = true;
 
       // stop here if form is invalid
-      if (this.registerForm.invalid) {
+      if (this.CommonForm.invalid) {
           return;
       }
 

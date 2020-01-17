@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h1 class=" badge badge-pill badge-info">Dados Cadastrais</h1>
-            <form class="form-sample" [formGroup]="CommonForm">
+            <form class="form-sample" [formGroup]="CommonForm" (ngSubmit)="setFinaly()">
 
 
                 <div class="row">
@@ -11,7 +11,7 @@
                             <label class="col-sm-3 col-form-label">Perfil</label>
                             <div class="col-sm-9">
                                 <label for=""></label>
-                                <select required class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                                <select class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
                                     <option value="">Escolha uma opção</option>
                                     <option *ngFor="let data of types"  value="{{data.id}}">{{data.type}} </option>
           </select>
@@ -30,7 +30,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Time</label>
                             <div class="col-sm-9">
-                                <select required class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
+                                <select class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
             <option value="">Escolha uma opção</option>
             <option *ngFor="let data of teams" value="{{data.id}}">{{data.name}}
             </option>
@@ -64,7 +64,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nome Completo</label>
                             <div class="col-sm-9">
-                                <input required type="text" class="form-control" formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"> </div>
+                                <input type="text" class="form-control" formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"> </div>
                             <div *ngIf="submitted && f.full_name.errors" class="invalid-feedback">
                                 <div *ngIf="f.full_name.errors.required">Campo obrigatório</div>
                             </div>
@@ -262,13 +262,8 @@
                         </div>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-success float-right mb-2  submit-btn text-uppercase">Finalizar Pedido</button>
             </form>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <button type="button" class="btn btn-success float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar Pedido</button>
     </div>
 </div>

@@ -16,7 +16,7 @@ export class User {
   is_business: string;
   is_individual: string;
   is_collaborator: string;
-
+  user:number;
   _company : object;
   _type : object;
   _team : object;

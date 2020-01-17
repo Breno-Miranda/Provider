@@ -18,6 +18,7 @@ export class ConsultantComponent implements OnInit {
 
 
   CommonForm: FormGroup;
+  submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,11 +31,11 @@ export class ConsultantComponent implements OnInit {
       cpf: ['', Validators.required],
       rg: ['', ],
       address: ['', Validators.required],
-      complement: ['', Validators.required],
+      complement: ['', ],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipcode: ['', Validators.required],
-      number: ['', Validators.required],
+      number: ['', ],
       birthday: ['',],
       civil_sate: ['', ],
       recommendation: ['',],
@@ -77,6 +78,14 @@ export class ConsultantComponent implements OnInit {
   }
 
   setFinaly() {
+
+    this.submitted = true;
+
+      // stop here if form is invalid
+      if (this.CommonForm.invalid) {
+          return;
+      }
+
 
     var full_name = this.f.full_name.value.replace(" da ", " ").replace(" de ", " ").split(' ')
 

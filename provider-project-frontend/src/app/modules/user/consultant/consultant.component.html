@@ -13,10 +13,10 @@
                                 <label for=""></label>
                                 <select class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
                                     <option value="">Escolha uma opção</option>
-                                    <option *ngFor="let data of types" value="{{data.id}}">{{data.type}} </option>
-            </select>
+                                    <option *ngFor="let data of types"  value="{{data.id}}">{{data.type}} </option>
+          </select>
                                 <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
-                                    <div *ngIf="f.type.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.type.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -31,12 +31,12 @@
                             <label class="col-sm-3 col-form-label">Time</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="team" id="team" formControlName="team" [ngClass]="{ 'is-invalid': submitted && f.team.errors }">
-              <option value="">Escolha uma opção</option>
-              <option *ngFor="let data of teams" value="{{data.id}}">{{data.name}}
-              </option>
-            </select>
+            <option value="">Escolha uma opção</option>
+            <option *ngFor="let data of teams" value="{{data.id}}">{{data.name}}
+            </option>
+          </select>
                                 <div *ngIf="submitted && f.team.errors" class="invalid-feedback">
-                                    <div *ngIf="f.team.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.team.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -46,12 +46,12 @@
                             <label class="col-sm-3 col-form-label">Setor</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="sector" id="sector" formControlName="sector" [ngClass]="{ 'is-invalid': submitted && f.sector.errors }">
-                                      <option value="">Escolha uma opção</option>
-                                      <option *ngFor="let data of sectors" value="{{data.id}}">{{data.name}}
-                                      </option>
-                                    </select>
+                                    <option value="">Escolha uma opção</option>
+                                    <option *ngFor="let data of sectors" value="{{data.id}}">{{data.name}}
+                                    </option>
+                                  </select>
                                 <div *ngIf="submitted && f.sector.errors" class="invalid-feedback">
-                                    <div *ngIf="f.sector.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.sector.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -109,10 +109,10 @@
                             <label class="col-sm-3 col-form-label">Genero</label>
                             <div class="col-sm-9">
                                 <select class="form-control" formControlName="genre" [ngClass]="{ 'is-invalid': submitted && f.genre.errors }">
-                  <option value="">Escolha uma opção</option>
-                  <option value="F">Feminino</option>
-                  <option value="M">Masculino</option>
-                </select>
+                <option value="">Escolha uma opção</option>
+                <option value="F">Feminino</option>
+                <option value="M">Masculino</option>
+              </select>
                             </div>
                             <div *ngIf="submitted && f.genre.errors" class="invalid-feedback">
                                 <div *ngIf="f.genre.errors.required">Campo obrigatório</div>
@@ -125,17 +125,17 @@
                             <div class="col-sm-4">
                                 <div class="form-radio">
                                     <label class="form-check-label">
-                    <input type="radio" class="form-check-input" formControlName="recommendation"
-                      [ngClass]="{ 'is-invalid': submitted && f.recommendation.errors }" [value]="true"> Sim <i
-                      class="input-helper"></i><i class="input-helper"></i></label>
+                  <input type="radio" class="form-check-input" formControlName="recommendation"
+                    [ngClass]="{ 'is-invalid': submitted && f.recommendation.errors }" [value]="true"> Sim <i
+                    class="input-helper"></i><i class="input-helper"></i></label>
                                 </div>
                             </div>
                             <div class="col-sm-5">
                                 <div class="form-radio">
                                     <label class="form-check-label">
-                    <input type="radio" class="form-check-input" formControlName="recommendation"
-                      [ngClass]="{ 'is-invalid': submitted && f.recommendation.errors }" [value]="false"> Não <i
-                      class="input-helper"></i><i class="input-helper"></i></label>
+                  <input type="radio" class="form-check-input" formControlName="recommendation"
+                    [ngClass]="{ 'is-invalid': submitted && f.recommendation.errors }" [value]="false"> Não <i
+                    class="input-helper"></i><i class="input-helper"></i></label>
                                 </div>
                             </div>
                             <div *ngIf="submitted && f.recommendation.errors" class="invalid-feedback">
@@ -226,35 +226,35 @@
                             <label class="col-sm-3 col-form-label">Estado</label>
                             <div class="col-sm-9">
                                 <select class="form-control" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
-                  <option value="">Escolha uma opção</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal </option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão </option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul </option>
-                  <option value="MG">Minas Gerais</option>ption>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba </option>
-                  <option value="PR">Paraná </option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte </option>
-                  <option value="RS">Rio Grande do Sul </option>
-                  <option value="RO">Rondônia </option>
-                  <option value="RR">Roraima </option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-                </select>
+                <option value="">Escolha uma opção</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal </option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão </option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul </option>
+                <option value="MG">Minas Gerais</option>ption>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba </option>
+                <option value="PR">Paraná </option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte </option>
+                <option value="RS">Rio Grande do Sul </option>
+                <option value="RO">Rondônia </option>
+                <option value="RR">Roraima </option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+              </select>
                             </div>
                             <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
                                 <div *ngIf="f.state.errors.required">Campo obrigatório</div>
@@ -262,13 +262,8 @@
                         </div>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-success float-right mb-2  submit-btn text-uppercase">Finalizar Pedido</button>
             </form>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <button type="button" class="btn btn-success float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar Pedido</button>
     </div>
 </div>

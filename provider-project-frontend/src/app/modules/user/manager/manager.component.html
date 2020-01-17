@@ -13,10 +13,10 @@
                                 <label for=""></label>
                                 <select class="form-control" name="type" id="type" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
                                     <option value="">Escolha uma opção</option>
-                                    <option *ngFor="let data of types" value="{{data.id}}">{{data.type}} </option>
+                                    <option *ngFor="let data of types"  value="{{data.id}}">{{data.type}} </option>
           </select>
                                 <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
-                                    <div *ngIf="f.type.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.type.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
             </option>
           </select>
                                 <div *ngIf="submitted && f.team.errors" class="invalid-feedback">
-                                    <div *ngIf="f.team.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.team.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                     </option>
                                   </select>
                                 <div *ngIf="submitted && f.sector.errors" class="invalid-feedback">
-                                    <div *ngIf="f.sector.errors.required">Informação é obrigatório</div>
+                                    <div *ngIf="f.sector.errors.required">A Informação é obrigatório</div>
                                 </div>
                             </div>
                         </div>
@@ -262,13 +262,8 @@
                         </div>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-success float-right mb-2  submit-btn text-uppercase">Finalizar Pedido</button>
             </form>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <button type="button" class="btn btn-success float-right mb-2  submit-btn text-uppercase" (click)="setFinaly()">Finalizar Pedido</button>
     </div>
 </div>

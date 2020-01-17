@@ -62,7 +62,7 @@ export class UserService {
         params:
         {
           company_id: this.authenticationService.currentUserValue.company.toString(),
-          user_id: this.authenticationService.currentUserValue.id.toString(),
+          user_id: this.authenticationService.currentUserValue.user.toString(),
         }
       });
     } else if (this.authenticationService.currentUserValue.is_individual) {
@@ -70,7 +70,7 @@ export class UserService {
         params:
         {
           company_id: this.authenticationService.currentUserValue.company.toString(),
-          user_id: this.authenticationService.currentUserValue.id.toString(),
+          user_id: this.authenticationService.currentUserValue.user.toString(),
         }
       });
     } else if (this.authenticationService.currentUserValue.is_collaborator) {
@@ -78,7 +78,7 @@ export class UserService {
         params:
         {
           company_id: this.authenticationService.currentUserValue.company.toString(),
-          user_id: this.authenticationService.currentUserValue.id.toString(),
+          user_id: this.authenticationService.currentUserValue.user.toString(),
         }
       });
     }
@@ -86,7 +86,7 @@ export class UserService {
   }
 
   setUserProfile(formData) {
-    formData.append('user_id', this.authenticationService.currentUserValue.id.toString())
+    formData.append('user_id', this.authenticationService.currentUserValue.user.toString())
     formData.append('company_id', this.authenticationService.currentUserValue.company.toString())
 
     if (this.authenticationService.currentUserValue.is_business) {
@@ -100,7 +100,7 @@ export class UserService {
   }
 
   upUserProfile(formData) {
-    formData.append('user_id', this.authenticationService.currentUserValue.id.toString())
+    formData.append('user_id', this.authenticationService.currentUserValue.user.toString())
     formData.append('company_id', this.authenticationService.currentUserValue.company.toString())
 
     if (this.authenticationService.currentUserValue.is_business) {
@@ -123,7 +123,7 @@ export class UserService {
   }
   //  criando usuario. 
   setUser(data: object) {
-    data['user_link'], this.authenticationService.currentUserValue.id.toString();
+    data['user_link'], this.authenticationService.currentUserValue.user.toString();
     data['company'] = this.authenticationService.currentUserValue.company.toString();
     return this.http.post<any[]>(`${environment.apiUrl}/api/users/`, data);
   }

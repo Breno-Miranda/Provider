@@ -126,8 +126,7 @@ class UsersCreateBindSerializer(serializers.ModelSerializer):
 class UserCreateProfileSerializers(ModelSerializer):
     class Meta:
         model = Profile
-        fields = ("full_name", "matriculation", "company", "bind","zipcode", "city", "state","number"
-                  
+        fields = ("full_name", "matriculation", "company", "bind","zipcode", "city", "state",                 
                   "cpf", "genre", "cell", "phone" , "address")
 
 
