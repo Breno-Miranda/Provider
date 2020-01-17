@@ -123,7 +123,7 @@ export class UserService {
   }
   //  criando usuario. 
   setUser(data: object) {
-    data['user_id'], this.authenticationService.currentUserValue.id.toString();
+    data['user_link'], this.authenticationService.currentUserValue.id.toString();
     data['company'] = this.authenticationService.currentUserValue.company.toString();
     return this.http.post<any[]>(`${environment.apiUrl}/api/users/`, data);
   }

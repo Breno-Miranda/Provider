@@ -12,6 +12,7 @@ import { ConsultantComponent } from './consultant/consultant.component';
 import { InputFilterPipe } from 'src/app/shared/pipe/inputfilter.pipe';
 import { LeaderComponent } from './leader/leader.component';
 import { UserComponent } from './user.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { UserComponent } from './user.component';
    InputFilterPipe,
    LeaderComponent,
    ConsultantComponent,
-   UserComponent
+   UserComponent,
+   AdminComponent
   ],
   imports: [
     CommonModule,
