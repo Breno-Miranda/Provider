@@ -25,7 +25,7 @@ class Request(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=None)
     lot = models.ForeignKey(Lote, on_delete=None)
     catalog = models.ForeignKey(Catalog, on_delete=None)
-    profile = models.ForeignKey(Profile, on_delete=None)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     user_bind_typeit = models.ForeignKey(User, related_name="user_typeit", on_delete=None, blank=True, null=True)
     status = models.ForeignKey(Status, on_delete=None, default=1 )
     create_date = models.DateTimeField(auto_now=True)
