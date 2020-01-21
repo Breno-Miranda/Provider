@@ -55,4 +55,4 @@ class Itens(models.Model):
     is_checked = models.BooleanField(blank=True,null=True)
      
     def __str__(self):
-        return self.request.user.first_name
+        return str(self.id)
