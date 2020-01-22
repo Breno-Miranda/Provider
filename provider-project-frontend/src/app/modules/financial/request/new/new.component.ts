@@ -14,8 +14,11 @@ declare var $: any;
 })
 export class NewComponent implements OnInit {
   
+ 
   [x: string]: any;
 
+
+  submitted = false;
   requestForm: FormGroup;
 
   error: any;
@@ -41,10 +44,10 @@ export class NewComponent implements OnInit {
       catalog: ['', Validators.required],
       campaign: ['', Validators.required],
       lot: ['', Validators.required],
-      reference: ['', Validators.required],
+      reference: ['',],
       amount: [1, Validators.required],
-      size: ['', Validators.required],
-      total_amount: [0, Validators.required],
+      size: ['', ],
+      total_amount: [0,],
       profile: ['', Validators.required],
     });
   }
@@ -83,6 +86,15 @@ export class NewComponent implements OnInit {
 
   setFinaly()
   {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.requestForm.invalid) {
+      return;
+    }
+
+
     this.requestService.setRequest({
       lot: this.f.lot.value,
       catalog:this.f.catalog.value,

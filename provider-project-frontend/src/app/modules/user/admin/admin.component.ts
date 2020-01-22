@@ -79,12 +79,12 @@ export class AdminComponent implements OnInit {
 
   setFinaly() {
 
-     this.submitted = true;
+    this.submitted = true;
 
-      // stop here if form is invalid
-      if (this.CommonForm.invalid) {
-          return;
-      }
+    // stop here if form is invalid
+    if (this.CommonForm.invalid) {
+      return;
+    }
 
 
     var full_name = this.f.full_name.value.replace(" da ", " ").replace(" de ", " ").split(' ')
