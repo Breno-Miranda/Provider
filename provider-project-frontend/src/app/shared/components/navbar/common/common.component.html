@@ -25,7 +25,7 @@
                 </li>
 
                 <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="javascript:void()" data-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" data-toggle="dropdown" aria-expanded="false">
                         <div class="wrapper d-flex flex-column">
                             <span class="profile-text">{{currentUser._user.first_name}} {{currentUser._user.last_name}}</span>
                             <span class="user-designation">{{currentUser._type.type}}</span>
@@ -46,7 +46,7 @@
                                 class="dropdown-item-icon mdi mdi-key text-primary"></i> Permissões</a>
                         <a [routerLink]=" ['/dashboard/faq']" class="dropdown-item"><i
                                 class="dropdown-item-icon mdi mdi-help-circle-outline text-primary"></i> FAQ</a> -->
-                        <a href="javascript:void()" class="dropdown-item" (click)="logout()"><i
+                        <a class="dropdown-item" (click)="logout()"><i
                                 class="dropdown-item-icon mdi mdi-power text-primary"></i>Deslogar</a>
                     </div>
                 </li>
@@ -104,10 +104,10 @@
                                 <p class="category-heading ">Pedidos</p>
                                 <ul class="submenu-item ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/new']">Novo</a>
+                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/new']">Novos (Pedidos)</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/timeline']">Timeline</a>
+                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/timeline']">Timeline (Historio de Pedidos)</a>
                                     </li>
                                     <li class="nav-item ">
                                         <!-- <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/extract']">Extratos</a> -->

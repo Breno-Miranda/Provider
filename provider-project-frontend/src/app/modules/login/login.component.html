@@ -10,8 +10,8 @@
                     <div class="auto-form-wrapper d-flex align-items-center justify-content-center flex-column">
                         <div class="nav-get-started">
                             <p>Não possui uma conta?</p>
-                            <a class="btn btn-fw get-started-btn text-uppercase" [routerLink]="['/register/business']">Líder</a>
-                            <a class="btn btn-fw get-started-btn text-uppercase" [routerLink]="['/register/individual']">Consultora</a>
+                            <a class="btn btn-fw get-started-btn text-uppercase" [routerLink]="['/auth/register/user/business']">Líder</a>
+                            <a class="btn btn-fw get-started-btn text-uppercase" [routerLink]="['/auth/register/user/individual']">Consultora</a>
                         </div>
 
 
@@ -75,7 +75,7 @@
                                     <span *ngIf="loading"><i class="mdi mdi-refresh mdi-spin"></i></span>
                                 </button>
                                 <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{ error }}</div>
-                                <p class="text-muted pt-4"><a href="#" [routerLink]="['/forgot-password']">Esqueceu a
+                                <p class="text-muted pt-4"><a href="#" [routerLink]="['/auth/user/forgot-password']">Esqueceu a
                                         senha?</a></p>
                             </div>
                             <div class="wrapper mt-5 text-gray">

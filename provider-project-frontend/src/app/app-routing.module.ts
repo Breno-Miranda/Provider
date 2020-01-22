@@ -6,7 +6,7 @@ import { AuthComponent } from './layout/auth/auth.component';
 import { AdminComponent } from './layout/admin/admin.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   {
     path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard],
     children: [
