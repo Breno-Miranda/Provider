@@ -26,8 +26,8 @@
                                                 <img src="{{ bind._company.logo }}" alt="image" width="100" class="img-sm mr-3 rounded-circle">
                                                 <div class="media-body">
                                                     <h6 class="mb-1">{{ bind._company.name_company }}</h6>
+                                                    <p class="mb-0 text-muted">{{ bind._type.type }}</p>
                                                     <p class="mb-0 text-muted">{{ bind._company.cnpj }}</p>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -42,7 +42,8 @@
 
                         <form [formGroup]="loginForm" (ngSubmit)="checkoutAuth()" *ngIf="!loginBind">
                             <h3 class="mr-auto">Oi! Vamos começar.</h3>
-                            <p class="mb-5 mr-auto">Informe seus dados abaixo.</p>
+                            <p class="mb-5 mr-auto">Seja bem vindo! Estamos aqui para o que de e vinher. Faça de seu sucesso o nosso também. Comece já, entre na plataforma e divirta-se.
+                            </p>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">

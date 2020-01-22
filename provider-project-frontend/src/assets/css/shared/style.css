@@ -26800,12 +26800,12 @@ div.tagsinput span.tag a {
 }
 
 .auth.theme-two .banner-section .slide-content.bg-1 {
-    background: url("src/assets/img/auth/login_2.jpg") no-repeat center center;
+    background: url("src/assets/img/auth/login_2.png") no-repeat center center;
     background-size: cover;
 }
 
 .auth.theme-two .banner-section .slide-content.bg-2 {
-    background: url("src/assets/img/auth/register_2.jpg") no-repeat center center;
+    background: url("src/assets/img/auth/register_2.png") no-repeat center center;
     background-size: cover;
 }
 

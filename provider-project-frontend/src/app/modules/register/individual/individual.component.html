@@ -1,92 +1,93 @@
 <div class="container-scroller">
-	<div class="container-fluid page-body-wrapper full-page-wrapper">
-		<div class="content-wrapper auth p-0 theme-two">
-			<div class="row d-flex align-items-stretch">
-				<div class="col-md-4 banner-section d-none d-md-flex align-items-stretch justify-content-center">
-					<div class="slide-content bg-2"></div>
-				</div>
-				<div class="col-12 col-md-8 h-100 bg-white">
-					<div class="auto-form-wrapper d-flex align-items-center justify-content-center flex-column">
-						<div class="nav-get-started">
-							<p>Já possui uma conta?</p>
-							<a class="btn get-started-btn text-uppercase" href="login-2.html" [routerLink]="['/login']">Entrar</a>
-						</div>
-						<form [formGroup]="form">
-							<h3 class="mr-auto">Criar conta</h3>
-							<p class="mb-5 mr-auto">Digite suas informações abaixo.</p>
-							<div class="form-group">
-								<div class="input-group">
-									<div class="input-group-prepend">
-                    <span class="input-group-text">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper auth p-0 theme-two">
+            <div class="row d-flex align-items-stretch">
+                <div class="col-md-4 banner-section d-none d-md-flex align-items-stretch justify-content-center">
+                    <div class="slide-content bg-2"></div>
+                </div>
+                <div class="col-12 col-md-8 h-100 bg-white">
+                    <div class="auto-form-wrapper d-flex align-items-center justify-content-center flex-column">
+                        <div class="nav-get-started">
+                            <p>Já possui uma conta?</p>
+                            <a class="btn get-started-btn text-uppercase" href="login-2.html" [routerLink]="['/login']">Entrar</a>
+                        </div>
+                        <form [formGroup]="formRegister">
+                            <h3 class="mr-auto">Criar conta</h3>
+                            <p class="mb-5 mr-auto">Digite suas informações abaixo.</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
                       <i class="mdi mdi-numeric"></i>
                     </span>
-									</div>
-									<input id="code" type="text" class="form-control" placeholder="Digite seu código" formControlName="username">
-									<div class="invalid-feedback">
-										<div>Código é obrigatório</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="input-group">
-									<div class="input-group-prepend">
-                    <span class="input-group-text">
+                                    </div>
+                                    <input id="code" type="text" class="form-control" placeholder="Digite seu código" formControlName="username">
+                                    <div class="invalid-feedback">
+                                        <div>Código é obrigatório</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
                       <i class="mdi mdi-account-outline"></i>
                     </span>
-									</div>
-									<input id="username" type="text" class="form-control" placeholder="Digite seu nome de usuário" formControlName="username">
-									<div class="invalid-feedback">
-										<div>Nome de usuário é obrigatório</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="input-group">
-									<div class="input-group-prepend">
-                    <span class="input-group-text">
+                                    </div>
+                                    <input id="username" type="text" class="form-control" placeholder="Digite seu nome de usuário" formControlName="username">
+                                    <div class="invalid-feedback">
+                                        <div>Nome de usuário é obrigatório</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
                       <i class="mdi mdi-lock-outline"></i>
                     </span>
-									</div>
-									<input id="password" type="password" class="form-control" placeholder="Digite sua senha"formControlName="password">
-									<div class="invalid-feedback">
-										<div>Senha é obrigatório</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="input-group">
-									<div class="input-group-prepend">
-                    <span class="input-group-text">
+                                    </div>
+                                    <input id="password" type="password" class="form-control" placeholder="Digite sua senha" formControlName="password">
+                                    <div class="invalid-feedback">
+                                        <div>Senha é obrigatório</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
                       <i class="mdi mdi-lock-outline"></i>
                     </span>
-									</div>
-									<input type="password" class="form-control" placeholder="Confirme sua senha">
-								</div>
-							</div>
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-rounded btn-fw submit-btn text-uppercase">Criar conta
-									<span><i class="mdi mdi-refresh mdi-spin"></i></span>
-								</button>
-								<div class="alert alert-danger mt-3 mb-0"></div>
-							</div>
-							<div class="wrapper mt-5 text-gray">
-								<p class="footer-text">Copyright © 2019 <a href="https://www.nataldev.com/" target="_blank">Natal&#123;Dev&#125;</a>. Todos os direitos reservados.</p>
-								<ul class="auth-footer text-gray">
-									<li>
-										<a href="#">Termos & Condições</a>
-									</li>
-									<li>
-										<a href="#">Política de cookies</a>
-									</li>
-								</ul>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- content-wrapper ends -->
-	</div>
-	<!-- page-body-wrapper ends -->
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="Confirme sua senha">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-rounded btn-fw submit-btn text-uppercase">Criar conta
+                  <span><i class="mdi mdi-refresh mdi-spin" *ngIf="loading"></i></span>
+                </button>
+                                <div *ngIf="error" class="alert alert-danger mt-3  mb-3">{{ error }}</div>
+                                <div *ngIf="success" class="alert alert-success mt-3 mb-3">{{ success }}</div>
+                            </div>
+                            <div class="wrapper mt-5 text-gray">
+                                <p class="footer-text">Copyright © 2019 <a href="https://www.nataldev.com/" target="_blank">Natal&#123;Dev&#125;</a>. Todos os direitos reservados.</p>
+                                <ul class="auth-footer text-gray">
+                                    <li>
+                                        <a href="#">Termos & Condições</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Política de cookies</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
