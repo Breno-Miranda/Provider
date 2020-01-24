@@ -1,1 +1,94 @@
-<p>request-historic works!</p>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Filtros</h4>
+                <form [formGroup]="formFilter" (ngSubmit)="filter()">
+                    <div class="form-group row">
+                        <div class="col">
+                            <label for="">Revista</label>
+                            <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of catalogs" value="{{data.id}}">{{data._catalog.name}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f.catalog.errors" class="invalid-feedback">
+                                <div *ngIf="f.catalog.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="">Campanha</label>
+                            <select class="form-control" name="campaign" id="campaign" formControlName="campaign" [ngClass]="{ 'is-invalid': submitted && f.campaign.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of campaigns" value="{{data.id}}">{{data.order_send_name}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f.campaign.errors" class="invalid-feedback">
+                                <div *ngIf="f.campaign.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="">Lote</label>
+                            <select class="form-control" name="lot" id="lot" formControlName="lot" [ngClass]="{ 'is-invalid': submitted && f.lot.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of lots" value="{{data.id}}">{{data.id}}</option>
+                            </select>
+                            <div *ngIf="submitted && f.lot.errors" class="invalid-feedback">
+                                <div *ngIf="f.lot.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label for="">Consultor(a)</label>
+                            <select class="form-control" name="profile" id="profile" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of users" value="{{data.id}}">{{data.full_name}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
+                                <div *ngIf="f.profile.errors.required">Informação é obrigatório</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Historico de pedidos</h4>
+                <p class="card-description"> Segue abaixo as informações dos pedidos digitados. As informações posta são da primeira etapa da digitação.
+                    <code> Observação: Todos os pedidos estará com estados de ABERTO. Em caso de duvida entrar em contato com o suporte.</code>
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>CPF</th>
+                                <th>Consultor(a)</th>
+                                <th>Revista</th>
+                                <th>Status</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of requests">
+                                <td>{{data.id}}</td>
+                                <td>{{data._profile['cpf']}}</td>
+                                <td>{{data._profile['full_name']}}</td>
+                                <td>{{data._catalog._catalog['name']}}</td>
+                                <td>
+                                    <label class="badge badge-danger">{{data._status['initials']}}</label>
+                                </td>
+                                <td>{{data.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
