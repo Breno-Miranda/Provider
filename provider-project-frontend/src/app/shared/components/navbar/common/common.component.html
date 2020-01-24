@@ -67,21 +67,20 @@
                 </li>
 
                 <li class="nav-item" (mouseover)="houverPed=true" (mouseleave)="houverPed=false" [ngStyle]="{backgroundColor: houverPed==true  ? currentUser._company.color_secudary :  currentUser._company.color_primary  }">
-                    <a [routerLink]="urlBase + ['/financial/requests/new']" class="nav-link">
+                    <a [routerLink]="urlBase + ['/financial/requests/new-found']" class="nav-link">
                         <i class="link-icon mdi mdi-library-books"></i>
                         <span class="menu-title">Digitar pedido</span>
                     </a>
                 </li>
 
                 <li class="nav-item mega-menu" (mouseover)="hoverCad=true" (mouseleave)="hoverCad=false" [ngStyle]="{backgroundColor: hoverCad==true  ? currentUser._company.color_secudary :  currentUser._company.color_primary  }">
-                    <a href=" javascript:void() " class="nav-link ">
+                    <a class="nav-link ">
                         <i class="link-icon mdi mdi-content-copy "></i>
                         <span class="menu-title ">Cadastros</span>
                         <i class="menu-arrow "></i>
                     </a>
                     <div class="submenu ">
-                        <div class="col-group-wrapper row ">
-
+                        <div class="col-group-wrapper row">
                             <div class="col-group col-md-3" *ngIf="currentUser._type.code >= 1">
                                 <p class="category-heading "> Colaboradores, Lideres e Clientes</p>
                                 <ul class="submenu-item ">
@@ -104,13 +103,13 @@
                                 <p class="category-heading ">Pedidos</p>
                                 <ul class="submenu-item ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/new']">Novos (Pedidos)</a>
+                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/new-found']">Novos (Pedidos)</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/timeline']">Timeline (Historio de Pedidos)</a>
+                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/timeline']">Timeline (Linha do tempo)</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <!-- <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/extract']">Extratos</a> -->
+                                        <a class="nav-link" [routerLink]="urlBase + ['/financial/requests/historic']">Historico (Pedidos)</a>
                                     </li>
                                 </ul>
                             </div>

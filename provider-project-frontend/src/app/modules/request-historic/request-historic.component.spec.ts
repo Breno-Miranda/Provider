@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagerOrdersComponent } from './manager-orders.component';
+import { RequestHistoricComponent } from './request-historic.component';
 
-describe('ManagerComponent', () => {
-  let component: ManagerOrdersComponent;
-  let fixture: ComponentFixture<ManagerOrdersComponent>;
+describe('RequestHistoricComponent', () => {
+  let component: RequestHistoricComponent;
+  let fixture: ComponentFixture<RequestHistoricComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagerOrdersComponent ]
+      declarations: [ RequestHistoricComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagerOrdersComponent);
+    fixture = TestBed.createComponent(RequestHistoricComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

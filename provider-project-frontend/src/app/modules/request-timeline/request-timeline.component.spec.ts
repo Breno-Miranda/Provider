@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExtractorComponent } from './extractor.component';
+import { RequestTimelineComponent } from './request-timeline.component';
 
-describe('ExtractorComponent', () => {
-  let component: ExtractorComponent;
-  let fixture: ComponentFixture<ExtractorComponent>;
+describe('RequestTimelineComponent', () => {
+  let component: RequestTimelineComponent;
+  let fixture: ComponentFixture<RequestTimelineComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExtractorComponent ]
+      declarations: [ RequestTimelineComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExtractorComponent);
+    fixture = TestBed.createComponent(RequestTimelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

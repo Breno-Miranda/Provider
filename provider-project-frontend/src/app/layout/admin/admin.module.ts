@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 import { CardsModule } from 'src/app/shared/components/widgets/cards/cards.module';
 import { RegisterModule } from 'src/app/modules/register/register.module';
 
-import { OrdersModule } from 'src/app/modules/orders/orders.module';
 import { ErrorModule } from 'src/app/modules/error/error.module';
 import { UserModule } from '../../modules/user/user.module';
 
@@ -20,28 +21,34 @@ import { ConsultantComponent } from 'src/app/modules/dashboard/consultant/consul
 
 import { AdminRoutes } from './admin.routing.module';
 import { SettingsModule } from 'src/app/modules/settings/settings.module';
-import { FinancialModule } from 'src/app/modules/financial/financial.module';
+
+
+import { RequestComponent } from 'src/app/modules/request/request.component';
+import { RequestTimelineComponent } from 'src/app/modules/request-timeline/request-timeline.component';
+import { RequestHistoricComponent } from 'src/app/modules/request-historic/request-historic.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     RouterModule.forChild(AdminRoutes),
     CardsModule,
     RegisterModule,
-    OrdersModule,
     UserModule,
     ErrorModule,
     SettingsModule,
-    FinancialModule
   ],
   declarations: [
     AdminComponent,
     LeaderComponent,
     ManagerComponent,
     ConsultantComponent,
+    RequestComponent,
+    RequestTimelineComponent,
+    RequestHistoricComponent
   ]
 })
 

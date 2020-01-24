@@ -20,6 +20,7 @@ import { JwtInterceptor } from './core/authentication/jwt.interceptor';
 
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+
 registerLocaleData(localePt);
 
 
