@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -40,6 +42,7 @@ import { RequestHistoricComponent } from 'src/app/modules/request-historic/reque
     UserModule,
     ErrorModule,
     SettingsModule,
+    NgSelectModule
   ],
   declarations: [
     AdminComponent,

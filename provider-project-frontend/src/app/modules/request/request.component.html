@@ -44,7 +44,7 @@
 
                         <div class="col">
                             <label for="">Consultor(a)</label>
-                            <select class="form-control" name="profile" id="profile" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
+                            <!-- <select class="form-control select_profile" name="profile" id="profile" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
                                 <option value="">Escolha uma opção</option>
                                 <option *ngFor="let data of users" value="{{data.id}}">{{data.full_name}}
                                 </option>
@@ -52,6 +52,18 @@
                             <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
                                 <div *ngIf="f.profile.errors.required">Informação é obrigatório</div>
                             </div>
+ -->
+
+                            <ng-select [items]="users" bindLabel="full_name" bindValue="id" placeholder="Pesquisar por usuairos" appendTo="body" formControlName="profile">
+                                <ng-template ng-header-tmp>
+                                    <small class="form-text text-muted">Carregado {{users.length}} de
+                                        {{users.length}}</small>
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <b>{{item.cpf}}</b> {{item.full_name}}
+                                </ng-template>
+                            </ng-select>
+
                         </div>
                     </div>
                 </div>

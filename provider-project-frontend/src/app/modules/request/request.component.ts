@@ -60,6 +60,13 @@ export class RequestComponent implements OnInit {
       size: ['', ],
     });
 
+
+
+    $(document).ready(function() {
+      $('select_profile').select2();
+    });
+
+
   }
 
   
