@@ -20,9 +20,10 @@ export class RequestComponent implements OnInit {
  
   [x: string]: any;
 
-
   submitted = false;
+  
   requestForm: FormGroup;
+  requestFormSearch:  FormGroup;
 
   error: any;
   success: any;
@@ -47,12 +48,18 @@ export class RequestComponent implements OnInit {
       catalog: ['', Validators.required],
       campaign: ['', Validators.required],
       lot: ['', Validators.required],
-      reference: ['',],
       amount: [1, Validators.required],
       size: ['', ],
       total_amount: [0,],
       profile: ['', Validators.required],
     });
+
+    this.requestFormSearch = this.formBuilder.group({
+      reference: ['', Validators.required],
+      amount: [1, Validators.required],
+      size: ['', ],
+    });
+
   }
 
   
@@ -68,23 +75,41 @@ export class RequestComponent implements OnInit {
   }
 
   searchProducts() {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.requestFormSearch.invalid) {
+      return;
+    }
+
     this.productsService.getSearch( {
-      search: this.f.reference.value
+      catalog_id: this.f.catalog.value,
+      search: this.f_search.reference.value
     } ).pipe(first()).subscribe(data => {
-        data['results']['amount'] = this.f.amount.value
-        data['results']['size']   = this.f.size.value
-        data['results']['total']  = (this.f.amount.value * data['results']['sale_price']).toFixed(2);
+        data['results']['amount'] = this.f_search.amount.value
+        data['results']['size']   = this.f_search.size.value
+        data['results']['total']  = (this.f_search.amount.value * data['results']['sale_price']).toFixed(2);
         this.total += parseFloat(data['results']['total']);
         this.f.total_amount.setValue( parseFloat(this.total.toFixed(2)) ) 
-        this.f.amount.setValue(1);
-        this.f.size.setValue('');
-        this.f.reference.setValue('');
+        this.f_search.amount.setValue(1);
+        this.f_search.size.setValue('');
+        this.f_search.reference.setValue('');
         this.itens.push(data['results']);
+
+        this.toastr.success('Item adicionado com sucesso!');
+    },
+    error => {
+      this.toastr.success('error!');
     });
   }
 
   get f() {
     return this.requestForm.controls;
+  }
+
+  get f_search() {
+    return this.requestFormSearch.controls;
   }
 
   setFinaly()
