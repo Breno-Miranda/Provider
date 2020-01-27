@@ -99,21 +99,21 @@ export class RequestHistoricComponent implements OnInit {
          {
            type: 'none',
            ul: [
-             'Nome:' + '  ' + requestPdf._profile.full_name,
-             'CPF' + '  ' + requestPdf._profile.cpf,
-             'Telefone:' + '  ' + requestPdf._profile.cell,
-             'Endereco:' + '  ' + requestPdf._profile.address,
-             'Cidade:' + '  ' + requestPdf._profile.city,
-             'Bairro:' + '  ' + requestPdf._profile.neighborhood,
-             'CEP:'+ '  ' + requestPdf._profile.cep + '\n\n',
+             'Nome:' + '  ' + requestPdf['_profile']['full_name'],
+             'CPF' + '  ' + requestPdf['_profile']['cpf'],
+             'Telefone:' + '  ' + requestPdf['_profile']['cell'],
+             'Endereco:' + '  ' + requestPdf['_profile']['address'],
+             'Cidade:' + '  ' + requestPdf['_profile']['city'],
+             'Bairro:' + '  ' + requestPdf['_profile']['neighborhood'],
+             'CEP:'+ '  ' + requestPdf['_profile']['cep'],
            ]
          },
          {
            type: 'none',
            ul: [
              'Pedido:',
-             'Catalogo: ' + '  ' + requestPdf._catalog._catalog.name,
-             'Revista:' + '  ' + requestPdf._catalog.reference,
+             'Catalogo: ' + '  ' + requestPdf['_catalog']['catalog'].name,
+             'Revista:' + '  ' + requestPdf['_catalog'].reference,
              'Lider:',
              'Valor:',
              'Data:',
