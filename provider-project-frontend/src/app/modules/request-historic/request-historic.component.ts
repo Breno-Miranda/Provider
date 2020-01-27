@@ -55,6 +55,7 @@ export class RequestHistoricComponent implements OnInit {
     this.requestService.getAll()
       .subscribe((requests: any) => {
         this.requests = requests;
+        console.log(requests)
       }, () => { });
   }
 
@@ -72,6 +73,8 @@ export class RequestHistoricComponent implements OnInit {
   }
 
   generatePdf() {
+
+    var requestPdf = [];
 
     var contentX = [
      {text: 'Aviso de Pedido\n\n',  bold: true,  alignment: 'center'},
@@ -96,21 +99,21 @@ export class RequestHistoricComponent implements OnInit {
          {
            type: 'none',
            ul: [
-             'Nome:',
-             'CPF',
-             'Telefone:',
-             'Endereco:',
-             'Cidade:',
-             'Bairro:',
-             'CEP:\n\n',
+             'Nome:' + '  ' + requestPdf._profile.full_name,
+             'CPF' + '  ' + requestPdf._profile.cpf,
+             'Telefone:' + '  ' + requestPdf._profile.cell,
+             'Endereco:' + '  ' + requestPdf._profile.address,
+             'Cidade:' + '  ' + requestPdf._profile.city,
+             'Bairro:' + '  ' + requestPdf._profile.neighborhood,
+             'CEP:'+ '  ' + requestPdf._profile.cep + '\n\n',
            ]
          },
          {
            type: 'none',
            ul: [
              'Pedido:',
-             'Catalogo:',
-             'Revista:',
+             'Catalogo: ' + '  ' + requestPdf._catalog._catalog.name,
+             'Revista:' + '  ' + requestPdf._catalog.reference,
              'Lider:',
              'Valor:',
              'Data:',
