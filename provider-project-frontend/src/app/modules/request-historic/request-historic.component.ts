@@ -170,7 +170,7 @@ export class RequestHistoricComponent implements OnInit {
       // {text: 'Informações da Consultora(o)',  bold: true,  alignment: 'left'},
 
       const documentDefinition = { content: contentX };
-      pdfMake.createPdf(documentDefinition).print({}, window);
+      pdfMake.createPdf(documentDefinition).open({}, window);
 
       console.log(documentDefinition)
       console.log(requestPdf)
