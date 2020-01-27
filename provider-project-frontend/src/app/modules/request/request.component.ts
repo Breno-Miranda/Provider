@@ -22,22 +22,25 @@ export class RequestComponent implements OnInit {
 
   submitted = false;
   
+  // Form
   requestForm: FormGroup;
   requestFormSearch:  FormGroup;
+  requestFormItens:  FormGroup;
 
+  // Msm
   error: any;
   success: any;
-
-  // itens e total.
-  itens: Array<[]> = [];
-  total = 0;
-
-  //  array select 
+ 
+  // Select 
   lots: Array<[]> = [];
   campaigns: Array<[]> = [];
   catalogs: Array<[]> = [];
   users: Array<[]> = [];
 
+   // itens e total.
+   itens: Array<[]> = [];
+   total = 0;
+ 
   constructor(
      private formBuilder: FormBuilder,
      private productsService: ProductsService,
@@ -51,7 +54,7 @@ export class RequestComponent implements OnInit {
       amount: [1, Validators.required],
       size: ['', ],
       total_amount: [0,],
-      profile: ['', Validators.required],
+      profile: [[], Validators.required],
     });
 
     this.requestFormSearch = this.formBuilder.group({
@@ -60,12 +63,9 @@ export class RequestComponent implements OnInit {
       size: ['', ],
     });
 
-
-
-    $(document).ready(function() {
-      $('select_profile').select2();
+    this.requestFormItens = this.formBuilder.group({
+      amount: [1, Validators.required],
     });
-
 
   }
 
@@ -98,7 +98,7 @@ export class RequestComponent implements OnInit {
         data['results']['size']   = this.f_search.size.value
         data['results']['total']  = (this.f_search.amount.value * data['results']['sale_price']).toFixed(2);
         this.total += parseFloat(data['results']['total']);
-        this.f.total_amount.setValue( parseFloat(this.total.toFixed(2)) ) 
+        this.f.total_amount.setValue( (this.total.toFixed(2)) ) 
         this.f_search.amount.setValue(1);
         this.f_search.size.setValue('');
         this.f_search.reference.setValue('');
@@ -119,6 +119,42 @@ export class RequestComponent implements OnInit {
     return this.requestFormSearch.controls;
   }
 
+  get f_edit_itens() {
+    return this.requestFormItens.controls;
+  }
+
+  setEditItens( index )
+  {
+    console.log(index)
+
+    var total = 0;
+
+    this.itens.reverse()[index]['amount'] = this.f_edit_itens.amount.value
+    this.itens[index]['total']  = (this.f_edit_itens.amount.value * this.itens[index]['sale_price']).toFixed(2);
+    total += parseFloat(this.itens.reverse()[index]['total']);
+    this.f.total_amount.setValue( (total.toFixed(2)) ) 
+
+  }
+  
+  removeItens( index ){
+   
+    this.itens.reverse().splice(index, 1);
+    
+    this.Recalculo();
+  }
+
+  Recalculo()
+  {
+    var total = 0; 
+
+    this.itens.forEach(data => {
+      total += parseFloat( (data['amount'] * data['sale_price']).toFixed(2));
+      this.f.total_amount.setValue( (total.toFixed(2)) ) 
+    });
+
+    console.log(this.itens);
+  }
+
   setFinaly()
   {
 
@@ -128,7 +164,6 @@ export class RequestComponent implements OnInit {
     if (this.requestForm.invalid) {
       return;
     }
-
 
     this.requestService.setRequest({
       lot: this.f.lot.value,
@@ -140,7 +175,7 @@ export class RequestComponent implements OnInit {
     }).pipe(first()).subscribe(data => {
       this.toastr.success(data['success']);
       this.itens = [];
-      this.f.user.setValue('');
+      this.f.profile.setValue([]);
     });
   }
 

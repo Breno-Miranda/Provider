@@ -40,6 +40,7 @@
                             "src/assets/vendors/icheck/skins/all.css",
                             "src/assets/css/shared/style.css",
                             "src/assets/css/demo_11/style.css",
+                            "src/styles.scss",
                             "node_modules/ngx-toastr/toastr.css"
                         ],
                         "scripts": [
