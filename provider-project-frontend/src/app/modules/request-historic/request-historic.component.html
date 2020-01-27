@@ -6,12 +6,18 @@
                 <form [formGroup]="formFilter" (ngSubmit)="filter()">
                     <div class="form-group row">
                         <div class="col">
-                            <label for="">Revista</label>
+                            <label for="">Catalogo</label>
                             <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
                                 <option value="">Escolha uma opção</option>
                                 <option *ngFor="let data of catalogs" value="{{data.id}}">{{data._catalog.name}}
                                 </option>
                             </select>
+                            <!-- <select class="form-control" name="catalog" id="catalog" formControlName="catalog" [ngClass]="{ 'is-invalid': submitted && f.catalog.errors }">
+                                <option value="">Escolha uma opção</option>
+                                <option *ngFor="let data of catalogs" value="{{data.id}}">{{data._catalog.name}}
+                                </option>
+                                
+                            </select> -->
                             <div *ngIf="submitted && f.catalog.errors" class="invalid-feedback">
                                 <div *ngIf="f.catalog.errors.required">Informação é obrigatório</div>
                             </div>
@@ -73,6 +79,7 @@
                                 <th>Revista</th>
                                 <th>Status</th>
                                 <th>Valor</th>
+                                <th>Imprimir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,6 +92,7 @@
                                     <label class="badge badge-danger">{{data._status['initials']}}</label>
                                 </td>
                                 <td>{{data.amount}}</td>
+                                <td><button (click)="generatePdf()">PDF</button></td>
                             </tr>
                         </tbody>
                     </table>
