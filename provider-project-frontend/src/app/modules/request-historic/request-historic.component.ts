@@ -59,11 +59,11 @@ export class RequestHistoricComponent implements OnInit {
       }, () => { });
   }
 
-  filter() {}
+  filter() { }
 
   getSelectValues() {
     this.requestService.getRequest({
-      type_code:4
+      type_code: 4
     }).pipe(first()).subscribe(data => {
       this.lots = data['lots']
       this.campaigns = data['campaigns']
@@ -72,75 +72,113 @@ export class RequestHistoricComponent implements OnInit {
     });
   }
 
-  generatePdf() {
+  generatePdf(request_id) {
+
 
     var requestPdf = [];
 
-    var contentX = [
-     {text: 'Aviso de Pedido\n\n',  bold: true,  alignment: 'center'},
-     {
-       columns: [
-         {
-           type: 'none',
-           ul: [
-             { text: 'Informações da Consultora(o):\n\n', bold: true },
-           ],
-         },
-         {
-           type: 'none',
-           ul: [
-             { text: 'Informações do Pedido:\n\n', bold: true },
-           ]
-         }
-       ]
-     },
-     {
-       columns: [
-         {
-           type: 'none',
-           ul: [
-             'Nome:' + '  ' + requestPdf['_profile']['full_name'],
-             'CPF' + '  ' + requestPdf['_profile']['cpf'],
-             'Telefone:' + '  ' + requestPdf['_profile']['cell'],
-             'Endereco:' + '  ' + requestPdf['_profile']['address'],
-             'Cidade:' + '  ' + requestPdf['_profile']['city'],
-             'Bairro:' + '  ' + requestPdf['_profile']['neighborhood'],
-             'CEP:'+ '  ' + requestPdf['_profile']['cep'],
-           ]
-         },
-         {
-           type: 'none',
-           ul: [
-             'Pedido:',
-             'Catalogo: ' + '  ' + requestPdf['_catalog']['catalog'].name,
-             'Revista:' + '  ' + requestPdf['_catalog'].reference,
-             'Lider:',
-             'Valor:',
-             'Data:',
-           ]
-         }
-       ]
-     },
-     {text: 'Tabela de Itens:\n\n', fontSize: 14, bold: true},
-     {
-       table: {
-         headerRows: 1,
-         widths: [ '*', 'auto', 100, '*', '*',  '*',  '*' ],
-         body: [
-           [{text: 'Referencia', bold: true },  { text: 'Tm', bold: true },  { text: 'Descricao', bold: true },  { text: 'Pagina', bold: true }, { text: 'Qtd', bold: true }, { text: 'Unitario', bold: true }, { text: 'Total', bold: true }],
-           [ 'Value 1', 'Value 2', 'Value 3', 'Value 4', 'Value 4', 'Value 4', 'Value 4' ],
-         ]
-       }
-     },
-     {text: '\n\n'},
-     { qr: 'https://sivendiweb.com.br/app', fit: '70' },
-   ]
+    this.requestService.getPrintPdf({
+      'request_id': request_id
+    }).subscribe(requests => {
+      requestPdf = requests;
 
-  // {text: 'Informações da Consultora(o)',  bold: true,  alignment: 'left'},
-    
-   const documentDefinition = { content: contentX };
-   pdfMake.createPdf(documentDefinition).open({}, window);
- }
+      var data = [];
+
+      requestPdf['itens'].forEach((value, index) => {
+
+        data[0] = [
+          { text: 'Referencia', bold: true },
+          { text: 'Tm', bold: true },
+          { text: 'Descricao', bold: true },
+          { text: 'Pagina', bold: true },
+          { text: 'Qtd', bold: true },
+          { text: 'Unitario', bold: true },
+          { text: 'Total', bold: true }];
+
+        data[index + 1] = [ 
+          { text: value['_product']['reference'] },
+          { text: value['_product']['size'] },
+          { text: value['_product']['description'] },
+          { text: value['_product']['page'] },
+          { text: value['amount'] },
+          { text: value['_product']['sale_price'] },
+          { text: value['total'] }]
+      });
+
+
+
+      console.log(data);
+
+
+      var contentX = [
+        { text: 'Aviso de Pedido\n\n', bold: true, alignment: 'center' },
+        {
+          columns: [
+            {
+              type: 'none',
+              ul: [
+                { text: 'Informações da Consultora(o):\n\n', bold: true },
+              ],
+            },
+            {
+              type: 'none',
+              ul: [
+                { text: 'Informações do Pedido:\n\n', bold: true },
+              ]
+            }
+          ]
+        },
+        {
+          columns: [
+            {
+              type: 'none',
+              ul: [
+                'Nome:' + '  ' + requestPdf['_profile']['full_name'],
+                'CPF' + '  ' + requestPdf['_profile']['cpf'],
+                'Telefone:' + '  ' + requestPdf['_profile']['cell'],
+                'Endereco:' + '  ' + requestPdf['_profile']['address'],
+                'Cidade:' + '  ' + requestPdf['_profile']['city'],
+                'Bairro:' + '  ' + requestPdf['_profile']['neighborhood'],
+                'CEP:' + '  ' + requestPdf['_profile']['cep'],
+              ]
+            },
+            {
+              type: 'none',
+              ul: [
+                'Pedido:',
+                'Catalogo: ' + '  ' + requestPdf['_catalog']['_catalog']['name'],
+                'Revista:' + '  ' + requestPdf['_catalog'].reference,
+                'Lider:',
+                'Valor:',
+                'Data:',
+              ]
+            }
+          ]
+        },
+        { text: 'Tabela de Itens:\n\n', fontSize: 14, bold: true },
+        {
+          table: {
+            headerRows: 1,
+            widths: ['*', 10, 'auto', '*', '*', '*', '*'],
+            body: data
+          }
+        },
+        { text: '\n\n' },
+        { qr: 'https://sivendiweb.com.br/app', fit: '70' },
+      ]
+
+      // {text: 'Informações da Consultora(o)',  bold: true,  alignment: 'left'},
+
+      const documentDefinition = { content: contentX };
+      pdfMake.createPdf(documentDefinition).print({}, window);
+
+      console.log(documentDefinition)
+      console.log(requestPdf)
+    }, error => { });
+
+
+
+  }
 
 
 }

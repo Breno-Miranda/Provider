@@ -31,6 +31,16 @@ export class RequestService {
     });
   }
 
+  getPrintPdf( data: any ) {
+    data['company_id'] = this.authenticationService.currentUserValue.company;
+
+    return this.http.get<any[]>(`${environment.apiUrl}/api/request/print/pdf/`, {
+      params: data
+    });
+  }
+
+  
+
   setRequest( data: object)
   {
     data['company'] = this.authenticationService.currentUserValue.company.toString();

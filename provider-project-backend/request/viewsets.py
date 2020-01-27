@@ -264,3 +264,38 @@ class ItensViewSet(viewsets.ViewSet):
                 'status': False
             },
             status=HTTP_404_NOT_FOUND)
+
+
+class requestsFromPdfViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        
+        
+        requestId = request.GET.get('request_id', None)
+        companyId = request.GET.get('company_id', None)
+
+        try:
+            
+            if not companyId:
+                return Response({"error": "Obrigatorio a informação da empresa.","status": False},status=HTTP_404_NOT_FOUND)
+            
+            if not requestId:
+                return Response({"error": "Obrigatorio a informação do pedido." ,"status": False},status=HTTP_404_NOT_FOUND)
+            
+            queryset = []
+
+            queryset_requets = RequestSerializers(Request.objects.get(company=companyId , id=requestId))
+            
+            queryset_itens = ItensSerializers(Itens.objects.all().filter(request_id=requestId),many=True)
+            
+            queryset = dict()
+            queryset.update(queryset_requets.data)
+            queryset.update({'itens': queryset_itens.data})
+            
+            return Response(queryset, status=HTTP_200_OK)
+
+        except:
+            return Response({"error": "Aconteceu algum inesperado. Entre em contato com o suporte.", "status": False},status=HTTP_404_NOT_FOUND)
+
+       
+ 
