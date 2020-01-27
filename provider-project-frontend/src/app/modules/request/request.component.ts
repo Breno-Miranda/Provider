@@ -71,6 +71,10 @@ export class RequestComponent implements OnInit {
 
   
   ngOnInit() {
+    this.getSelectValues();
+  }
+
+  getSelectValues() {
     this.requestService.getRequest({
       type_code:4
     }).pipe(first()).subscribe(data => {
@@ -80,6 +84,7 @@ export class RequestComponent implements OnInit {
       this.users = data['users']
     });
   }
+
 
   searchProducts() {
 
@@ -143,5 +148,7 @@ export class RequestComponent implements OnInit {
       this.f.user.setValue('');
     });
   }
+
+
 
 }
