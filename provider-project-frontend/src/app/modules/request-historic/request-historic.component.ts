@@ -87,11 +87,11 @@ export class RequestHistoricComponent implements OnInit {
       requestPdf['itens'].forEach((value, index) => {
 
         data[0] = [
-          { text: 'Referencia', bold: true },
-          { text: 'Tm', bold: true },
+          { text: 'Codigo', bold: true },
+          { text: 'T', bold: true },
           { text: 'Descricao', bold: true },
           { text: 'Pagina', bold: true },
-          { text: 'Qtd', bold: true },
+          { text: 'Qt', bold: true },
           { text: 'Unitario', bold: true },
           { text: 'Total', bold: true }];
 
@@ -145,24 +145,24 @@ export class RequestHistoricComponent implements OnInit {
             {
               type: 'none',
               ul: [
-                'Pedido:',
+                'Pedido:' + '  ' + requestPdf['id'],
                 'Catalogo: ' + '  ' + requestPdf['_catalog']['_catalog']['name'],
-                'Revista:' + '  ' + requestPdf['_catalog'].reference,
-                'Lider:',
-                'Valor:',
-                'Data:',
+                'Revista:' + '  ' + requestPdf['_catalog']['reference'],
+                'Valor:' + '  ' + requestPdf['amount'],
+                'Data:' + '  ' + requestPdf['create_date'],
               ]
             }
           ]
         },
-        { text: 'Tabela de Itens:\n\n', fontSize: 14, bold: true },
+        { text: '\n\nTabela de Itens:\n\n', fontSize: 14, bold: true },
         {
           table: {
             headerRows: 1,
-            widths: ['*', 10, 'auto', '*', '*', '*', '*'],
+            widths: ['*', 15, 'auto', '*', 20, '*', '*'],
             body: data
           }
         },
+        { text: '\n\nValor Total:' + '  R$ ' + requestPdf['amount'] +'\n\n', fontSize: 14, bold: true, alignment: 'center' },
         { text: '\n\n' },
         { qr: 'https://sivendiweb.com.br/app', fit: '70' },
       ]

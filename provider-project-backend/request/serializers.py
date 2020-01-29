@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-
+from rest_framework import serializers
 from .models import Status, Request, Itens
 
 from product.serializers import ProductSerializer
@@ -31,10 +31,14 @@ class RequestSerializers(ModelSerializer):
     _catalog = CatalogCompanySerializer(source='catalog', read_only=True)
     _campaign = CampaignSerializers(source='campaign', read_only=True)
 
+    create_date = serializers.DateTimeField(format="%d-%m-%Y")
+
     class Meta:
         model = Request
         fields = ("id", "company", "lot",  "profile", "user_bind_typeit", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_profile" , "_status", "_catalog" , "_campaign")
 
+    def get_create_date(self, obj):
+        return str(obj.create_date.strftime("%d-%m-%Y"))
 
 
 # serializer to insert
