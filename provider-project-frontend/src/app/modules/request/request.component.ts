@@ -112,7 +112,7 @@ export class RequestComponent implements OnInit {
         this.toastr.success('Item adicionado com sucesso!');
     },
     error => {
-      this.toastr.success('error!');
+      this.toastr.error("A referencia pesquisada não existe. Tente novamente.");
     });
   }
 
@@ -130,8 +130,6 @@ export class RequestComponent implements OnInit {
 
   setEditItens( index )
   {
-    console.log(index)
-
     var total = 0;
 
     this.itens.reverse()[index]['amount'] = this.f_edit_itens.amount.value
@@ -142,6 +140,8 @@ export class RequestComponent implements OnInit {
   }
   
   removeItens( index ){
+
+    this.toastr.success("O Item" + this.itens[index]['id'] + " foi removido.");
    
     this.itens.reverse().splice(index, 1);
     
@@ -156,8 +156,6 @@ export class RequestComponent implements OnInit {
       total += parseFloat( (data['amount'] * data['sale_price']).toFixed(2));
       this.f.total_amount.setValue( (total.toFixed(2)) ) 
     });
-
-    console.log(this.itens);
   }
 
   setFinaly()
