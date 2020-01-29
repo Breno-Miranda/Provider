@@ -39,7 +39,6 @@ export class RequestComponent implements OnInit {
 
    // itens e total.
    itens: Array<[]> = [];
-   total = 0;
  
   constructor(
      private formBuilder: FormBuilder,
@@ -86,6 +85,17 @@ export class RequestComponent implements OnInit {
   }
 
 
+  RecalculoTotal()
+  {
+    var total = 0;
+
+    this.itens.map(value =>{
+      total += Number(value['total']) 
+    });
+
+    this.f.total_amount.setValue( total.toFixed(2) ) 
+  }
+
   searchProducts() {
 
     this.submitted = true;
@@ -99,22 +109,29 @@ export class RequestComponent implements OnInit {
       catalog_id: this.f.catalog.value,
       search: this.f_search.reference.value
     } ).pipe(first()).subscribe(data => {
+
+
         data['results']['amount'] = this.f_search.amount.value
         data['results']['size']   = this.f_search.size.value
-        data['results']['total']  = (this.f_search.amount.value * data['results']['sale_price']).toFixed(2);
-        this.total += parseFloat(data['results']['total']);
-        this.f.total_amount.setValue( (this.total.toFixed(2)) ) 
+        data['results']['total']  = Number(this.f_search.amount.value * data['results']['sale_price']);
+
+        this.RecalculoTotal();
+
+        this.itens.push(data['results']);
+
+        this.toastr.success('Item "'+this.f_search.reference.value+'" adicionado com sucesso!');
+      
         this.f_search.amount.setValue(1);
         this.f_search.size.setValue('');
         this.f_search.reference.setValue('');
-        this.itens.push(data['results']);
 
-        this.toastr.success('Item adicionado com sucesso!');
     },
     error => {
       this.toastr.error("A referencia pesquisada não existe. Tente novamente.");
     });
   }
+
+  
 
   get f() {
     return this.requestForm.controls;
@@ -141,25 +158,27 @@ export class RequestComponent implements OnInit {
   
   removeItens( index ){
 
-    this.toastr.success("O Item" + this.itens[index]['id'] + " foi removido.");
+    this.toastr.success('O Item "' + this.itens[index]['id'] + '" foi removido.');
    
     this.itens.reverse().splice(index, 1);
     
-    this.Recalculo();
+    this.RecalculoItens();
   }
 
-  Recalculo()
+  RecalculoItens()
   {
     var total = 0; 
 
     this.itens.forEach(data => {
-      total += parseFloat( (data['amount'] * data['sale_price']).toFixed(2));
+      total += Number( data['amount'] * data['sale_price'] );
       this.f.total_amount.setValue( (total.toFixed(2)) ) 
     });
   }
 
   setFinaly()
   {
+
+    this.RecalculoTotal();
 
     this.submitted = true;
 
