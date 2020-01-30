@@ -35,7 +35,9 @@ class RequestSerializers(ModelSerializer):
 
     class Meta:
         model = Request
-        fields = ("id", "company", "lot",  "profile", "user_bind_typeit", "create_date",  "billing_date",  "payment_date",  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",  "freight",  "discount",  "request_number", "observation", "_profile" , "_status", "_catalog" , "_campaign")
+        fields = ("id", "company", "lot",  "profile", "user_bind_typeit", "create_date",  "billing_date",  "payment_date",
+                  "return_date", "payment_methods", "amount", "amount_paid",  "amount_commission",  "commission_customer",
+                  "freight",  "discount",  "request_number", "observation", "_profile" , "_status", "_catalog" , "_campaign")
 
     def get_create_date(self, obj):
         return str(obj.create_date.strftime("%d-%m-%Y"))
