@@ -22,6 +22,10 @@ from company.serializers import CatalogCompanySerializer
 from lote.serializers import LotsSerializers
 from users.serializers import UserBindProfileSerializers
 
+
+from django.db.models import Sum
+
+
 class RequestViewSet(viewsets.ViewSet):
     
 
@@ -293,6 +297,34 @@ class requestsFromPdfViewSet(viewsets.ViewSet):
             queryset.update({'itens': queryset_itens.data})
             
             return Response(queryset, status=HTTP_200_OK)
+
+        except:
+            return Response({"error": "Aconteceu algum inesperado. Entre em contato com o suporte.", "status": False},status=HTTP_404_NOT_FOUND)
+
+       
+       
+
+
+# criando função para conserto de valores totais dos pedidos.
+class routineRequestsSumItensViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+            
+        companyId = request.GET.get('company_id', None)
+
+        try:
+            
+            if not companyId:
+                return Response({"error": "Obrigatorio a informação da empresa.","status": False},status=HTTP_404_NOT_FOUND)
+            
+            result = []
+            
+            result = Itens.objects.values('request').annotate(amount=Sum('total')).filter(request__company=companyId)
+            
+            for item in result:
+                Request.objects.filter(pk=item['request']).update(amount=item['amount'])
+            
+            return Response({"success": "Os valores dos pedidos foram atualizados com sucesso.", "result": result}, status=HTTP_200_OK)
 
         except:
             return Response({"error": "Aconteceu algum inesperado. Entre em contato com o suporte.", "status": False},status=HTTP_404_NOT_FOUND)
