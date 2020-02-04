@@ -83,17 +83,21 @@ export class RequestHistoricComponent implements OnInit {
       requestPdf = requests;
 
       var data = [];
+      var desconto = 0;
+      var valor = 0;
 
       requestPdf['itens'].forEach((value, index) => {
 
         data[0] = [
           { text: 'Codigo', bold: true },
-          { text: 'T', bold: true },
+          { text: 'Tm', bold: true },
           { text: 'Descricao', bold: true },
-          { text: 'Pagina', bold: true },
+          { text: 'Pag', bold: true },
           { text: 'Qt', bold: true },
           { text: 'Unitario', bold: true },
-          { text: 'Total', bold: true }];
+          { text: 'Total', bold: true },
+          { text: 'Ganho', bold: true },
+          { text: 'Liquido', bold: true }];
 
         data[index + 1] = [ 
           { text: value['_product']['reference'] },
@@ -102,12 +106,18 @@ export class RequestHistoricComponent implements OnInit {
           { text: value['_product']['page'] },
           { text: value['amount'] },
           { text: value['_product']['sale_price'] },
-          { text: value['total'] }]
+          { text: value['total'] },
+          { text: value['amount'] * value['_product']['value_provider'] },
+          { text: (value['total'] - (value['amount'] * value['_product']['value_provider'])).toFixed(2) },
+        ];
+
+          desconto += (value['amount'] * value['_product']['value_provider']);
+          valor += value['total'] - (value['amount'] * value['_product']['value_provider']);
       });
 
 
 
-      console.log(data);
+      //console.log(data);
 
 
       var contentX = [
@@ -156,13 +166,17 @@ export class RequestHistoricComponent implements OnInit {
         },
         { text: '\n\nTabela de Itens:\n\n', fontSize: 14, bold: true },
         {
+          style: 'tableExample',
           table: {
+            fontSize: 8,
             headerRows: 1,
-            widths: ['*', 15, 'auto', '*', 20, '*', '*'],
+            widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
             body: data
           }
         },
-        { text: '\n\nValor Total:' + '  R$ ' + requestPdf['amount'] +'\n\n', fontSize: 14, bold: true, alignment: 'center' },
+        { text: '\n\nTotal do Pedido:' + '  R$ ' + requestPdf['amount'] +'', fontSize: 14, bold: true, alignment: 'center' },
+        { text: 'Desconto:' + '  R$ ' + (desconto).toFixed(2) + '\n\n', fontSize: 14, bold: true, alignment: 'center' },
+        { text: 'Valor à Pagar:' + '  R$ ' + (valor).toFixed(2) + '\n\n', fontSize: 14, bold: true, alignment: 'center' },
         { text: '\n\n' },
         { qr: 'https://sivendiweb.com.br/app', fit: '70' },
       ]
@@ -172,8 +186,8 @@ export class RequestHistoricComponent implements OnInit {
       const documentDefinition = { content: contentX };
       pdfMake.createPdf(documentDefinition).open({}, window);
 
-      console.log(documentDefinition)
-      console.log(requestPdf)
+      //console.log(documentDefinition)
+     // console.log(requestPdf)
     }, error => { });
 
 
