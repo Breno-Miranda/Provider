@@ -5,6 +5,7 @@ from company.models import Company
 
 
 class Lote(models.Model):
+    code = models.IntegerField(blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=None)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -273,7 +273,7 @@ class ItensViewSet(viewsets.ViewSet):
             },
             status=HTTP_404_NOT_FOUND)
 
-
+# TODO: Colocar somattorio na tabela de pedido e itens do desconto e comissao
 class requestsFromPdfViewSet(viewsets.ViewSet):
     
     def list(self, request):
@@ -334,4 +334,3 @@ class routineRequestsSumItensViewSet(viewsets.ViewSet):
             return Response({"error": "Aconteceu algum inesperado. Entre em contato com o suporte.", "status": False},status=HTTP_404_NOT_FOUND)
 
        
- 
