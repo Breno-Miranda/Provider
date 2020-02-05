@@ -4,12 +4,13 @@ from .models import Status, Request, Itens
 from .serializers import ItensSerializers, RequestSerializers, StatusSerializers, requestCreateSerializers, requestItensCreateSerializers
 
 from core import pagination
-from django.db.models import Q
-from rest_framework import viewsets
 
+from django.db.models import Q
+from django.db.models import Sum
+
+from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.status import (HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND,
-                                   HTTP_200_OK)
+from rest_framework.status import (HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK)
 
 
 from campaign.models import Campaign
@@ -22,10 +23,6 @@ from company.serializers import CatalogCompanySerializer
 from lote.serializers import LotsSerializers
 from users.serializers import UserBindProfileSerializers
 
-
-from django.db.models import Sum
-
-
 class RequestViewSet(viewsets.ViewSet):
     
 
@@ -34,11 +31,18 @@ class RequestViewSet(viewsets.ViewSet):
         requestId = request.GET.get('request_id', None)
         companyId = request.GET.get('company_id', None)
         type_code = request.GET.get('type_code', None)
+        _pagination = request.GET.get('pagination', None)
     
-        if not type_code:
+        if _pagination:
+            
             queryset = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) | Q(id=requestId)).order_by('-id'), many=True)
-            return Response(queryset.data, status=HTTP_200_OK)
-        else:
+        
+            paginator = pagination.CustomPagination()
+            page = paginator.paginate_queryset(queryset.data, request)
+            if page is not None:
+                return paginator.get_paginated_response(page)
+                        
+        if type_code:
             
             queryset_catalog = CatalogCompanySerializer(Catalog.objects.all().filter(company_id=companyId), many=True)
             queryset_campaign = CampaignSerializers(Campaign.objects.all().filter(company_id=companyId), many=True)
@@ -52,7 +56,7 @@ class RequestViewSet(viewsets.ViewSet):
             'users': queryset_userBind.data,
             }
 
-        return Response(queryset, status=HTTP_200_OK)
+            return Response(queryset, status=HTTP_200_OK)
         
     def create(self, request):
 

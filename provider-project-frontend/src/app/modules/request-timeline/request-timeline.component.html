@@ -37,3 +37,7 @@
         </div>
     </div>
 </div>
+
+<div class="col-lg-12 ">
+    <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" maxSize="itemsPerPage" [(page)]="page" (pageChange)="loadPage($event)"></ngb-pagination>
+</div>

@@ -10,20 +10,54 @@ import { RequestService } from 'src/app/core/services/requets.service';
 })
 export class RequestTimelineComponent implements OnInit {
 
-  requests: any;
+  // array table 
+  requests: Array<[]> = [];
+
+  // pagination 
+  itemsPerPage: number = 0;
+  totalItems: any = 0;
+  page: any = 1;
+  previousPage: any;
 
   constructor(
     private requestService: RequestService
   ) { }
 
   ngOnInit() {
-    this.getRequest();
+    
+    this.requestService.getAll({
+      pagination: true,
+    }).subscribe( data => {
+      this.requests = data['results'];
+      this.totalItems = data['count'];
+      this.itemsPerPage = data['limit'];
+    }, error => {
+      // informa uma mensagem de erro caso aconteca
+    });
+
   }
 
-  getRequest() {
-    this.requestService.getAll()
-      .subscribe((requests: any) => {
-        this.requests = requests;
-      }, () => { });
+  // pagination
+  
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.loadData(page);
+    }
   }
+
+  loadData(page) {
+    this.requestService.getAll({
+      pagination: true,
+      page: page
+    }).subscribe( data => {
+      this.requests = data['results'];
+      this.page = page 
+      this.itemsPerPage = data['limit'];
+    }, error => {
+      // informa uma mensagem de erro caso aconteca
+    });
+  }
+
+
 }

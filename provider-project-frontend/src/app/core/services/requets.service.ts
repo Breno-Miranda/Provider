@@ -14,12 +14,10 @@ export class RequestService {
   ) { }
   
   
-  getAll() {
+  getAll( data ) {
+    data['company_id'] = this.authenticationService.currentUserValue.company
     return this.http.get<any[]>(`${environment.apiUrl}/api/request/`, {
-      params: 
-      {
-        company_id: this.authenticationService.currentUserValue.company.toString(),
-      }
+      params: data
     });
   }
 
@@ -38,8 +36,6 @@ export class RequestService {
       params: data
     });
   }
-
-  
 
   setRequest( data: object)
   {

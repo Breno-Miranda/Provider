@@ -16,19 +16,23 @@ import { first } from 'rxjs/operators';
 })
 export class RequestHistoricComponent implements OnInit {
 
-
-  //  array select 
+  // array select 
   lots: Array<[]> = [];
   campaigns: Array<[]> = [];
   catalogs: Array<[]> = [];
   users: Array<[]> = [];
 
-
   // form
   formFilter: FormGroup;
 
-  //  array table 
+  // array table 
   requests: Array<[]> = [];
+
+  // pagination 
+  itemsPerPage: number = 0;
+  totalItems: any = 0;
+  page: any = 1;
+  previousPage: any;
 
   constructor(
     private requestService: RequestService,
@@ -43,43 +47,66 @@ export class RequestHistoricComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSelectValues();
-    this.getRequest();
-  }
 
-  get f() {
-    return this.formFilter.controls;
-  }
-
-  getRequest() {
-    this.requestService.getAll()
-      .subscribe((requests: any) => {
-        this.requests = requests;
-        console.log(requests)
-      }, () => { });
-  }
-
-  filter() { }
-
-  getSelectValues() {
+    // Carregar os selects 
     this.requestService.getRequest({
-      type_code: 4
+      type_code: 4,
     }).pipe(first()).subscribe(data => {
       this.lots = data['lots']
       this.campaigns = data['campaigns']
       this.catalogs = data['catalogs']
       this.users = data['users']
+    }, error => {
+      // informa uma mensagem de erro caso aconteca
+    });
+
+    this.requestService.getAll({
+      pagination: true,
+    }).subscribe( data => {
+      this.requests = data['results'];
+      this.totalItems = data['count'];
+      this.itemsPerPage = data['limit'];
+    }, error => {
+      // informa uma mensagem de erro caso aconteca
+    });
+  }
+
+  // get form
+
+  get f() {
+    return this.formFilter.controls;
+  }
+
+  // pagination
+  
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.loadData(page);
+    }
+  }
+
+  loadData(page) {
+    this.requestService.getAll({
+      pagination: true,
+      page: page
+    }).subscribe( data => {
+      this.requests = data['results'];
+      this.page = page 
+      this.itemsPerPage = data['limit'];
+    }, error => {
+      // informa uma mensagem de erro caso aconteca
     });
   }
 
   generatePdf(request_id) {
-
 
     var requestPdf = [];
 
     this.requestService.getPrintPdf({
       'request_id': request_id
     }).subscribe(requests => {
+      
       requestPdf = requests;
 
       var data = [];
@@ -105,11 +132,6 @@ export class RequestHistoricComponent implements OnInit {
           { text: value['total'] }]
       });
 
-
-
-      console.log(data);
-
-
       var contentX = [
         { text: 'Aviso de Pedido\n\n', bold: true, alignment: 'center' },
         {
@@ -131,6 +153,7 @@ export class RequestHistoricComponent implements OnInit {
         {
           columns: [
             {
+
               type: 'none',
               ul: [
                 'Nome:' + '  ' + requestPdf['_profile']['full_name'],
@@ -167,18 +190,11 @@ export class RequestHistoricComponent implements OnInit {
         { qr: 'https://sivendiweb.com.br/app', fit: '70' },
       ]
 
-      // {text: 'Informações da Consultora(o)',  bold: true,  alignment: 'left'},
-
       const documentDefinition = { content: contentX };
       pdfMake.createPdf(documentDefinition).open({}, window);
 
-      console.log(documentDefinition)
-      console.log(requestPdf)
-    }, error => { });
-
-
-
+    }, error => {
+      // informar um error se case houver.
+    });
   }
-
-
 }
