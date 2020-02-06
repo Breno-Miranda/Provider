@@ -8,6 +8,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 // service 
 import { RequestService } from 'src/app/core/services/requets.service';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request-historic',
@@ -37,6 +38,7 @@ export class RequestHistoricComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private formBuilder: FormBuilder,
+    private toastr: ToastrService,
   ) {
     this.formFilter = this.formBuilder.group({
       catalog: ['', Validators.required],
@@ -100,6 +102,8 @@ export class RequestHistoricComponent implements OnInit {
   }
 
   generatePdf(request_id) {
+
+    this.toastr.success("Aguarde..PDF está sendo inicializado!");
 
     var requestPdf = [];
 

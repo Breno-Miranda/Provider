@@ -35,7 +35,7 @@ class RequestViewSet(viewsets.ViewSet):
     
         if _pagination:
             
-            queryset = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) | Q(id=requestId)).order_by('-id'), many=True)
+            queryset = RequestSerializers(Request.objects.all().filter(Q(company_id=companyId) | Q(id=requestId), lot__is_open=True ).order_by('-id'), many=True)
         
             paginator = pagination.CustomPagination()
             page = paginator.paginate_queryset(queryset.data, request)

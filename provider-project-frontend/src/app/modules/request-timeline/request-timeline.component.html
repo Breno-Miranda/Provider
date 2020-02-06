@@ -13,16 +13,21 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Lote</th>
+                            <th>Campanha</th>
                             <th>CPF</th>
                             <th>Consultor(a)</th>
                             <th>Revista</th>
                             <th>Status</th>
                             <th>Valor</th>
+                            <th>Imprimir</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of requests">
                             <td>{{data.id}}</td>
+                            <td>{{data._lot['code']}}</td>
+                            <td>{{data._campaign['order_send_name']}}</td>
                             <td>{{data._profile['cpf']}}</td>
                             <td>{{data._profile['full_name']}}</td>
                             <td>{{data._catalog._catalog['name']}}</td>
