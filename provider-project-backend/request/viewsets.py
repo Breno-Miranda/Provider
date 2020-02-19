@@ -49,9 +49,9 @@ class RequestViewSet(viewsets.ViewSet):
             queryset_catalog = CatalogCompanySerializer(
                 Catalog.objects.all().filter(company_id=companyId), many=True)
             queryset_campaign = CampaignSerializers(
-                Campaign.objects.all().filter(company_id=companyId), many=True)
+                Campaign.objects.all().filter(company_id=companyId, is_active=True), many=True)
             queryset_lote = LotsSerializers(
-                Lote.objects.all().filter(company_id=companyId), many=True)
+                Lote.objects.all().filter(company_id=companyId, is_open=True), many=True)
             queryset_userBind = UserBindProfileSerializers(
                 Profile.objects.all().filter(company_id=companyId,
                                              bind__type__code=type_code),

@@ -68,7 +68,6 @@ export class RequestComponent implements OnInit {
 
   }
 
-  
   ngOnInit() {
     this.getSelectValues();
   }
@@ -83,7 +82,6 @@ export class RequestComponent implements OnInit {
       this.users = data['users']
     });
   }
-
 
   RecalculoTotal()
   {
@@ -113,7 +111,7 @@ export class RequestComponent implements OnInit {
 
         data['results']['amount'] = this.f_search.amount.value
         data['results']['size']   = this.f_search.size.value
-        data['results']['total']  = Number(this.f_search.amount.value * data['results']['sale_price']);
+        data['results']['total']  = parseFloat((this.f_search.amount.value * data['results']['sale_price']).toFixed(2));
 
         this.RecalculoTotal();
 
@@ -130,8 +128,6 @@ export class RequestComponent implements OnInit {
       this.toastr.error("A referencia pesquisada não existe. Tente novamente.");
     });
   }
-
-  
 
   get f() {
     return this.requestForm.controls;
