@@ -55,7 +55,7 @@ class Company(models.Model):
         managed = True 
 
     def __str__(self):
-        return self.name_company, self.cnpj
+        return self.name_company
     
 class Contact(models.Model):
     company = models.ForeignKey(Company, related_name="contact_company" , on_delete=None)

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Company, Contact, Plan, Key, Catalog
 
+admin.site.empty_value_display = '(empty)'
 
 admin.site.register(Contact)
 admin.site.register(Plan)
