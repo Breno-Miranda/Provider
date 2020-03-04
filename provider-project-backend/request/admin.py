@@ -5,9 +5,15 @@ from .models import Request , Itens , Status
 admin.site.empty_value_display = '(empty)'
 
 
-class BindAdmin(admin.ModelAdmin):
-    list_display = ('user', 'company', 'type', 'team', 'sector', 'user_link', 'is_active')
+class RequestAdmin(admin.ModelAdmin):
+    list_display = ('profile', 'company', 'campaign', 'lot', 'catalog', 'amount', 'status', 'create_date')
 
-admin.site.register(Request)
-admin.site.register(Itens)
-admin.site.register(Status)
+class ItensAdmin(admin.ModelAdmin):
+    list_display = ('product', 'request', 'amount', 'total', 'is_checked')
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('type', 'company', 'initials', 'code', 'description', 'is_active')
+
+admin.site.register(Request, RequestAdmin)
+admin.site.register(Itens, ItensAdmin)
+admin.site.register(Status, StatusAdmin)

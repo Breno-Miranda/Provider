@@ -52,7 +52,7 @@ class Itens(models.Model):
     discount = models.DecimalField(max_digits=10, decimal_places=2 ,  blank=True  ,  null=True)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2 ,  blank=True  ,  null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
-    is_checked = models.BooleanField(blank=True,null=True)
+    is_checked = models.BooleanField(blank=True, null=True)
      
     def __str__(self):
         return str(self.id)
